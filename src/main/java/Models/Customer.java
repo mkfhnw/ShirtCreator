@@ -18,13 +18,9 @@ public class Customer {
         this.id = globalCount++;
     }
 
-    // GETTERS AND SETTERS
+    // GETTERS & SETTERS
     public int getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public int getPlz() {
