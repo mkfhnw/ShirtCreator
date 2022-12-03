@@ -3,15 +3,12 @@ package Models;
 public class Order {
     public static int globalCount = 0;
 
-    private int orderId;
-    private int configurationId;
-    private int customerId;
+    private int id, configurationId, customerId;
     private int quantity;
 
-    // Constructor
+    // CONSTRUCTOR
     public Order(int customerId, int configurationId, int quantity) {
-        globalCount++;
-        this.orderId = globalCount;
+        this.id = globalCount++;
         this.customerId = customerId;
         this.configurationId = configurationId;
         this.quantity = quantity;
@@ -19,8 +16,8 @@ public class Order {
 
 
     // GETTER & SETTER
-    public int getOrderId() {
-        return orderId;
+    public int getId() {
+        return id;
     }
 
     public int getConfigurationId() {

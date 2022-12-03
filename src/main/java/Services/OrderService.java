@@ -16,10 +16,11 @@ public class OrderService {
     @Autowired
     private OrderRepository orderRepository;
 
-    // TODO is this getOrders needed?
+
     @GetMapping(path = "/api/orders", produces = "application/json")
-    public ArrayList<Order> getOrders() {
-        return orderRepository.getOrders();
+    public ArrayList<Order> getOrders(@RequestParam(required = false) int customerId) {
+        // TODO Use Filter customerId
+        return orderRepository.getOrdersOfCustomer(customerId);
     }
 
 
