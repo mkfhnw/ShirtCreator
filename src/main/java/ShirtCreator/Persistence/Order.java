@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "ORDER_TABLE")
 public class Order {
-    public static int globalCount = 0;
+    //public static int globalCount = 0;
 
     @Id
     @Column(name="ID")
@@ -20,14 +20,14 @@ public class Order {
 
     // CONSTRUCTOR
     public Order(int customerId, int configurationId, int quantity) {
-        this.id = globalCount++;
+        //this.id = globalCount++;
         this.customerId = customerId;
         this.configurationId = configurationId;
         this.quantity = quantity;
     }
 
     public Order() {
-        this.id = globalCount++;
+        //this.id = globalCount++;
     }
 
 

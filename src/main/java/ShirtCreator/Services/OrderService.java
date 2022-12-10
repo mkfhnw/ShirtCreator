@@ -4,10 +4,7 @@ import ShirtCreator.Business.OrderVerification;
 import ShirtCreator.Persistence.Order;
 import ShirtCreator.Persistence.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -23,14 +20,22 @@ public class OrderService {
     @GetMapping(path = "/api/orders", produces = "application/json")
     public List<Order> getOrders(@RequestParam(required = false) Integer customerId) {
         System.out.println("getOrders");
-        // TODO Use Filter customerId
-        return orderRepository.findAllByCustomerId(customerId);
+        if(customerId != null) {
+            return orderRepository.findAllByCustomerId(customerId);
+        } else {
+            return orderRepository.findAll();
+        }
     }
 
 
     @PostMapping(path = "/api/order/", produces = "application/json")
-    public Order createOrder(@RequestParam Order order) {
-        Order o = new Order(order.getCustomerId(), order.getConfigurationId(), order.getQuantity());
+    public Order createOrder(@RequestBody Order order) {
+        System.out.println("createOrder");
+        Order o = new Order();
+
+        o.setCustomerId(order.getCustomerId());
+        o.setConfigurationId(order.getConfigurationId());
+        o.setQuantity(order.getQuantity());
 
         if(orderVerification.validateOrder(o)) {
             orderRepository.save(o);
