@@ -1,16 +1,26 @@
 package Models;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+
+@Entity
 public class Order {
     public static int globalCount = 0;
 
-    private int id, configurationId, customerId;
+    @Id
+    @GeneratedValue
+    private int id;
+    private int configurationId;
+    private Configuration c;
+    private int customerId;
     private int quantity;
 
     // CONSTRUCTOR
     public Order(int customerId, int configurationId, int quantity) {
         this.id = globalCount++;
         this.customerId = customerId;
-        this.configurationId = configurationId;
+        this.configurationId = c.getConfigurationId();
         this.quantity = quantity;
     }
 
