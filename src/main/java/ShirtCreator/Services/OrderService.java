@@ -1,8 +1,8 @@
-package Services;
+package ShirtCreator.Services;
 
-import Business.OrderVerification;
-import Persistence.Order;
-import Persistence.OrderRepository;
+import ShirtCreator.Business.OrderVerification;
+import ShirtCreator.Persistence.Order;
+import ShirtCreator.Persistence.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,6 +22,7 @@ public class OrderService {
 
     @GetMapping(path = "/api/orders", produces = "application/json")
     public List<Order> getOrders(@RequestParam(required = false) int customerId) {
+        System.out.println("getOrders");
         // TODO Use Filter customerId
         return orderRepository.findAllByCustomerId(customerId);
     }

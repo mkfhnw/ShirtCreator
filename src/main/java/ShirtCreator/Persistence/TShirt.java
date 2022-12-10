@@ -1,4 +1,4 @@
-package Persistence;
+package ShirtCreator.Persistence;
 
 public class TShirt {
 

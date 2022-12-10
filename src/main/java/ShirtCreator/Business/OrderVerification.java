@@ -1,6 +1,6 @@
-package Business;
+package ShirtCreator.Business;
 
-import Persistence.Order;
+import ShirtCreator.Persistence.Order;
 import org.springframework.stereotype.Service;
 
 @Service

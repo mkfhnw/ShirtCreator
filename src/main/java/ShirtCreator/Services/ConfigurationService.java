@@ -1,8 +1,8 @@
-package Services;
+package ShirtCreator.Services;
 
-import Persistence.Configuration;
-import Persistence.ConfigurationRepository;
-import Persistence.TShirt;
+import ShirtCreator.Persistence.Configuration;
+import ShirtCreator.Persistence.ConfigurationRepository;
+import ShirtCreator.Persistence.TShirt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -15,7 +15,7 @@ public class ConfigurationService {
     @Autowired
     private ConfigurationRepository configurationRepository;
     @GetMapping(path = "/api/configuration/{ID}", produces = "application/json")
-    public Configuration getConfiguration( @RequestParam(required = false) int configurationId ){
+    public Configuration getConfiguration(@RequestParam(required = false) int configurationId ){
     return configurationRepository.getConfigurationsOfCustomer(configurationId);
     }
 

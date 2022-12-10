@@ -1,18 +1,20 @@
-package Persistence;
+package ShirtCreator.Persistence;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
+@Table(name = "ORDER_TABLE")
 public class Order {
     public static int globalCount = 0;
 
     @Id
-    @GeneratedValue
+    @Column(name="ID")
     private int id;
+    @Column(name="CONFIGURATION_ID")
     private int configurationId;
+    @Column(name="CUSTOMER_ID")
     private int customerId;
+    @Column(name="QUANTITY")
     private int quantity;
 
     // CONSTRUCTOR
