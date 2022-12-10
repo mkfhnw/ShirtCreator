@@ -1,4 +1,4 @@
-package Models;
+package Persistence;
 
 public class Configuration {
 

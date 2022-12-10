@@ -1,7 +1,7 @@
 package Services;
 
-import Models.Customer;
-import Models.CustomerRepository;
+import Persistence.Customer;
+import Persistence.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

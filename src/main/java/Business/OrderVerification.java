@@ -1,6 +1,6 @@
 package Business;
 
-import Models.Order;
+import Persistence.Order;
 import org.springframework.stereotype.Service;
 
 @Service

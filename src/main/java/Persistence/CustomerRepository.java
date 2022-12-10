@@ -1,4 +1,4 @@
-package Models;
+package Persistence;
 
 import org.springframework.stereotype.Component;
 

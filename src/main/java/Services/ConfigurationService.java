@@ -1,8 +1,8 @@
 package Services;
 
-import Models.Configuration;
-import Models.ConfigurationRepository;
-import Models.TShirt;
+import Persistence.Configuration;
+import Persistence.ConfigurationRepository;
+import Persistence.TShirt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.ArrayList;
 import java.util.Map;
 
 @RestController
