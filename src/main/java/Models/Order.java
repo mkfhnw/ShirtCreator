@@ -1,9 +1,18 @@
 package Models;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+
+@Entity
 public class Order {
     public static int globalCount = 0;
 
-    private int id, configurationId, customerId;
+    @Id
+    @GeneratedValue
+    private int id;
+    private int configurationId;
+    private int customerId;
     private int quantity;
 
     // CONSTRUCTOR
