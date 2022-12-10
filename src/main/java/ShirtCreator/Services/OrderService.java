@@ -21,7 +21,7 @@ public class OrderService {
     private OrderVerification orderVerification;
 
     @GetMapping(path = "/api/orders", produces = "application/json")
-    public List<Order> getOrders(@RequestParam(required = false) int customerId) {
+    public List<Order> getOrders(@RequestParam(required = false) Integer customerId) {
         System.out.println("getOrders");
         // TODO Use Filter customerId
         return orderRepository.findAllByCustomerId(customerId);

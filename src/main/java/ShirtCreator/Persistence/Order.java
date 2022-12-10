@@ -9,6 +9,7 @@ public class Order {
 
     @Id
     @Column(name="ID")
+    @GeneratedValue
     private int id;
     @Column(name="CONFIGURATION_ID")
     private int configurationId;
@@ -26,7 +27,7 @@ public class Order {
     }
 
     public Order() {
-
+        this.id = globalCount++;
     }
 
 
