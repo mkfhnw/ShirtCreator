@@ -39,5 +39,20 @@ public class ConfigurationRepository {
 
         return -1;
     }
+
+    public void saveConfiguration( Configuration c ) {
+        Configuration removeOld = null;
+        for(Configuration cOld : configurations){
+            if(cOld.getConfigurationId() == c.getConfigurationId()){
+                removeOld = cOld;
+                break;
+            }
+        }
+        if(removeOld != null)
+            configurations.remove(removeOld);
+
+        configurations.add(c);
+    }
+
 }
 
