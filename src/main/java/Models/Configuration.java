@@ -26,4 +26,6 @@ public class Configuration {
         this.configurationId = configurationId;
     }
 
+    public void setDeleted( boolean b ) {
+    }
 }

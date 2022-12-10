@@ -3,15 +3,15 @@ package Models;
 public class TShirt {
 
     public static int globalCount = 0;
-    private final Cut cut;
-    private final Color color;
-    private final Size size;
-    private final Pattern pattern;
+    private Cut cut;
+    private Color color;
+    private Size size;
+    private Pattern pattern;
 
     public int tShirtId, artNr;
 
     //Constructor
-    public TShirt(int tShirtId, Cut cut, Color color, Size size, Pattern pattern){
+    public TShirt(Cut cut, Color color, Size size, Pattern pattern){
         this.tShirtId = globalCount ++;
         this.cut = Cut.valueOf(cut.toString());
         this.color = Color.valueOf(color.toString());
@@ -99,16 +99,28 @@ public class TShirt {
         return tShirtId;
     }
 
-    public void settShirtId( int tShirtId ) {
-        this.tShirtId = tShirtId;
-    }
-
-    public int getArtNr( ) {
+     public int getArtNr( ) {
         return artNr;
     }
 
     public void setArtNr( int artNr ) {
         this.artNr = artNr;
+    }
+
+    public void setCut(Cut cut){
+        this.cut = cut;
+
+    }
+    public void setSize(Size size){
+        this.size = size;
+    }
+
+    public void setColor(Color color){
+        this.color = color;
+    }
+
+    public void setPattern(Pattern pattern){
+        this.pattern = pattern;
     }
 }
 
