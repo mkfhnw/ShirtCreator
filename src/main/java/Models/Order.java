@@ -4,13 +4,14 @@ public class Order {
     public static int globalCount = 0;
 
     private int id, configurationId, customerId;
+    private Configuration c;
     private int quantity;
 
     // CONSTRUCTOR
     public Order(int customerId, int configurationId, int quantity) {
         this.id = globalCount++;
         this.customerId = customerId;
-        this.configurationId = configurationId;
+        this.configurationId = c.getConfigurationId();
         this.quantity = quantity;
     }
 
