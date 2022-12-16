@@ -15,22 +15,22 @@ public class CustomerService {
 
     @GetMapping(path = "/api/customer/{id}", produces = "application/json")
     public Customer getCustomer(@PathVariable int id) {
-        return customerRepository.getCustomerById(id);
+        return customerRepository.getOne(id);
     }
 
     @DeleteMapping(path = "/api/customer/{id}", produces = "application/json")
     public boolean deleteCustomer(@PathVariable int id) {
-        Customer c = customerRepository.getCustomerById(id);
+        Customer c = customerRepository.getOne(id);
         if (c == null)
             return false;
         c.setDeleted(true);
-        customerRepository.saveCustomer(c);
+        customerRepository.save(c);
         return true;
     }
 
     @PutMapping(path = "/api/customer/{id}", produces = "application/json")
     public boolean updateCustomer(@PathVariable int id, @RequestBody Customer customer) {
-        Customer c = customerRepository.getCustomerById(id);
+        Customer c = customerRepository.getOne(id);
         if (c == null)
             return false;
         c.setFirstName(customer.getFirstName());
@@ -39,7 +39,7 @@ public class CustomerService {
         c.setPlz(customer.getPlz());
         c.setLocation(customer.getLocation());
         c.setEmail(customer.getEmail());
-        customerRepository.saveCustomer(c);
+        customerRepository.save(c);
         return true;
     }
 
@@ -53,7 +53,7 @@ public class CustomerService {
         String email = customer.getEmail();
         Customer c = new Customer(firstName, lastName, street, plz, location, email);
         c.setDeleted(false);
-        customerRepository.saveCustomer(c);
+        customerRepository.save(c);
         return c;
     }
 
@@ -64,7 +64,7 @@ public class CustomerService {
                                        @RequestParam(required = false) String street,
                                        @RequestParam(required = false) int plz,
                                        @RequestParam(required = false) String location) {
-        return customerRepository.getCustomers();
+        return customerRepository.findAll();
     }
 
 }

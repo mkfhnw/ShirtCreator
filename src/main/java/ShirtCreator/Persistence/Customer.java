@@ -1,11 +1,34 @@
 package ShirtCreator.Persistence;
 
-public class Customer {
 
-    public static int globalCount = 0;
-    private int id, plz;
-    private String firstName, lastName, street, location, email;
+import jakarta.persistence.*;
+
+@Entity
+@Table (name = "CUSTOMER_TABLE")
+public class Customer {
+    //public static int globalCount = 0;
+    @Id
+    @GeneratedValue
+    @Column(name = "ID")
+    private int Id;
+
+    @Column(name = "ID")
+    private String firstName;
+
+    @Column(name = "LASTNAME")
+    private String lastName;
+    @Column(name = "STREET")
+    private String street;
+    @Column(name = "PLZ")
+    private int plz;
+    @Column(name = "LOCATION")
+    private String location;
+    @Column(name = "EMAIL")
+    private String email;
+
+    @Column(name = "DELETED")
     private boolean deleted;
+
 
     // CONSTRUCTOR
     public Customer(String firstName, String lastName, String street, int plz, String location, String email) {
@@ -15,12 +38,16 @@ public class Customer {
         this.plz = plz;
         this.location = location;
         this.email = email;
-        this.id = globalCount++;
+        //this.id = globalCount++;
+    }
+
+    public Customer() {
+        //this.id = globalCount++;
     }
 
     // GETTERS & SETTERS
     public int getId() {
-        return id;
+        return Id;
     }
 
     public int getPlz() {
