@@ -1,5 +1,6 @@
 package com.example.shirtcreator.ShirtCreator.Persistence;
 
+
 import jakarta.persistence.*;
 
 @Entity
@@ -8,18 +9,21 @@ public class Order {
     //public static int globalCount = 0;
 
     @Id
-    @Column(name="ID")
+    @Column(name="ORDER_ID")
     @GeneratedValue
-    private int id;
-    @Column(name="CONFIGURATION_ID")
+    private int orderId;
+    @Column(name="FK_CONFIGURATION_ID")
+    //@ManyToOne
     private int configurationId;
-    @Column(name="CUSTOMER_ID")
-    private int customerId;
+    @Column(name="FK_CUSTOMER_ID")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "fk_customer_id")
+    private Customer customerId;
     @Column(name="QUANTITY")
     private int quantity;
 
     // CONSTRUCTOR
-    public Order(int customerId, int configurationId, int quantity) {
+    public Order(Customer customerId, int configurationId, int quantity) {
         //this.id = globalCount++;
         this.customerId = customerId;
         this.configurationId = configurationId;
@@ -33,7 +37,7 @@ public class Order {
 
     // GETTER & SETTER
     public int getId() {
-        return id;
+        return orderId;
     }
 
     public int getConfigurationId() {
@@ -44,7 +48,7 @@ public class Order {
         this.configurationId = configurationId;
     }
 
-    public int getCustomerId() {
+    public Customer getCustomerId() {
         return customerId;
     }
 
@@ -56,7 +60,7 @@ public class Order {
         this.quantity = quantity;
     }
 
-    public void setCustomerId(int customerId) {
+    public void setCustomerId(Customer customerId) {
         this.customerId = customerId;
     }
 }
