@@ -1,13 +1,12 @@
 package com.example.shirtcreator.ShirtCreator.Business;
 
+import com.example.shirtcreator.ShirtCreator.Persistence.Configuration;
 import com.example.shirtcreator.ShirtCreator.Persistence.Order;
-import com.example.shirtcreator.ShirtCreator.Persistence.TShirt;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.example.shirtcreator.ShirtCreator.Persistence.TShirt.*;
 
 @Service
 public class OrderVerification {
@@ -31,10 +30,10 @@ public class OrderVerification {
         double price = 0.0;
 
         // HashMap für Schnitt-Preise (nach Cut)
-        Map<Cut, Double> basePrices = new HashMap<>();
-        basePrices.put(Cut.Round, PRICE_ROUND);
-        basePrices.put(Cut.VNeck, PRICE_VNECK);
-        basePrices.put(Cut.Polo, PRICE_POLO);
+        Map<Configuration.Cut, Double> basePrices = new HashMap<>();
+        basePrices.put(Configuration.Cut.Round, PRICE_ROUND);
+        basePrices.put(Configuration.Cut.VNeck, PRICE_VNECK);
+        basePrices.put(Configuration.Cut.Polo, PRICE_POLO);
 
         // Preisberechnung
 //      TODO: Cut cut = o.getConfiguration().getCut();

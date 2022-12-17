@@ -3,7 +3,7 @@ package com.example.shirtcreator.ShirtCreator.Persistence;
 import jakarta.persistence.*;
 import org.springframework.stereotype.Component;
 
-@Entity
+@Entity(name = "tblConfiguration")
 public class Configuration {
     @Id
     @GeneratedValue

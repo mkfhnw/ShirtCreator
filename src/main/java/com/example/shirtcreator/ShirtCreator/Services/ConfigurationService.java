@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 public class ConfigurationService {
@@ -15,10 +16,19 @@ public class ConfigurationService {
     @Autowired
     private ConfigurationRepository configurationRepository;
 
-    @GetMapping(path = "/api/configuration/{ID}", produces = "application/json")
-    public Configuration getConfiguration(@PathVariable int id){return configurationRepository.getOne(id);}
+    @GetMapping(path = "/api/configuration/{id}", produces = "application/json")
+    public Configuration getConfiguration(@PathVariable Integer id) {
+        /**
+        Optional<Configuration> o = configurationRepository.findById(id);
+        if (o.isPresent()) {
+            return o;
+        } else {
+            return null;
+        }*/
+    return null;
+    }
 
-    @GetMapping(path = "/api/configuration/{configuration}", produces = "application/json")
+    @GetMapping(path = "/api/configuration/search", produces = "application/json")
     public ConfigurationRepository getConfigurationId ( @RequestParam(required = false) Map<String, String> requestParams) {
 
         if(!requestParams.containsKey("Cut")
@@ -64,13 +74,18 @@ public class ConfigurationService {
         return true;
     }
     @PostMapping(path = "/api/configuration/", produces = "application/json")
-    public Configuration createConfiguration(@RequestBody Configuration c) {
-        c = new Configuration();
+    public Configuration createConfiguration(@RequestBody MessageNewConfiguration m) {
+        Configuration c = new Configuration();
 
-        c.setSize(c.getSize());
-        c.setColor(c.getColor());
-        c.setCut(c.getCut());
-        c.setPattern(c.getPattern());
+        Configuration.Cut cut = Configuration.Cut.valueOf(m.getCut());
+        Configuration.Size size = Configuration.Size.valueOf(m.getSize());
+        Configuration.Pattern pattern = Configuration.Pattern.valueOf(m.getPattern());
+        Configuration.Color color = Configuration.Color.valueOf(m.getColor());
+
+        c.setSize(size);
+        c.setColor(color);
+        c.setCut(cut);
+        c.setPattern(pattern);
         c.setDeleted(false);
 
         configurationRepository.save(c);
