@@ -3,41 +3,54 @@ package com.example.shirtcreator.ShirtCreator.Persistence;
 
 import jakarta.persistence.*;
 
-@Entity
-@Table(name = "ORDER_TABLE")
+import java.util.Optional;
+
+@Entity(name = "tblOrder")
 public class Order {
-    //public static int globalCount = 0;
 
     @Id
-    @Column(name="ORDER_ID")
-    @GeneratedValue
-    private int orderId;
-    @Column(name="FK_CONFIGURATION_ID")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int Id;
+
     //@ManyToOne
     private int configurationId;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "fk_customer_id")
-    private Customer customerId;
-    @Column(name="QUANTITY")
+    private Customer customer;
     private int quantity;
+    @Column(name = "SHIPPING_METHOD")
+    private ShippingMethod shippingMethod;
 
     // CONSTRUCTOR
-    public Order(Customer customerId, int configurationId, int quantity) {
-        //this.id = globalCount++;
-        this.customerId = customerId;
+    public Order(Customer customer, int configurationId, int quantity, ShippingMethod shippingMethod) {
+        this.customer = customer;
         this.configurationId = configurationId;
         this.quantity = quantity;
+        this.shippingMethod = shippingMethod;
     }
 
     public Order() {
         //this.id = globalCount++;
     }
 
+    // ENUM SHIPPING METHOD
+    public enum ShippingMethod {
+        Economy("Economy"), Priority("Priority"), Express("Express");
+
+        private String asString;
+
+        ShippingMethod(String asString) {
+            this.asString = asString;
+        }
+
+        public String toString() {
+            return asString;
+        }
+    }
 
     // GETTER & SETTER
     public int getId() {
-        return orderId;
+        return Id;
     }
 
     public int getConfigurationId() {
@@ -48,8 +61,8 @@ public class Order {
         this.configurationId = configurationId;
     }
 
-    public Customer getCustomerId() {
-        return customerId;
+    public Customer getCustomer() {
+        return customer;
     }
 
     public int getQuantity() {
@@ -60,7 +73,15 @@ public class Order {
         this.quantity = quantity;
     }
 
-    public void setCustomerId(Customer customerId) {
-        this.customerId = customerId;
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
+    public ShippingMethod getShippingMethod() {
+        return shippingMethod;
+    }
+
+    public void setShippingMethod(ShippingMethod shippingMethod) {
+        this.shippingMethod = shippingMethod;
     }
 }

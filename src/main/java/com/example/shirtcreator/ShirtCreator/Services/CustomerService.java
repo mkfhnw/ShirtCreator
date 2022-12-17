@@ -15,6 +15,7 @@ public class CustomerService {
 
     @Autowired
     private CustomerRepository customerRepository;
+    @Autowired
     private AddressRepository addressRepository;
 
     @GetMapping(path = "/api/customer/{id}", produces = "application/json")

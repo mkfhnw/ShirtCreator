@@ -3,25 +3,15 @@ package com.example.shirtcreator.ShirtCreator.Persistence;
 
 import jakarta.persistence.*;
 
-@Entity
-@Table (name = "CUSTOMER_TABLE")
+@Entity(name = "tblCustomer")
 public class Customer {
-    //public static int globalCount = 0;
     @Id
     @GeneratedValue
-    @Column(name = "ID")
     private int id;
 
-    @Column(name = "FIRSTNAME")
     private String firstName;
-
-    @Column(name = "LASTNAME")
     private String lastName;
-
-    @Column(name = "EMAIL")
     private String email;
-
-    @Column(name = "DELETED")
     private boolean deleted;
 
     @ManyToOne
@@ -33,11 +23,9 @@ public class Customer {
         this.lastName = lastName;
         this.email = email;
         this.address = address;
-        //this.id = globalCount++;
     }
 
     public Customer() {
-        //this.id = globalCount++;
     }
 
     // GETTERS & SETTERS
