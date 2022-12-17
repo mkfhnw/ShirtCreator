@@ -2,20 +2,15 @@ package com.example.shirtcreator.ShirtCreator.Persistence;
 
 import jakarta.persistence.*;
 
-@Entity
-@Table (name = "ADDRESS_TABLE")
+@Entity(name = "tblAddress")
 public class Address {
 
     @Id
     @GeneratedValue
-    @Column(name = "ID")
     private int id;
 
-    @Column(name = "STREET")
     private String street;
-    @Column(name = "PLZ")
     private int plz;
-    @Column(name = "LOCATION")
     private String location;
 
     public Address(String street, int plz, String location) {
