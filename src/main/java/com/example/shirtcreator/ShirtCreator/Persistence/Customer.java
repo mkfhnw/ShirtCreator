@@ -28,7 +28,7 @@ public class Customer {
     private Address address;
 
     // CONSTRUCTOR
-    public Customer(String firstName, String lastName, String email) {
+    public Customer(String firstName, String lastName, String email, Address address) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;

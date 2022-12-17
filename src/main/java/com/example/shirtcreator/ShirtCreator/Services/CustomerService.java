@@ -1,9 +1,9 @@
-package ShirtCreator.Services;
+package com.example.shirtcreator.ShirtCreator.Services;
 
-import ShirtCreator.Persistence.Address;
-import ShirtCreator.Persistence.AddressRepository;
-import ShirtCreator.Persistence.Customer;
-import ShirtCreator.Persistence.CustomerRepository;
+import com.example.shirtcreator.ShirtCreator.Persistence.Address;
+import com.example.shirtcreator.ShirtCreator.Persistence.AddressRepository;
+import com.example.shirtcreator.ShirtCreator.Persistence.Customer;
+import com.example.shirtcreator.ShirtCreator.Persistence.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -64,9 +64,6 @@ public class CustomerService {
         String lastName = customer.getLastName();
         String email = customer.getEmail();
 
-        Customer c = new Customer(firstName, lastName, email);
-        c.setDeleted(false);
-
         Address address = customer.getAddress();
         Optional <Address> addressOptional = addressRepository.findByStreetAndPlzAndLocation(address.getStreet(), address.getPlz(), address.getLocation());
         if (addressOptional.isEmpty()) {
@@ -76,6 +73,8 @@ public class CustomerService {
         }
         customer.setAddress(address);
 
+        Customer c = new Customer(firstName, lastName, email, address);
+        c.setDeleted(false);
         customerRepository.save(c);
         return c;
     }
