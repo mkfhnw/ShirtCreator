@@ -16,7 +16,7 @@ public class Configuration {
     private boolean deleted;
 
     public enum Cut {
-        Round("Rund"),VNeck("VNeck"),Polo("Polo");
+        Round("Round"),VNeck("VNeck"),Polo("Polo");
 
         private String asString;
 
@@ -32,7 +32,7 @@ public class Configuration {
 
 
     public enum Color {
-        White("weiss"),Black("schwarz"),Red("rot"),Blue("blau"),Green("grün");
+        White("White"),Black("Black"),Red("Red"),Blue("Blue"),Green("Green");
 
         private String asString;
 
@@ -47,7 +47,7 @@ public class Configuration {
     }
 
     public enum Size {
-        Small("S"),Medium("M"),Large("L");
+        Small("Small"),Medium("Medium"),Large("Large");
         private String asString;
 
         Size( String asString ) {
@@ -61,7 +61,7 @@ public class Configuration {
     }
 
     public enum Pattern {
-        Plain("einfarbig"),Check("kariert"),Striped("gestreift");
+        Plain("Plain"),Check("Check"),Striped("Striped");
         private String asString;
 
         Pattern( String asString ) {
