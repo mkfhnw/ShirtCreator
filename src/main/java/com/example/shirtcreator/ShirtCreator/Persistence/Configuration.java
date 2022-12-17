@@ -1,4 +1,4 @@
-package ShirtCreator.Persistence;
+package com.example.shirtcreator.ShirtCreator.Persistence;
 
 public class Configuration {
 

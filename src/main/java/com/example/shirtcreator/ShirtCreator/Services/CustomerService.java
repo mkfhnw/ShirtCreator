@@ -1,7 +1,7 @@
-package ShirtCreator.Services;
+package com.example.shirtcreator.ShirtCreator.Services;
 
-import ShirtCreator.Persistence.Customer;
-import ShirtCreator.Persistence.CustomerRepository;
+import com.example.shirtcreator.ShirtCreator.Persistence.Customer;
+import com.example.shirtcreator.ShirtCreator.Persistence.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

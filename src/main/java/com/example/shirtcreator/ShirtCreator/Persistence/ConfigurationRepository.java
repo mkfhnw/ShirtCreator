@@ -1,4 +1,4 @@
-package ShirtCreator.Persistence;
+package com.example.shirtcreator.ShirtCreator.Persistence;
 
 import org.springframework.stereotype.Component;
 
