@@ -2,7 +2,6 @@ package com.example.shirtcreator.ShirtCreator.Services;
 
 import com.example.shirtcreator.ShirtCreator.Persistence.Configuration;
 import com.example.shirtcreator.ShirtCreator.Persistence.ConfigurationRepository;
-import com.example.shirtcreator.ShirtCreator.Persistence.TShirt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -12,15 +11,15 @@ import java.util.Map;
 
 @RestController
 public class ConfigurationService {
+
     @Autowired
     private ConfigurationRepository configurationRepository;
+
     @GetMapping(path = "/api/configuration/{ID}", produces = "application/json")
-    public Configuration getConfiguration(@RequestParam(required = false) int configurationId ){
-    return configurationRepository.getConfigurationsOfCustomer(configurationId);
-    }
+    public Configuration getConfiguration(@PathVariable int id){return configurationRepository.getOne(id);}
 
     @GetMapping(path = "/api/configuration/{configuration}", produces = "application/json")
-    public int getConfigurationId (@RequestParam(required = false) Map<String, String> requestParams) {
+    public ConfigurationRepository getConfigurationId ( @RequestParam(required = false) Map<String, String> requestParams) {
 
         if(!requestParams.containsKey("Cut")
                 || !requestParams.containsKey("Color")
@@ -30,51 +29,56 @@ public class ConfigurationService {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Configuration not found");
         }
 
-        return configurationRepository.getConfigurationID(
+        return configurationRepository;
+
+        /** TODO: fixBug --> return configurationRepository.??
                 TShirt.Cut.valueOf(requestParams.get("Cut")),
                 TShirt.Color.valueOf(requestParams.get("Color")),
                 TShirt.Size.valueOf(requestParams.get("Size")),
-                TShirt.Pattern.valueOf(requestParams.get("Pattern"))
-        );
+                TShirt.Pattern.valueOf(requestParams.get("Pattern"));
+        */
     }
 
     @DeleteMapping(path = "/api/configuration/{ID}", produces = "application/json")
-    public boolean deleteConfiguration( @PathVariable int id ){
-        Configuration c = configurationRepository.getConfigurationsOfCustomer(id);
+    public boolean deleteConfiguration( @RequestParam Integer id ){
+        Configuration c = configurationRepository.getOne(id);
         if (c == null)
             return false;
         c.setDeleted(true);
-        configurationRepository.saveConfiguration(c);
+        configurationRepository.save(c);
                 return true;
     }
 
     @PutMapping(path = "/api/configuration/{ID}", produces = "application/json")
-    public boolean updateConfiguration(@PathVariable int id, @RequestBody Configuration configuration) {
-        Configuration c = configurationRepository.getConfigurationsOfCustomer(id);
+    public boolean updateConfiguration(@PathVariable Integer id, @RequestBody Configuration configuration) {
+        Configuration c = configurationRepository.getOne(id);
         if (c == null)
             return false;
 
-        c.gettShirt().setSize(configuration.gettShirt().getSize());
-        c.gettShirt().setColor(configuration.gettShirt().getColor());
-        c.gettShirt().setCut(configuration.gettShirt().getCut());
-        c.gettShirt().setPattern(configuration.gettShirt().getPattern());
+        c.setSize(configuration.getSize());
+        c.setColor(configuration.getColor());
+        c.setCut(configuration.getCut());
+        c.setPattern(configuration.getPattern());
 
-        configurationRepository.saveConfiguration(c);
+        configurationRepository.save(c);
         return true;
     }
+    @PostMapping(path = "/api/configuration/", produces = "application/json")
+    public Configuration createConfiguration(@RequestBody Configuration c) {
+        c = new Configuration();
 
- /*   public Configuration createConfiguration(@RequestBody Configuration configuration){
-        Configuration c = new Configuration();
-
-        c.setConfigurationId(123);
-        c.gettShirt().setSize(configuration.gettShirt().getSize());
-        c.gettShirt().setColor(configuration.gettShirt().getColor());
-        c.gettShirt().setCut(configuration.gettShirt().getCut());
-        c.gettShirt().setPattern(configuration.gettShirt().getPattern());
+        c.setSize(c.getSize());
+        c.setColor(c.getColor());
+        c.setCut(c.getCut());
+        c.setPattern(c.getPattern());
         c.setDeleted(false);
 
-        configurationRepository.saveConfiguration(c);
+        configurationRepository.save(c);
 
-        return c;
-    }*/
+        return null;
+    }
+
+
 }
+
+

@@ -1,31 +1,139 @@
 package com.example.shirtcreator.ShirtCreator.Persistence;
 
+import jakarta.persistence.*;
+import org.springframework.stereotype.Component;
+
+@Entity
 public class Configuration {
+    @Id
+    @GeneratedValue
+    private Integer id;
 
-    private int configurationId;
+    private Cut cut;
+    private Color color;
+    private Size size;
+    private Pattern pattern;
+    private boolean deleted;
 
-    private TShirt tShirt;
+    public enum Cut {
+        Round("Rund"),VNeck("VNeck"),Polo("Polo");
 
-    //Constructor
-    public Configuration(int configurationId, TShirt tShirt){
-        this.configurationId = configurationId;
-        this.tShirt = tShirt;
+        private String asString;
+
+        Cut( String asString ) {
+            this.asString = asString;
+        }
+
+        public String toString( ) {
+            return asString;
+        }
+
+    }
+
+
+    public enum Color {
+        White("weiss"),Black("schwarz"),Red("rot"),Blue("blau"),Green("grün");
+
+        private String asString;
+
+        Color( String asString ) {
+            this.asString = asString;
+        }
+
+        public String toString( ) {
+            return asString;
+
+        }
+    }
+
+    public enum Size {
+        Small("S"),Medium("M"),Large("L");
+        private String asString;
+
+        Size( String asString ) {
+            this.asString = asString;
+        }
+
+        public String toString( ) {
+            return asString;
+
+        }
+    }
+
+    public enum Pattern {
+        Plain("einfarbig"),Check("kariert"),Striped("gestreift");
+        private String asString;
+
+        Pattern( String asString ) {
+            this.asString = asString;
+        }
+
+        public String toString( ) {
+            return asString;
+        }
+    }
+
+
+
+    //Constructor(s)
+    public Configuration( Integer id,Cut cut,Color color,Size size,Pattern pattern){
+        this.id = id;
+        this.cut = Cut.valueOf(cut.toString());
+        this.color = Color.valueOf(color.toString());
+        this.size = Size.valueOf(size.toString());
+        this.pattern = Pattern.valueOf(pattern.toString());
+    }
+
+    public Configuration( ) {
+
     }
 
     //GETTER & SETTER
-    public int getConfigurationId( ) {
-        return configurationId;
+    public Integer getConfigurationId( ) {
+        return id;
     }
 
-    public TShirt gettShirt() {
-        return this.tShirt;
+    public void setConfigurationId( int configurationId ) {this.id = configurationId;}
+
+    public void setConfigurationId( Integer configurationId ) {
+        this.id = configurationId;
     }
 
-    public void setConfigurationId( int configurationId ) {
-        //need to be defined
-        this.configurationId = configurationId;
+    public Cut getCut( ) {
+        return cut;
     }
 
-    public void setDeleted( boolean b ) {
+    public void setCut( Cut cut ) {
+        this.cut = cut;
     }
+
+    public Color getColor( ) {
+        return color;
+    }
+
+    public void setColor( Color color ) {
+        this.color = color;
+    }
+
+    public Size getSize( ) {
+        return size;
+    }
+
+    public void setSize( Size size ) {
+        this.size = size;
+    }
+
+    public Pattern getPattern( ) {
+        return pattern;
+    }
+
+    public void setPattern( Pattern pattern ) {
+        this.pattern = pattern;
+    }
+
+    public boolean isDeleted( ) {
+        return deleted;
+    }
+
+    public void setDeleted( boolean deleted ) {this.deleted = deleted;}
 }
