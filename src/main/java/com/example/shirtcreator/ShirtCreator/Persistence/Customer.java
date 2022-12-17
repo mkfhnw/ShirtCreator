@@ -12,7 +12,7 @@ public class Customer {
     @Column(name = "ID")
     private int Id;
 
-    @Column(name = "ID")
+    @Column(name = "FIRSTNAME")
     private String firstName;
 
     @Column(name = "LASTNAME")
