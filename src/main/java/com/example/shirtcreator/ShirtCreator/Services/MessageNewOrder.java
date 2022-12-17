@@ -1,31 +1,43 @@
 package com.example.shirtcreator.ShirtCreator.Services;
 
-public class MessageNewOrder {
-    private int customerId;
-    private int configurationId;
-    private int quantity;
+import com.example.shirtcreator.ShirtCreator.Persistence.Order;
 
-    public int getCustomerId() {
+public class MessageNewOrder {
+    private Integer customerId;
+    private Integer configurationId;
+    private Integer quantity;
+
+    private String shippingMethod;
+
+    public String getShippingMethod() {
+        return shippingMethod;
+    }
+
+    public void setShippingMethod(String shippingMethod) {
+        this.shippingMethod = shippingMethod;
+    }
+
+    public Integer getCustomerId() {
         return customerId;
     }
 
-    public void setCustomerId(int customerId) {
+    public void setCustomerId(Integer customerId) {
         this.customerId = customerId;
     }
 
-    public int getConfigurationId() {
+    public Integer getConfigurationId() {
         return configurationId;
     }
 
-    public void setConfigurationId(int configurationId) {
+    public void setConfigurationId(Integer configurationId) {
         this.configurationId = configurationId;
     }
 
-    public int getQuantity() {
+    public Integer getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(int quantity) {
+    public void setQuantity(Integer quantity) {
         this.quantity = quantity;
     }
 }

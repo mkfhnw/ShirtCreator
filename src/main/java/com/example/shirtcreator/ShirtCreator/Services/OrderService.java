@@ -1,10 +1,7 @@
 package com.example.shirtcreator.ShirtCreator.Services;
 
 import com.example.shirtcreator.ShirtCreator.Business.OrderVerification;
-import com.example.shirtcreator.ShirtCreator.Persistence.Customer;
-import com.example.shirtcreator.ShirtCreator.Persistence.CustomerRepository;
-import com.example.shirtcreator.ShirtCreator.Persistence.Order;
-import com.example.shirtcreator.ShirtCreator.Persistence.OrderRepository;
+import com.example.shirtcreator.ShirtCreator.Persistence.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,6 +15,8 @@ public class OrderService {
     private OrderRepository orderRepository;
     @Autowired
     private CustomerRepository customerRepository;
+    @Autowired
+    private ConfigurationRepository configurationRepository;
 
     @Autowired
     private OrderVerification orderVerification;
@@ -38,10 +37,15 @@ public class OrderService {
         System.out.println("createOrder");
         Order o = new Order();
 
-        //TODO:
-        //Customer c = customerRepository.findById(m.getCustomerId());
+        Optional<Customer> customer = customerRepository.findById(m.getCustomerId());
+        Optional<Configuration> config = configurationRepository.findById(m.getConfigurationId());
 
-        o.setConfigurationId(m.getConfigurationId());
+    if (customer.isPresent() && config.isPresent()) {
+        o.setCustomer(customer.get());
+        o.setConfiguration(config.get());
+    }
+        Order.ShippingMethod sm = Order.ShippingMethod.valueOf(m.getShippingMethod());
+        o.setShippingMethod(sm);
         o.setQuantity(m.getQuantity());
 
         if(orderVerification.validateOrder(o)) {

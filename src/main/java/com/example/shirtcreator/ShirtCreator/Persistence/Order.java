@@ -3,7 +3,7 @@ package com.example.shirtcreator.ShirtCreator.Persistence;
 
 import jakarta.persistence.*;
 
-import java.util.Optional;
+
 
 @Entity(name = "tblOrder")
 public class Order {
@@ -12,25 +12,23 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int Id;
 
-    //@ManyToOne
-    private int configurationId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Configuration configuration;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Customer customer;
     private int quantity;
-    @Column(name = "SHIPPING_METHOD")
     private ShippingMethod shippingMethod;
 
     // CONSTRUCTOR
-    public Order(Customer customer, int configurationId, int quantity, ShippingMethod shippingMethod) {
+    public Order(Customer customer, Configuration configuration, int quantity, ShippingMethod shippingMethod) {
         this.customer = customer;
-        this.configurationId = configurationId;
+        this.configuration = configuration;
         this.quantity = quantity;
         this.shippingMethod = shippingMethod;
     }
 
     public Order() {
-        //this.id = globalCount++;
     }
 
     // ENUM SHIPPING METHOD
@@ -53,12 +51,12 @@ public class Order {
         return Id;
     }
 
-    public int getConfigurationId() {
-        return configurationId;
+    public Configuration getConfiguration() {
+        return configuration;
     }
 
-    public void setConfigurationId(int configurationId) {
-        this.configurationId = configurationId;
+    public void setConfiguration(Configuration configuration) {
+        this.configuration = configuration;
     }
 
     public Customer getCustomer() {
