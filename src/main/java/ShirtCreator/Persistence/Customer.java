@@ -10,34 +10,29 @@ public class Customer {
     @Id
     @GeneratedValue
     @Column(name = "ID")
-    private int Id;
+    private int id;
 
     @Column(name = "ID")
     private String firstName;
 
     @Column(name = "LASTNAME")
     private String lastName;
-    @Column(name = "STREET")
-    private String street;
-    @Column(name = "PLZ")
-    private int plz;
-    @Column(name = "LOCATION")
-    private String location;
+
     @Column(name = "EMAIL")
     private String email;
 
     @Column(name = "DELETED")
     private boolean deleted;
 
+    @ManyToOne
+    private Address address;
 
     // CONSTRUCTOR
-    public Customer(String firstName, String lastName, String street, int plz, String location, String email) {
+    public Customer(String firstName, String lastName, String email) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.street = street;
-        this.plz = plz;
-        this.location = location;
         this.email = email;
+        this.address = address;
         //this.id = globalCount++;
     }
 
@@ -46,16 +41,8 @@ public class Customer {
     }
 
     // GETTERS & SETTERS
-    public int getId() {
-        return Id;
-    }
-
-    public int getPlz() {
-        return plz;
-    }
-
-    public void setPlz(int plz) {
-        this.plz = plz;
+    public int getid() {
+        return id;
     }
 
     public String getFirstName() {
@@ -74,22 +61,6 @@ public class Customer {
         this.lastName = lastName;
     }
 
-    public String getStreet() {
-        return street;
-    }
-
-    public void setStreet(String street) {
-        this.street = street;
-    }
-
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
     public String getEmail() {
         return email;
     }
@@ -105,4 +76,8 @@ public class Customer {
     public void setDeleted(boolean deleted) {
         this.deleted = deleted;
     }
+
+    public Address getAddress(){return address; }
+
+    public void setAddress(Address address) { this.address = address; }
 }

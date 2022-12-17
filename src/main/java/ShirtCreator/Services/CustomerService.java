@@ -1,17 +1,21 @@
 package ShirtCreator.Services;
 
+import ShirtCreator.Persistence.Address;
+import ShirtCreator.Persistence.AddressRepository;
 import ShirtCreator.Persistence.Customer;
 import ShirtCreator.Persistence.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class CustomerService {
 
     @Autowired
     private CustomerRepository customerRepository;
+    private AddressRepository addressRepository;
 
     @GetMapping(path = "/api/customer/{id}", produces = "application/json")
     public Customer getCustomer(@PathVariable int id) {
@@ -35,10 +39,21 @@ public class CustomerService {
             return false;
         c.setFirstName(customer.getFirstName());
         c.setLastName(customer.getLastName());
-        c.setStreet(customer.getStreet());
-        c.setPlz(customer.getPlz());
-        c.setLocation(customer.getLocation());
         c.setEmail(customer.getEmail());
+
+        Optional<Address> addressOptional = addressRepository.findByStreetAndPlzAndLocation(c.getAddress().getStreet(), c.getAddress().getPlz(), c.getAddress().getLocation());
+                if(addressOptional.isEmpty()){
+                    Address address = new Address();
+                    address.setStreet(c.getAddress().getStreet());
+                    address.setPlz(c.getAddress().getPlz());
+                    address.setLocation(c.getAddress().getLocation());
+
+                    address = addressRepository.save(address);
+                    c.setAddress(address);
+                } else {
+                    c.setAddress(addressOptional.get());
+                }
+        c.setAddress(customer.getAddress());
         customerRepository.save(c);
         return true;
     }
@@ -47,12 +62,20 @@ public class CustomerService {
     public Customer createCustomer(@RequestBody Customer customer) {
         String firstName = customer.getFirstName();
         String lastName = customer.getLastName();
-        String street = customer.getStreet();
-        int plz = customer.getPlz();
-        String location = customer.getLocation();
         String email = customer.getEmail();
-        Customer c = new Customer(firstName, lastName, street, plz, location, email);
+
+        Customer c = new Customer(firstName, lastName, email);
         c.setDeleted(false);
+
+        Address address = customer.getAddress();
+        Optional <Address> addressOptional = addressRepository.findByStreetAndPlzAndLocation(address.getStreet(), address.getPlz(), address.getLocation());
+        if (addressOptional.isEmpty()) {
+            address = addressRepository.save(address);
+        } else {
+            address = addressOptional.get();
+        }
+        customer.setAddress(address);
+
         customerRepository.save(c);
         return c;
     }
