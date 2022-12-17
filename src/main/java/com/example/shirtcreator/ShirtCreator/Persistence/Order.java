@@ -15,7 +15,7 @@ public class Order {
     @Column(name="FK_CONFIGURATION_ID")
     //@ManyToOne
     private int configurationId;
-    @Column(name="FK_CUSTOMER_ID")
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fk_customer_id")
     private Customer customerId;
