@@ -33,7 +33,7 @@ public class OrderService {
         System.out.println("createOrder");
         Order o = new Order();
 
-        o.setCustomerId(order.getCustomerId());
+        o.setCustomer(order.getCustomer());
         o.setConfigurationId(order.getConfigurationId());
         o.setQuantity(order.getQuantity());
 
