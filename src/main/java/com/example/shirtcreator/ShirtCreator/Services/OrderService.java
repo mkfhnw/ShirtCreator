@@ -1,8 +1,8 @@
-package ShirtCreator.Services;
+package com.example.shirtcreator.ShirtCreator.Services;
 
-import ShirtCreator.Business.OrderVerification;
-import ShirtCreator.Persistence.Order;
-import ShirtCreator.Persistence.OrderRepository;
+import com.example.shirtcreator.ShirtCreator.Business.OrderVerification;
+import com.example.shirtcreator.ShirtCreator.Persistence.Order;
+import com.example.shirtcreator.ShirtCreator.Persistence.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

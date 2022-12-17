@@ -1,4 +1,4 @@
-package ShirtCreator.Persistence;
+package com.example.shirtcreator.ShirtCreator.Persistence;
 
 
 import jakarta.persistence.*;
@@ -12,7 +12,7 @@ public class Customer {
     @Column(name = "ID")
     private int id;
 
-    @Column(name = "ID")
+    @Column(name = "FIRSTNAME")
     private String firstName;
 
     @Column(name = "LASTNAME")
