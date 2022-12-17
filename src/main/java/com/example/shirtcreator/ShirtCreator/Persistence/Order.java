@@ -18,17 +18,35 @@ public class Order {
     @ManyToOne(fetch = FetchType.LAZY)
     private Customer customer;
     private int quantity;
+    @Column(name = "SHIPPING_METHOD")
+    private ShippingMethod shippingMethod;
 
     // CONSTRUCTOR
-    public Order(Customer customer, int configurationId, int quantity) {
+    public Order(Customer customer, int configurationId, int quantity, ShippingMethod shippingMethod) {
         this.customer = customer;
         this.configurationId = configurationId;
         this.quantity = quantity;
+        this.shippingMethod = shippingMethod;
     }
 
     public Order() {
+        //this.id = globalCount++;
     }
 
+    // ENUM SHIPPING METHOD
+    public enum ShippingMethod {
+        Economy("Economy"), Priority("Priority"), Express("Express");
+
+        private String asString;
+
+        ShippingMethod(String asString) {
+            this.asString = asString;
+        }
+
+        public String toString() {
+            return asString;
+        }
+    }
 
     // GETTER & SETTER
     public int getId() {
@@ -57,5 +75,13 @@ public class Order {
 
     public void setCustomer(Customer customer) {
         this.customer = customer;
+    }
+
+    public ShippingMethod getShippingMethod() {
+        return shippingMethod;
+    }
+
+    public void setShippingMethod(ShippingMethod shippingMethod) {
+        this.shippingMethod = shippingMethod;
     }
 }
