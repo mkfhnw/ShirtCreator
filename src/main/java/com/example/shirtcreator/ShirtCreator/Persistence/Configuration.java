@@ -9,9 +9,13 @@ public class Configuration {
     @GeneratedValue
     private Integer id;
 
+    @Enumerated(EnumType.STRING)
     private Cut cut;
+    @Enumerated(EnumType.STRING)
     private Color color;
+    @Enumerated(EnumType.STRING)
     private Size size;
+    @Enumerated(EnumType.STRING)
     private Pattern pattern;
     private boolean deleted;
 

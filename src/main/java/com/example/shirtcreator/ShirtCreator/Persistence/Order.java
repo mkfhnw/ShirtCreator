@@ -18,6 +18,7 @@ public class Order {
     @ManyToOne(fetch = FetchType.LAZY)
     private Customer customer;
     private int quantity;
+    @Enumerated(EnumType.STRING)
     private ShippingMethod shippingMethod;
 
     // CONSTRUCTOR

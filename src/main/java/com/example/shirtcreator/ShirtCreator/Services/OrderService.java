@@ -23,7 +23,6 @@ public class OrderService {
 
     @GetMapping(path = "/api/orders", produces = "application/json")
     public List<Order> getOrders(@RequestParam(required = false) Integer customerId) {
-        System.out.println("getOrders");
         if(customerId != null) {
             return orderRepository.findAllByCustomerId(customerId);
         } else {
@@ -34,7 +33,6 @@ public class OrderService {
 
     @PostMapping(path = "/api/order/", produces = "application/json")
     public Order createOrder(@RequestBody MessageNewOrder m) {
-        System.out.println("createOrder");
         Order o = new Order();
 
         Optional<Customer> customer = customerRepository.findById(m.getCustomerId());
