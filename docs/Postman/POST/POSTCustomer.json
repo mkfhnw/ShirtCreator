@@ -1,0 +1,11 @@
+{
+  "firstName": "Franz",
+  "lastName": "Kanz",
+  "email": "franz.kanz@bluewin.ch",
+  "address":
+  {
+    "street": "Bahnhofweg",
+    "plz": 5000,
+    "location": "Aarau"
+  }
+}
