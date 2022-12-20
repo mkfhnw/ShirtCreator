@@ -7,6 +7,18 @@
     width: 10vw;
 }
 
+.custom-nav {
+    background-color: #ECECEC;
+}
+
+.carousel-indicators {
+    position: absolute;
+    border: 0;
+}
+.carousel-indicators .active {
+    background-color: #ECECEC;
+}
+
 .control-panel {
     display: flex;
     flex-direction: row;

@@ -11,7 +11,7 @@
 
 <body>
 <!-- Top navigation bar -->
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-light custom-nav">
     <a class="navbar-brand" href="#">
         <img src="/Logo.PNG" class="d-block logo" alt="Website logo"></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
@@ -37,14 +37,6 @@
         <!--Shirt Preview Div-->
         <div class="col-8 bg-danger">
             <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="true">
-                <div class="carousel-indicators">
-                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0"
-                            class="active" aria-current="true" aria-label="Slide 1"></button>
-                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
-                            aria-label="Slide 2"></button>
-                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
-                            aria-label="Slide 3"></button>
-                </div>
                 <div class="carousel-inner">
                     <div class="carousel-item active">
                         <img src="/T-Shirts/uni/round_uni/Tshirt_round_white_front_basic.PNG"
@@ -70,7 +62,26 @@
                     <span class="visually-hidden">Next</span>
                 </button>
             </div>
+            <!-- Thumbnails -->
+            <div class="carousel-indicators">
+                <button type="button" data-mdb-target="#carouselMDExample" data-mdb-slide-to="0" class="active"
+                        aria-current="true" aria-label="Slide 1" style="width: 5vw;">
+                    <img class="d-block w-100 rounded"
+                         src="/T-Shirts/uni/round_uni/Tshirt_round_white_front_basic.PNG" class="img-fluid" />
+                </button>
+                <button type="button" data-mdb-target="#carouselMDExample" data-mdb-slide-to="1" aria-label="Slide 2"
+                        style="width: 5vw;">
+                    <img class="d-block w-100 rounded"
+                         src="/T-Shirts/uni/round_uni/Tshirt_round_white_back_basic.PNG" class="img-fluid" />
+                </button>
+                <button type="button" data-mdb-target="#carouselMDExample" data-mdb-slide-to="2" aria-label="Slide 3"
+                        style="width: 5vw;">
+                    <img class="d-block w-100 rounded"
+                         src="/T-Shirts/uni/round_uni/Tshirt_round_white_side_basic.PNG" class="img-fluid" />
+                </button>
+            </div>
         </div>
+
 
         <!--        Control Div-->
         <div class="col bg-info">
