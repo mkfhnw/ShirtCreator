@@ -23,10 +23,7 @@ public class Configuration {
     private Double price;
     private boolean deleted;
 
-    public static final double PRICE_ROUND = 15.0;
-    public static final double PRICE_VNECK = 17.0;
-    public static final double PRICE_POLO = 25.0;
-    public static final double PRICE_PATTERN = 10.0;
+
 
     public enum Cut {
         Round("Round"),VNeck("VNeck"),Polo("Polo");
@@ -96,7 +93,7 @@ public class Configuration {
         this.size = size;
         this.pattern = pattern;
         this.deleted = false;
-        this.price = calculateConfigurationPrice();
+        this.price = 0.0;
     }
 
     public Configuration( ) {
@@ -150,28 +147,8 @@ public class Configuration {
         return price;
     }
 
-    public void setPrice() {
-        this.price = calculateConfigurationPrice();
+    public void setPrice(Double price){
+        this.price = price;
     }
-
-    // Berechnet den Preis einer Konfiguration
-    private Double calculateConfigurationPrice() {
-        Double configurationPrice = 0.0;
-
-        // HashMap für Schnitt-Preise (nach Cut)
-        Map<Cut, Double> basePrices = new HashMap<>();
-        basePrices.put(Cut.Round, PRICE_ROUND);
-        basePrices.put(Cut.VNeck, PRICE_VNECK);
-        basePrices.put(Cut.Polo, PRICE_POLO);
-
-        // Preis für 1 T-Shirt berechnen
-        configurationPrice += basePrices.get(this.cut);
-        if (this.pattern != Pattern.Plain) {
-            configurationPrice += PRICE_PATTERN;
-        }
-
-        return configurationPrice;
-    }
-
 
 }

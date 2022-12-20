@@ -45,9 +45,10 @@ public class OrderService {
         Order.ShippingMethod sm = Order.ShippingMethod.valueOf(m.getShippingMethod());
         o.setShippingMethod(sm);
         o.setQuantity(m.getQuantity());
-        o.setPrice(); // Berechnet den Preis der Bestellung
 
         if (orderVerification.validateOrder(o)) {
+            // Preis der Bestellung berechnen und setzen
+            o.setPrice(orderVerification.calculateOrderPrice(o));
             orderRepository.save(o);
             return o;
         } else {
@@ -65,8 +66,8 @@ public class OrderService {
         o.setShippingMethod(Order.ShippingMethod.valueOf(m.getShippingMethod()));
         o.setQuantity(m.getQuantity());
         if (orderVerification.validateOrder(o)) {
-            o.setPrice(); // Berechnet den Preis der Bestellung
-            return o.getPrice();
+            // Preis der Bestellung berechnen und zurückgeben
+            return orderVerification.calculateOrderPrice(o);
         } else {
             return null;
         }

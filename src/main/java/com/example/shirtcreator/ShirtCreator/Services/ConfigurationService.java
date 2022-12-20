@@ -1,5 +1,6 @@
 package com.example.shirtcreator.ShirtCreator.Services;
 
+import com.example.shirtcreator.ShirtCreator.Business.ConfigurationVerification;
 import com.example.shirtcreator.ShirtCreator.Persistence.Configuration;
 import com.example.shirtcreator.ShirtCreator.Persistence.ConfigurationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,8 @@ public class ConfigurationService {
 
     @Autowired
     private ConfigurationRepository configurationRepository;
+    @Autowired
+    private ConfigurationVerification configurationVerification;
 
     @GetMapping(path = "/api/configuration/{id}", produces = "application/json")
     public Configuration getConfiguration(@PathVariable Integer id) {
@@ -69,7 +72,8 @@ public class ConfigurationService {
         c.setColor(configuration.getColor());
         c.setCut(configuration.getCut());
         c.setPattern(configuration.getPattern());
-        c.setPrice(); // Berechnet den Preis der Configuration
+        // Preis der Konfiguration berechnen und setzen
+        c.setPrice(configurationVerification.calculateConfigurationPrice(c));
 
         configurationRepository.save(c);
         return true;
@@ -88,7 +92,8 @@ public class ConfigurationService {
         c.setColor(color);
         c.setCut(cut);
         c.setPattern(pattern);
-        c.setPrice(); // Berechnet den Preis der Configuration
+        // Preis der Konfiguration berechnen und setzen
+        c.setPrice(configurationVerification.calculateConfigurationPrice(c));
 
         configurationRepository.save(c);
 
@@ -105,7 +110,7 @@ public class ConfigurationService {
         // ID beliebig gewählt, da nicht relevant für Preisberechnung
         Configuration c = new Configuration(1, cut, color, size, pattern);
 
-        return c.getPrice();
+        return configurationVerification.calculateConfigurationPrice(c);
     }
 
 
