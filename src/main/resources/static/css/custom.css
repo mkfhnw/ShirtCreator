@@ -1,3 +1,8 @@
 .preview-item {
-    width:25rem;
+    width:25vw;
+    display: block;
+    margin: auto;
+}
+.logo {
+    width: 5vw;
 }
