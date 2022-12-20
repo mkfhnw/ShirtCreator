@@ -3,6 +3,9 @@ package com.example.shirtcreator.ShirtCreator.Persistence;
 import jakarta.persistence.*;
 import org.springframework.stereotype.Component;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Entity(name = "tblConfiguration")
 public class Configuration {
     @Id
@@ -17,7 +20,10 @@ public class Configuration {
     private Size size;
     @Enumerated(EnumType.STRING)
     private Pattern pattern;
+    private Double price;
     private boolean deleted;
+
+
 
     public enum Cut {
         Round("Round"),VNeck("VNeck"),Polo("Polo");
@@ -80,12 +86,14 @@ public class Configuration {
 
 
     //Constructor(s)
-    public Configuration( Integer id,Cut cut,Color color,Size size,Pattern pattern){
+    public Configuration(Integer id, Cut cut,Color color,Size size,Pattern pattern){
         this.id = id;
         this.cut = cut;
         this.color = color;
         this.size = size;
         this.pattern = pattern;
+        this.deleted = false;
+        this.price = 0.0;
     }
 
     public Configuration( ) {
@@ -93,14 +101,8 @@ public class Configuration {
     }
 
     //GETTER & SETTER
-    public Integer getConfigurationId( ) {
+    public Integer getId( ) {
         return id;
-    }
-
-    public void setConfigurationId( int configurationId ) {this.id = configurationId;}
-
-    public void setConfigurationId( Integer configurationId ) {
-        this.id = configurationId;
     }
 
     public Cut getCut( ) {
@@ -140,4 +142,13 @@ public class Configuration {
     }
 
     public void setDeleted( boolean deleted ) {this.deleted = deleted;}
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price){
+        this.price = price;
+    }
+
 }

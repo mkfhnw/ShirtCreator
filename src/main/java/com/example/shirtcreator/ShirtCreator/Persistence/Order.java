@@ -20,6 +20,7 @@ public class Order {
     private int quantity;
     @Enumerated(EnumType.STRING)
     private ShippingMethod shippingMethod;
+    private Double price;
 
     // CONSTRUCTOR
     public Order(Customer customer, Configuration configuration, int quantity, ShippingMethod shippingMethod) {
@@ -27,6 +28,7 @@ public class Order {
         this.configuration = configuration;
         this.quantity = quantity;
         this.shippingMethod = shippingMethod;
+        this.price = 0.0;
     }
 
     public Order() {
@@ -83,4 +85,13 @@ public class Order {
     public void setShippingMethod(ShippingMethod shippingMethod) {
         this.shippingMethod = shippingMethod;
     }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
 }
