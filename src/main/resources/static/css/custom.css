@@ -7,10 +7,20 @@
     width: 10vw;
 }
 
-.config-dropdown {
-    width: 10.5vw;
+.control-panel {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
 }
 
-.config-dropdown-half {
-    width: 5vw;
+.control-panel-inner {
+    min-width: 20vw;
+    flex-direction: row;
+    border: 1px solid rgb(105,105,105);
+    border-radius: 1vw;
+    margin: 1vw;
+    padding: 1vw;
 }

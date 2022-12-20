@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bootstrap demo</title>
+    <title>TShirt Configurator</title>
     <link href="/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/custom.css" rel="stylesheet">
 </head>
@@ -73,80 +73,57 @@
         </div>
 
         <!--        Control Div-->
-        <div class="col align-items-center bg-info">
+        <div class="col bg-info">
 
+            <div class="control-panel">
+                <div class="control-panel-inner">
 
-            <div class="btn-group pt-5">
-                <div class="dropdown px-1">
-                    <button class="btn btn-outline-dark dropdown-toggle config-dropdown-half" type="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                        Color
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li>Blue</li>
-                        <li>Black</li>
-                        <li>Green</li>
-                        <li>Red</li>
-                        <li>White</li>
-                    </ul>
+                    <div class="d-flex justify-content-between">
+                        <div class="input-group mb-1">
+                            <label class="input-group-text" for="colorSelect">Color</label>
+                            <select class="form-select d-inline-block" id="colorSelect" aria-label="Default select example">
+                                <option value="1">Red</option>
+                                <option value="2">Green</option>
+                                <option value="3">Blue</option>
+                                <option value="3">Black</option>
+                                <option value="3">White</option>
+                            </select>
+                        </div>
+                        <div class="input-group mb-1 ms-2">
+                            <label class="input-group-text" for="sizeSelect">Size</label>
+                            <select class="form-select d-inline-block" id="sizeSelect" aria-label="Default select example">
+                                <option value="1">Small</option>
+                                <option value="2">Medium</option>
+                                <option value="3">Large</option>
+                            </select>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="input-group mb-1">
+                        <label class="input-group-text" for="cutSelect">Cut</label>
+                        <select class="form-select w-50 d-inline-block" id="cutSelect" aria-label="Default select example">
+                            <option value="1">Round</option>
+                            <option value="2">VNeck</option>
+                            <option value="3">Polo</option>
+                        </select>
+                    </div>
+                    <br>
+                    <div class="input-group mb-1">
+                        <label class="input-group-text" for="patternSelect">Pattern</label>
+                        <select class="form-select w-50 d-inline-block" id="patternSelect" aria-label="Default select example">
+                            <option value="1">Plain</option>
+                            <option value="3">Striped</option>
+                        </select>
+                    </div>
+                    <hr>
+                    <h6>Current Price</h6>
+                    <hr>
+                    <button type="button" class="btn btn-primary">Order now!</button>
                 </div>
-                <div class="dropdown px-1">
-                    <button class="btn btn-outline-dark dropdown-toggle config-dropdown-half" type="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                        Size
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li>Small</li>
-                        <li>Medium</li>
-                        <li>Large</li>
-                    </ul>
-                </div>
+
+
+
             </div>
-
-            <br>
-
-            <div class="btn-group pt-1">
-                <div class="dropdown">
-                    <button class="btn btn-outline-dark dropdown-toggle config-dropdown" type="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                        Cut
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li>Blue</li>
-                        <li>Black</li>
-                        <li>Green</li>
-                        <li>Red</li>
-                        <li>White</li>
-                    </ul>
-                </div>
-            </div>
-
-            <br>
-
-            <div class="btn-group pt-1">
-                <div class="dropdown">
-                    <button class="btn btn-outline-dark dropdown-toggle config-dropdown" type="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                        Pattern
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li>Blue</li>
-                        <li>Black</li>
-                        <li>Green</li>
-                        <li>Red</li>
-                        <li>White</li>
-                    </ul>
-                </div>
-            </div>
-            <br>
-            <h1 class="display-6 pt-5">Current Price</h1>
-            <br>
-            <div class="btn-group pt-1">
-                    <button class="btn btn-outline-dark config-dropdown" type="button" aria-expanded="false">
-                        Order now!
-                    </button>
-            </div>
-
 
         </div>
     </div>
