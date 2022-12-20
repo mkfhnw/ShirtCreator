@@ -23,7 +23,7 @@ public class OrderService {
 
     @GetMapping(path = "/api/orders", produces = "application/json")
     public List<Order> getOrders(@RequestParam(required = false) Integer customerId) {
-        if(customerId != null) {
+        if (customerId != null) {
             return orderRepository.findAllByCustomerId(customerId);
         } else {
             return orderRepository.findAll();
@@ -38,17 +38,35 @@ public class OrderService {
         Optional<Customer> customer = customerRepository.findById(m.getCustomerId());
         Optional<Configuration> config = configurationRepository.findById(m.getConfigurationId());
 
-    if (customer.isPresent() && config.isPresent()) {
-        o.setCustomer(customer.get());
-        o.setConfiguration(config.get());
-    }
+        if (customer.isPresent() && config.isPresent()) {
+            o.setCustomer(customer.get());
+            o.setConfiguration(config.get());
+        }
         Order.ShippingMethod sm = Order.ShippingMethod.valueOf(m.getShippingMethod());
         o.setShippingMethod(sm);
         o.setQuantity(m.getQuantity());
+        o.setPrice(); // Berechnet den Preis der Bestellung
 
-        if(orderVerification.validateOrder(o)) {
+        if (orderVerification.validateOrder(o)) {
             orderRepository.save(o);
             return o;
+        } else {
+            return null;
+        }
+    }
+
+    @GetMapping(path = "/api/order/getPrice", produces = "application/json")
+    public Double getOrderPrice(@RequestBody MessageNewOrder m) {
+        Order o = new Order();
+        Optional<Configuration> c = configurationRepository.findById(m.getConfigurationId());
+        if (c.isPresent()) {
+            o.setConfiguration(c.get());
+        }
+        o.setShippingMethod(Order.ShippingMethod.valueOf(m.getShippingMethod()));
+        o.setQuantity(m.getQuantity());
+        if (orderVerification.validateOrder(o)) {
+            o.setPrice(); // Berechnet den Preis der Bestellung
+            return o.getPrice();
         } else {
             return null;
         }

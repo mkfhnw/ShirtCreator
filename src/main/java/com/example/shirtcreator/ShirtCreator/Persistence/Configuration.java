@@ -3,6 +3,9 @@ package com.example.shirtcreator.ShirtCreator.Persistence;
 import jakarta.persistence.*;
 import org.springframework.stereotype.Component;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Entity(name = "tblConfiguration")
 public class Configuration {
     @Id
@@ -17,7 +20,13 @@ public class Configuration {
     private Size size;
     @Enumerated(EnumType.STRING)
     private Pattern pattern;
+    private Double price;
     private boolean deleted;
+
+    public static final double PRICE_ROUND = 15.0;
+    public static final double PRICE_VNECK = 17.0;
+    public static final double PRICE_POLO = 25.0;
+    public static final double PRICE_PATTERN = 10.0;
 
     public enum Cut {
         Round("Round"),VNeck("VNeck"),Polo("Polo");
@@ -80,12 +89,14 @@ public class Configuration {
 
 
     //Constructor(s)
-    public Configuration( Integer id,Cut cut,Color color,Size size,Pattern pattern){
+    public Configuration(Integer id, Cut cut,Color color,Size size,Pattern pattern){
         this.id = id;
         this.cut = cut;
         this.color = color;
         this.size = size;
         this.pattern = pattern;
+        this.deleted = false;
+        this.price = calculateConfigurationPrice();
     }
 
     public Configuration( ) {
@@ -93,14 +104,8 @@ public class Configuration {
     }
 
     //GETTER & SETTER
-    public Integer getConfigurationId( ) {
+    public Integer getId( ) {
         return id;
-    }
-
-    public void setConfigurationId( int configurationId ) {this.id = configurationId;}
-
-    public void setConfigurationId( Integer configurationId ) {
-        this.id = configurationId;
     }
 
     public Cut getCut( ) {
@@ -140,4 +145,33 @@ public class Configuration {
     }
 
     public void setDeleted( boolean deleted ) {this.deleted = deleted;}
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice() {
+        this.price = calculateConfigurationPrice();
+    }
+
+    // Berechnet den Preis einer Konfiguration
+    private Double calculateConfigurationPrice() {
+        Double configurationPrice = 0.0;
+
+        // HashMap für Schnitt-Preise (nach Cut)
+        Map<Cut, Double> basePrices = new HashMap<>();
+        basePrices.put(Cut.Round, PRICE_ROUND);
+        basePrices.put(Cut.VNeck, PRICE_VNECK);
+        basePrices.put(Cut.Polo, PRICE_POLO);
+
+        // Preis für 1 T-Shirt berechnen
+        configurationPrice += basePrices.get(this.cut);
+        if (this.pattern != Pattern.Plain) {
+            configurationPrice += PRICE_PATTERN;
+        }
+
+        return configurationPrice;
+    }
+
+
 }
