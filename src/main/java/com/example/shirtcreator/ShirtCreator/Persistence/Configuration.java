@@ -82,10 +82,10 @@ public class Configuration {
     //Constructor(s)
     public Configuration( Integer id,Cut cut,Color color,Size size,Pattern pattern){
         this.id = id;
-        this.cut = Cut.valueOf(cut.toString());
-        this.color = Color.valueOf(color.toString());
-        this.size = Size.valueOf(size.toString());
-        this.pattern = Pattern.valueOf(pattern.toString());
+        this.cut = cut;
+        this.color = color;
+        this.size = size;
+        this.pattern = pattern;
     }
 
     public Configuration( ) {

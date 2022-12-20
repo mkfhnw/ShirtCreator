@@ -26,7 +26,7 @@ public class ShirtCreatorApplication {
                 for (Configuration.Size size: Configuration.Size.values()) {
                     for (Configuration.Pattern pattern: Configuration.Pattern.values()) {
                         Configuration config = new Configuration(i, cut, color, size, pattern);
-                        configurationRepository.save(config);
+//                        configurationRepository.save(config); TODO: This throws an error, uncomment & execute to see
                         i++;
                     }
                 }
