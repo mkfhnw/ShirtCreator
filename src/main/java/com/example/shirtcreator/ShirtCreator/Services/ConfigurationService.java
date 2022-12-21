@@ -32,24 +32,16 @@ public class ConfigurationService {
     }
 
     @GetMapping(path = "/api/configuration/search", produces = "application/json")
-    public ConfigurationRepository getConfigurationId(@RequestParam(required = false) Map<String, String> requestParams) {
+    public Integer getConfigurationId(@RequestBody MessageGetConfigurationId m) {
 
-        if (!requestParams.containsKey("Cut")
-                || !requestParams.containsKey("Color")
-                || !requestParams.containsKey("Size")
-                || !requestParams.containsKey("Pattern")
-        ) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Configuration not found");
-        }
+        Configuration.Cut cut = Configuration.Cut.valueOf(m.getCut());
+        Configuration.Color color = Configuration.Color.valueOf(m.getColor());
+        Configuration.Size size = Configuration.Size.valueOf(m.getSize());
+        Configuration.Pattern pattern = Configuration.Pattern.valueOf(m.getPattern());
 
-        return configurationRepository;
+        Configuration c = configurationRepository.findConfigurationByCutAndColorAndSizeAndPattern(cut, color, size, pattern);
 
-        /** TODO: fixBug --> return configurationRepository.??
-         TShirt.Cut.valueOf(requestParams.get("Cut")),
-         TShirt.Color.valueOf(requestParams.get("Color")),
-         TShirt.Size.valueOf(requestParams.get("Size")),
-         TShirt.Pattern.valueOf(requestParams.get("Pattern"));
-         */
+        return c.getId();
     }
 
     @DeleteMapping(path = "/api/configuration/{ID}", produces = "application/json")
@@ -61,6 +53,7 @@ public class ConfigurationService {
         configurationRepository.save(c);
         return true;
     }
+
 
     @PutMapping(path = "/api/configuration/{ID}", produces = "application/json")
     public boolean updateConfiguration(@PathVariable Integer id, @RequestBody Configuration configuration) {
@@ -78,7 +71,6 @@ public class ConfigurationService {
         configurationRepository.save(c);
         return true;
     }
-
     @PostMapping(path = "/api/configuration/", produces = "application/json")
     public Configuration createConfiguration(@RequestBody MessageNewConfiguration m) {
         Configuration c = new Configuration();
@@ -92,8 +84,7 @@ public class ConfigurationService {
         c.setColor(color);
         c.setCut(cut);
         c.setPattern(pattern);
-        // Preis der Konfiguration berechnen und setzen
-        c.setPrice(configurationVerification.calculateConfigurationPrice(c));
+        c.setDeleted(false);
 
         configurationRepository.save(c);
 
@@ -116,6 +107,7 @@ public class ConfigurationService {
 
         return configurationVerification.calculateConfigurationPrice(c);
     }
+
 
 
 }
