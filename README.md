@@ -76,6 +76,20 @@ Deadline: Sunday, 15. January 2023, 23:59
     - Response:
         - HTTP 200 if successful
         - HTTP 404 if customer was not found
+- Preis einer Konfiguration anfragen:
+    - URL: http://localhost:8081/api/configuration/getPrice
+    - Method: GET
+    - Response:
+        - HTTP 200 if successful
+        - Response contains the price of the configuration
+        - HTTP 404 if configuration was not found
+- Preis einer Bestellung anfragen:
+    - URL: http://localhost:8081/api/order/getPrice
+    - Method: GET
+    - Response:
+        - HTTP 200 if successful
+        - Response contains the price of the order
+        - HTTP 404 if configuration was not found
 
 ## Benötigte Entitäten
 - Konfiguration:

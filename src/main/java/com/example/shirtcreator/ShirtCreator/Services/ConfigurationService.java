@@ -107,7 +107,11 @@ public class ConfigurationService {
         Configuration.Pattern pattern = Configuration.Pattern.valueOf(m.getPattern());
         Configuration.Color color = Configuration.Color.valueOf(m.getColor());
 
-        // ID beliebig gewählt, da nicht relevant für Preisberechnung
+        /**
+         * ID beliebig gewählt, da nicht relevant für Preisberechnung
+         * Configuration muss auch nicht gesucht/abgefragt werden
+         * Nur Zusammenstellung entscheidend für Preis
+         */
         Configuration c = new Configuration(1, cut, color, size, pattern);
 
         return configurationVerification.calculateConfigurationPrice(c);
