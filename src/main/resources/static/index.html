@@ -33,7 +33,7 @@
 <div class="container-fluid text-center">
     <div class="row">
         <!--Shirt Preview Div-->
-        <div class="col-8" style="background-color: #ECECEC">
+        <div class="col-8" style="background-color: #EEEEEE">
             <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="true">
                 <div class="carousel-inner">
                     <div class="carousel-item active">
@@ -79,22 +79,23 @@
                 </button>
             </div>
         </div>
-        <!--        Control Div-->
-        <div class="col bg-info" style="background-color: white">
+        <!--Control Div-->
+        <div class="col">
             <div class="control-panel">
                 <div class="control-panel-inner">
                     <div class="d-flex justify-content-between">
                         <div class="input-group mb-1">
-                            <label class="input-group-text" for="colorSelect">Color</label>
-                            <select class="form-select d-inline-block" id="colorSelect" aria-label="Default select example">
-                                <option value="1">Red</option>
-                                <option value="2">Green</option>
-                                <option value="3">Blue</option>
-                                <option value="3">Black</option>
-                                <option value="3">White</option>
-                            </select>
+                            <div>
+                                <button type="button" class="btn_white" value="1"></button>
+                                <button type="button" class="btn_black" value="2"></button>
+                                <button type="button" class="btn_red" value="3"></button>
+                                <button type="button" class="btn_blue" value="4"></button>
+                                <button type="button" class="btn_green" value="5"></button>
+                            </div>
                         </div>
-                        <div class="input-group mb-1 ms-2">
+                    </div>
+                        <br>
+                        <div class="input-group mb-1">
                             <label class="input-group-text" for="sizeSelect">Size</label>
                             <select class="form-select d-inline-block" id="sizeSelect" aria-label="Default select example">
                                 <option value="1">Small</option>
@@ -102,7 +103,6 @@
                                 <option value="3">Large</option>
                             </select>
                         </div>
-                    </div>
                     <br>
                     <div class="input-group mb-1">
                         <label class="input-group-text" for="cutSelect">Cut</label>
@@ -121,9 +121,9 @@
                         </select>
                     </div>
                     <hr>
-                    <h6>Current Price</h6>
+                    <h4>Current Price</h4>
                     <hr>
-                    <button type="button" class="btn btn-primary">Order now!</button>
+                    <button type="button" class="btn btn-primary" style="border: 0; background-color: #03857E;"><b>Order now!</b></button>
                 </div>
             </div>
         </div>

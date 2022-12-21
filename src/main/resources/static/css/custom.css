@@ -10,13 +10,63 @@
 .custom-nav {
     background-color: white;
 }
-
+.col{
+    background-color: white;
+}
+.control-panel{
+    background-color: white;
+}
+.btn btn-primary{
+    background-color: #03857E;
+}
+/* buttons for choosing the colour */
+button.btn_white {
+    background-color: #F0F0F0;
+    height: 2vw;
+    width: 2vw;
+    border: 0;
+    border-radius: 50%;
+}
+button.btn_black {
+    background-color: #2B2B2B;
+    height: 2vw;
+    width: 2vw;
+    border: 0;
+    border-radius: 50%;
+}
+button.btn_red {
+    background-color: #7B2C2C;
+    height: 2vw;
+    width: 2vw;
+    border: 0;
+    border-radius: 50%;
+}
+button.btn_blue {
+    background-color: #365670;
+    height: 2vw;
+    width: 2vw;
+    border: 0;
+    border-radius: 50%;
+}
+button.btn_green {
+    background-color: #606A3C;
+    height: 2vw;
+    width: 2vw;
+    border: 0;
+    border-radius: 50%;
+}
+.button.btn btn-primary{
+    background-color: #03857E;
+}
 .carousel-indicators {
     position: absolute;
     border: 0;
 }
 .carousel-indicators .active {
     background-color: #ECECEC;
+}
+carousel-indicators.button{
+    width: 5vw;
 }
 
 .control-panel {
