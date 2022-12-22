@@ -8,6 +8,7 @@ const orderQuantity = 0;
 const orderShippingMethod = "";
 const orderPrice = 0.0;
 const shirt_template = "/T-Shirts/{pattern}/{cut}/Tshirt_{cut}_{color}_{side}_basic.PNG"
+let current_color = "white";
 
 $(document).ready(function () {
 
@@ -37,17 +38,25 @@ $(document).ready(function () {
     const btns_color = document.getElementsByClassName("btn-color");
     Array.from(btns_color).forEach((element) => {
         element.addEventListener("click", (e) => {
-            swap_shirts(e);
+            current_color = e.target.value;
+            swap_shirts();
         })
     })
+
+    // ------------------------------------- Cut & Pattern selectors
+    document.getElementById("cutSelect").addEventListener("change", (e) => {
+        swap_shirts();
+    });
+    document.getElementById("patternSelect").addEventListener("change", (e) => {
+        swap_shirts();
+    });
 
 });
 
 // -------------------------- Custom functions
-function swap_shirts(event) {
+function swap_shirts() {
 
     // Grab control elements
-    let size_select = document.getElementById("sizeSelect");
     let cut_select = document.getElementById("cutSelect");
     let pattern_select = document.getElementById("patternSelect");
 
@@ -63,7 +72,6 @@ function swap_shirts(event) {
     let img_side = [side_view, side_view_thumb]
 
     // Grab all information required to build target string
-    let color = event.target.value;
     let cut = cut_select.options[cut_select.selectedIndex].text.toLowerCase();
     let pattern = pattern_select.options[pattern_select.selectedIndex].text.toLowerCase();
 
@@ -71,19 +79,19 @@ function swap_shirts(event) {
     img_front.forEach((element) => {
         element.src = shirt_template.replace('{pattern}', pattern)
             .replaceAll('{cut}', cut)
-            .replaceAll('{color}', color)
+            .replaceAll('{color}', current_color)
             .replaceAll('{side}', "front")
     })
     img_back.forEach((element) => {
         element.src = shirt_template.replace('{pattern}', pattern)
             .replaceAll('{cut}', cut)
-            .replaceAll('{color}', color)
+            .replaceAll('{color}', current_color)
             .replaceAll('{side}', "back")
     })
     img_side.forEach((element) => {
         element.src = shirt_template.replace('{pattern}', pattern)
             .replaceAll('{cut}', cut)
-            .replaceAll('{color}', color)
+            .replaceAll('{color}', current_color)
             .replaceAll('{side}', "side")
     })
 
