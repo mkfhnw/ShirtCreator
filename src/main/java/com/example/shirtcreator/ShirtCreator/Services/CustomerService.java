@@ -1,5 +1,6 @@
 package com.example.shirtcreator.ShirtCreator.Services;
 
+import com.example.shirtcreator.ShirtCreator.Business.CustomerVerification;
 import com.example.shirtcreator.ShirtCreator.Persistence.Address;
 import com.example.shirtcreator.ShirtCreator.Persistence.AddressRepository;
 import com.example.shirtcreator.ShirtCreator.Persistence.Customer;
@@ -17,6 +18,8 @@ public class CustomerService {
     private CustomerRepository customerRepository;
     @Autowired
     private AddressRepository addressRepository;
+    @Autowired
+    private CustomerVerification customerVerification;
 
     @GetMapping(path = "/api/customer/{id}", produces = "application/json")
     public Customer getCustomer(@PathVariable int id) {
@@ -88,6 +91,11 @@ public class CustomerService {
                                        @RequestParam(required = false) int plz,
                                        @RequestParam(required = false) String location) {
         return customerRepository.findAll();
+    }
+
+    @GetMapping(path = "/api/customer/validateEmail", produces = "application/json")
+    public boolean validateEmail(@RequestBody String email) {
+        return customerVerification.validateEmailAddress(email);
     }
 
 }

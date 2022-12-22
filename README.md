@@ -90,6 +90,12 @@ Deadline: Sunday, 15. January 2023, 23:59
         - HTTP 200 if successful
         - Response contains the price of the order
         - HTTP 404 if configuration was not found
+- Email eines Kunden validieren:
+    - URL: http://localhost:8081/api/customer/validateEmail
+    - Method: GET
+    - Response:
+        - HTTP 200 if successful
+        - Response contains boolean with true or false
 
 ## Benötigte Entitäten
 - Konfiguration:
