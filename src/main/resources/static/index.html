@@ -10,7 +10,7 @@
 </head>
 <body>
 <!-- Top navigation bar -->
-<nav class="navbar navbar-expand-lg navbar-light custom-nav" style="background-color: white";>
+<nav class="navbar navbar-expand-lg navbar-light custom-nav" style="background-color: white" ;>
     <a class="navbar-brand" href="#">
         <img src="/Logo.PNG" class="d-block logo" alt="Website logo"></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
@@ -66,157 +66,169 @@
                 <button type="button" data-mdb-target="#carouselMDExample" data-mdb-slide-to="0" class="active"
                         aria-current="true" aria-label="Slide 1" style="width: 5vw;">
                     <img class="d-block w-100 rounded"
-                         src="/T-Shirts/uni/round_uni/Tshirt_round_white_front_basic.PNG" class="img-fluid" />
+                         src="/T-Shirts/uni/round_uni/Tshirt_round_white_front_basic.PNG" class="img-fluid"/>
                 </button>
                 <button type="button" data-mdb-target="#carouselMDExample" data-mdb-slide-to="1" aria-label="Slide 2"
                         style="width: 5vw;">
                     <img class="d-block w-100 rounded"
-                         src="/T-Shirts/uni/round_uni/Tshirt_round_white_back_basic.PNG" class="img-fluid" />
+                         src="/T-Shirts/uni/round_uni/Tshirt_round_white_back_basic.PNG" class="img-fluid"/>
                 </button>
                 <button type="button" data-mdb-target="#carouselMDExample" data-mdb-slide-to="2" aria-label="Slide 3"
                         style="width: 5vw;">
                     <img class="d-block w-100 rounded"
-                         src="/T-Shirts/uni/round_uni/Tshirt_round_white_side_basic.PNG" class="img-fluid" />
+                         src="/T-Shirts/uni/round_uni/Tshirt_round_white_side_basic.PNG" class="img-fluid"/>
                 </button>
             </div>
         </div>
 
 
         <!--controlDiv-->
-        <div class="col bg-info">
+        <div class="col-4 bg-info">
 
-        <!--Control Div-->
-        <div class="col">
+            <!--Control Div-->
+
             <div class="control-panel">
                 <div class="control-panel-inner">
-                    <div class="d-flex justify-content-between">
-                        <div class="input-group mb-1">
-                            <div>
-                                <label>Color</label>
-                                <button type="button" class="btn_white" value="1"></button>
-                                <button type="button" class="btn_black" value="2"></button>
-                                <button type="button" class="btn_red" value="3"></button>
-                                <button type="button" class="btn_blue" value="4"></button>
-                                <button type="button" class="btn_green" value="5"></button>
+
+                    <div class="configuration-panel">
+                        <div class="d-flex justify-content-between">
+                            <div class="input-group mb-1">
+                                <div>
+                                    <label>Color</label>
+                                    <button type="button" class="btn_white" value="1"></button>
+                                    <button type="button" class="btn_black" value="2"></button>
+                                    <button type="button" class="btn_red" value="3"></button>
+                                    <button type="button" class="btn_blue" value="4"></button>
+                                    <button type="button" class="btn_green" value="5"></button>
+                                </div>
                             </div>
                         </div>
-                    </div>
                         <br>
                         <div class="input-group mb-1">
                             <label class="input-group-text" for="sizeSelect">Size</label>
-                            <select class="form-select d-inline-block" id="sizeSelect" aria-label="Default select example">
+                            <select class="form-select d-inline-block" id="sizeSelect"
+                                    aria-label="Default select example">
                                 <option value="1">Small</option>
                                 <option value="2">Medium</option>
                                 <option value="3">Large</option>
                             </select>
                         </div>
-                    <br>
-                    <div class="input-group mb-1">
-                        <label class="input-group-text" for="cutSelect">Cut</label>
-                        <select class="form-select w-50 d-inline-block" id="cutSelect" aria-label="Default select example">
-                            <option value="1">Round</option>
-                            <option value="2">VNeck</option>
-                            <option value="3">Polo</option>
-                        </select>
-                    </div>
-                    <br>
-                    <div class="input-group mb-1">
-                        <label class="input-group-text" for="patternSelect">Pattern</label>
-                        <select class="form-select w-50 d-inline-block" id="patternSelect" aria-label="Default select example">
-                            <option value="1">Plain</option>
-                            <option value="3">Striped</option>
-                        </select>
-                    </div>
-                    <hr>
-                    <h4>Current Configuration Price</h4>
-                    <hr>
-                    <button type="button" class="btn btn-primary" style="border: 0; background-color: #03857E;"><b>Order now!</b></button>
-                </div>
-
-                <!--orderDetailsDiv-->
-                <div class="control-panel-inner" id="orderDetailsDiv">
-
-                    <form class="row g-3">
-                        <div class="d-flex justify-content-between">
-                            <!--quantity-->
-                            <div class="input-group mb-1 w-25">
-                                <label class="input-group-text" for="inputQuantity">Quantity</label>
-                                <input type="number" step="1" min="1" class="form-control" id="inputQuantity" value="1">
-                            </div>
-                            <!--shippingMethod-->
-                            <div class="input-group mb-1 ms-2 w-75">
-                                <label class="input-group-text" for="selectShippingMethod">Shipping</label>
-                                <select class="form-select d-inline-block" id="selectShippingMethod"
-                                        aria-label="Default select example">
-                                    <option value="1">Economy (Zustellung in 2 Werktagen)</option>
-                                    <option value="2">Priority (Zustellung am nächsten Werktag)</option>
-                                    <option value="3">Express (Zustellung am Folgetag bis 9 Uhr)</option>
-                                </select>
-                            </div>
+                        <br>
+                        <div class="input-group mb-1">
+                            <label class="input-group-text" for="cutSelect">Cut</label>
+                            <select class="form-select w-50 d-inline-block" id="cutSelect"
+                                    aria-label="Default select example">
+                                <option value="1">Round</option>
+                                <option value="2">VNeck</option>
+                                <option value="3">Polo</option>
+                            </select>
+                        </div>
+                        <br>
+                        <div class="input-group mb-1">
+                            <label class="input-group-text" for="patternSelect">Pattern</label>
+                            <select class="form-select w-50 d-inline-block" id="patternSelect"
+                                    aria-label="Default select example">
+                                <option value="1">Plain</option>
+                                <option value="3">Striped</option>
+                            </select>
                         </div>
                         <hr>
-                        <div class="d-flex justify-content-between">
-                            <!--firstName-->
+                        <h4>Current Configuration Price</h4>
+                        <hr>
+                        <button type="button" class="btn btn-primary" style="border: 0; background-color: #03857E;"><b>Order now!</b></button>
+                    </div>
+
+<!--                    Order-Panel-->
+                    <div class="order-panel d-none">
+                        <form class="row g-3">
+                            <div class="d-flex justify-content-between">
+                                <!--quantity-->
+                                <div class="input-group mb-1 w-25">
+                                    <label class="input-group-text" for="inputQuantity">Quantity</label>
+                                    <input type="number" step="1" min="1" class="form-control" id="inputQuantity"
+                                           value="1">
+                                </div>
+                                <!--shippingMethod-->
+                                <div class="input-group mb-1 ms-2 w-75">
+                                    <label class="input-group-text" for="selectShippingMethod">Shipping</label>
+                                    <select class="form-select d-inline-block" id="selectShippingMethod"
+                                            aria-label="Default select example">
+                                        <option value="1">Economy (Zustellung in 2 Werktagen)</option>
+                                        <option value="2">Priority (Zustellung am nächsten Werktag)</option>
+                                        <option value="3">Express (Zustellung am Folgetag bis 9 Uhr)</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="d-flex justify-content-between">
+                                <!--firstName-->
+                                <div class="input-group mb-1">
+                                    <label class="input-group-text" for="inputFirstName">First name</label>
+                                    <input type="text" class="form-control" id="inputFirstName" placeholder="Jane">
+                                </div>
+                                <!--lastName-->
+                                <div class="input-group mb-1 ms-2">
+                                    <label class="input-group-text" for="inputLastName">Last name</label>
+                                    <input type="text" class="form-control" id="inputLastName" placeholder="Doe">
+                                </div>
+                            </div>
+                            <!--street-->
                             <div class="input-group mb-1">
-                                <label class="input-group-text" for="inputFirstName">First name</label>
-                                <input type="text" class="form-control" id="inputFirstName" placeholder="Jane">
+                                <label for="inputStreet" class="input-group-text">Street</label>
+                                <input type="text" class="form-control" id="inputStreet"
+                                       placeholder="Baker Street 221B">
                             </div>
-                            <!--lastName-->
-                            <div class="input-group mb-1 ms-2">
-                                <label class="input-group-text" for="inputLastName">Last name</label>
-                                <input type="text" class="form-control" id="inputLastName" placeholder="Doe">
+                            <div class="d-flex justify-content-between">
+                                <!--plz-->
+                                <div class="input-group mb-1 w-25">
+                                    <label for="inputPlz" class="input-group-text">PLZ</label>
+                                    <input type="text" class="form-control" id="inputPlz" placeholder="4600">
+                                </div>
+                                <!--location-->
+                                <div class="input-group mb-1 ms-2 w-75">
+                                    <label for="inputLocation" class="input-group-text">Location</label>
+                                    <input type="text" class="form-control" id="inputLocation" placeholder="Olten">
+                                </div>
                             </div>
-                        </div>
-                        <!--street-->
-                        <div class="input-group mb-1">
-                            <label for="inputStreet" class="input-group-text">Street</label>
-                            <input type="text" class="form-control" id="inputStreet" placeholder="Baker Street 221B">
-                        </div>
-                        <div class="d-flex justify-content-between">
-                            <!--plz-->
-                            <div class="input-group mb-1 w-25">
-                                <label for="inputPlz" class="input-group-text">PLZ</label>
-                                <input type="text" class="form-control" id="inputPlz" placeholder="4600">
+                            <hr>
+                            <!--email-->
+                            <div class="input-group mb-1">
+                                <label for="inputEmail" class="input-group-text">Email</label>
+                                <input type="email" class="form-control" id="inputEmail">
                             </div>
-                            <!--location-->
-                            <div class="input-group mb-1 ms-2 w-75">
-                                <label for="inputLocation" class="input-group-text">Location</label>
-                                <input type="text" class="form-control" id="inputLocation" placeholder="Olten">
+                            <!--newsletter-->
+                            <!--TODO: Text linksbündig machen-->
+                            <div class="col-12">
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="checkNewsletter">
+                                    <label class="form-check-label" for="checkNewsletter">Sign me up for the
+                                        newsletter!</label>
+                                </div>
                             </div>
-                        </div>
+                            <hr>
+                            <h4>Current Order Price</h4>
+                            <hr>
+                            <!--TODO: Funktionalität Buttons implementieren (JavaScript)-->
+                            <div class="col-12">
+                                <button type="button" class="btn btn-primary" id="btnBack"
+                                        style="border: 0; background-color: #03857E;"><b>Back</b></button>
+                                <button type="submit" class="btn btn-primary" id="btnSubmit"
+                                        style="border: 0; background-color: #03857E;"><b>Submit</b></button>
+                            </div>
+                        </form>
+                    </div>
+
+<!--                    Aftersales-Panel-->
+                    <div class="aftersales-panel d-none">
                         <hr>
-                        <!--email-->
-                        <div class="input-group mb-1">
-                            <label for="inputEmail" class="input-group-text">Email</label>
-                            <input type="email" class="form-control" id="inputEmail">
-                        </div>
-                        <!--newsletter-->
-                        <!--TODO: Text linksbündig machen-->
-                        <div class="col-12">
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" id="checkNewsletter">
-                                <label class="form-check-label" for="checkNewsletter">Sign me up for the
-                                    newsletter!</label>
-                            </div>
-                        </div>
+                        <h4>Thank you!</h4>
                         <hr>
-                        <h4>Current Order Price</h4>
-                        <hr>
-                        <!--TODO: Funktionalität Buttons implementieren (JavaScript)-->
-                        <div class="col-12">
-                            <button type="button" class="btn btn-primary" id="btnBack" style="border: 0; background-color: #03857E;"><b>Back</b></button>
-                            <button type="submit" class="btn btn-primary" id="btnSubmit" style="border: 0; background-color: #03857E;"><b>Submit</b></button>
-                        </div>
-                    </form>
+                        <button type="button" class="btn btn-primary" id="btnNewOrder"
+                                style="border: 0; background-color: #03857E;"><b>Order next shirt</b></button>
+                    </div>
+
                 </div>
 
-                <!--afterSalesDiv-->
-                <div class="control-panel-inner" id="afterSalesDiv">
-                    <hr>
-                    <h4>Thank you!</h4>
-                    <hr>
-                    <button type="button" class="btn btn-primary" id="btnNewOrder" style="border: 0; background-color: #03857E;"><b>Order next shirt</b></button>
-                </div>
             </div>
         </div>
     </div>
