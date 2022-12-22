@@ -19,16 +19,22 @@ public class ConfigurationService {
     @Autowired
     private ConfigurationVerification configurationVerification;
 
-    @GetMapping(path = "/api/configuration/{id}", produces = "application/json")
-    public Configuration getConfiguration(@PathVariable Integer id) {
-        /**
-         Optional<Configuration> o = configurationRepository.findById(id);
-         if (o.isPresent()) {
-         return o;
-         } else {
-         return null;
-         }*/
-        return null;
+    @GetMapping(path = "/api/configuration/{configurationId}", produces = "application/json")
+    public MessageNewConfiguration getConfiguration(@PathVariable int configurationId) {
+        Optional<Configuration> config = configurationRepository.findById(configurationId);
+        if(config.isPresent()){
+            Configuration c = config.get();
+
+            MessageNewConfiguration m = new MessageNewConfiguration();
+            m.setCut(String.valueOf(c.getCut()));
+            m.setPattern(String.valueOf(c.getPattern()));
+            m.setSize(String.valueOf(c.getSize()));
+            m.setColor(String.valueOf(c.getColor()));
+
+            return m;
+
+        }else{ return null; }
+
     }
 
     @GetMapping(path = "/api/configuration/search", produces = "application/json")
@@ -43,8 +49,8 @@ public class ConfigurationService {
 
         return c.getId();
     }
-
-    @DeleteMapping(path = "/api/configuration/{ID}", produces = "application/json")
+    //TODO fix bug, method doesnt work.
+    @DeleteMapping(path = "/api/configuration/{id}", produces = "application/json")
     public boolean deleteConfiguration(@RequestParam Integer id) {
         Configuration c = configurationRepository.getOne(id);
         if (c == null)
@@ -55,7 +61,7 @@ public class ConfigurationService {
     }
 
 
-    @PutMapping(path = "/api/configuration/{ID}", produces = "application/json")
+    @PutMapping(path = "/api/configuration/{id}", produces = "application/json")
     public boolean updateConfiguration(@PathVariable Integer id, @RequestBody Configuration configuration) {
         Configuration c = configurationRepository.getOne(id);
         if (c == null)
@@ -71,7 +77,7 @@ public class ConfigurationService {
         configurationRepository.save(c);
         return true;
     }
-    @PostMapping(path = "/api/configuration/", produces = "application/json")
+    @PostMapping(path = "/api/configuration", produces = "application/json")
     public Configuration createConfiguration(@RequestBody MessageNewConfiguration m) {
         Configuration c = new Configuration();
 
