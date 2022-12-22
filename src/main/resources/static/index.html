@@ -80,6 +80,11 @@
                 </button>
             </div>
         </div>
+
+
+        <!--controlDiv-->
+        <div class="col bg-info">
+
         <!--Control Div-->
         <div class="col">
             <div class="control-panel">
@@ -123,9 +128,94 @@
                         </select>
                     </div>
                     <hr>
-                    <h4>Current Price</h4>
+                    <h4>Current Configuration Price</h4>
                     <hr>
                     <button type="button" class="btn btn-primary" style="border: 0; background-color: #03857E;"><b>Order now!</b></button>
+                </div>
+
+                <!--orderDetailsDiv-->
+                <div class="control-panel-inner" id="orderDetailsDiv">
+
+                    <form class="row g-3">
+                        <div class="d-flex justify-content-between">
+                            <!--quantity-->
+                            <div class="input-group mb-1 w-25">
+                                <label class="input-group-text" for="inputQuantity">Quantity</label>
+                                <input type="number" step="1" min="1" class="form-control" id="inputQuantity" value="1">
+                            </div>
+                            <!--shippingMethod-->
+                            <div class="input-group mb-1 ms-2 w-75">
+                                <label class="input-group-text" for="selectShippingMethod">Shipping</label>
+                                <select class="form-select d-inline-block" id="selectShippingMethod"
+                                        aria-label="Default select example">
+                                    <option value="1">Economy (Zustellung in 2 Werktagen)</option>
+                                    <option value="2">Priority (Zustellung am nächsten Werktag)</option>
+                                    <option value="3">Express (Zustellung am Folgetag bis 9 Uhr)</option>
+                                </select>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="d-flex justify-content-between">
+                            <!--firstName-->
+                            <div class="input-group mb-1">
+                                <label class="input-group-text" for="inputFirstName">First name</label>
+                                <input type="text" class="form-control" id="inputFirstName" placeholder="Jane">
+                            </div>
+                            <!--lastName-->
+                            <div class="input-group mb-1 ms-2">
+                                <label class="input-group-text" for="inputLastName">Last name</label>
+                                <input type="text" class="form-control" id="inputLastName" placeholder="Doe">
+                            </div>
+                        </div>
+                        <!--street-->
+                        <div class="input-group mb-1">
+                            <label for="inputStreet" class="input-group-text">Street</label>
+                            <input type="text" class="form-control" id="inputStreet" placeholder="Baker Street 221B">
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <!--plz-->
+                            <div class="input-group mb-1 w-25">
+                                <label for="inputPlz" class="input-group-text">PLZ</label>
+                                <input type="text" class="form-control" id="inputPlz" placeholder="4600">
+                            </div>
+                            <!--location-->
+                            <div class="input-group mb-1 ms-2 w-75">
+                                <label for="inputLocation" class="input-group-text">Location</label>
+                                <input type="text" class="form-control" id="inputLocation" placeholder="Olten">
+                            </div>
+                        </div>
+                        <hr>
+                        <!--email-->
+                        <div class="input-group mb-1">
+                            <label for="inputEmail" class="input-group-text">Email</label>
+                            <input type="email" class="form-control" id="inputEmail">
+                        </div>
+                        <!--newsletter-->
+                        <!--TODO: Text linksbündig machen-->
+                        <div class="col-12">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" id="checkNewsletter">
+                                <label class="form-check-label" for="checkNewsletter">Sign me up for the
+                                    newsletter!</label>
+                            </div>
+                        </div>
+                        <hr>
+                        <h4>Current Order Price</h4>
+                        <hr>
+                        <!--TODO: Funktionalität Buttons implementieren (JavaScript)-->
+                        <div class="col-12">
+                            <button type="button" class="btn btn-primary" id="btnBack" style="border: 0; background-color: #03857E;"><b>Back</b></button>
+                            <button type="submit" class="btn btn-primary" id="btnSubmit" style="border: 0; background-color: #03857E;"><b>Submit</b></button>
+                        </div>
+                    </form>
+                </div>
+
+                <!--afterSalesDiv-->
+                <div class="control-panel-inner" id="afterSalesDiv">
+                    <hr>
+                    <h4>Thank you!</h4>
+                    <hr>
+                    <button type="button" class="btn btn-primary" id="btnNewOrder" style="border: 0; background-color: #03857E;"><b>Order next shirt</b></button>
                 </div>
             </div>
         </div>
@@ -133,5 +223,6 @@
 </div>
 <script src="/js/bootstrap.bundle.min.js"></script>
 <script src="/js/popper.min.js"></script>
+<script src="/js/main.js"></script>
 </body>
 </html>

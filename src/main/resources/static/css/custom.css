@@ -3,6 +3,7 @@
     display: block;
     margin: auto;
 }
+
 .logo {
     width: 10vw;
 }
@@ -67,6 +68,11 @@ button.btn_green {
 }
 carousel-indicators.button{
     width: 5vw;
+}
+
+/* align label of Switch left -> doesn't work */
+.form-check-label {
+    text-align: left !important;
 }
 
 .control-panel {
