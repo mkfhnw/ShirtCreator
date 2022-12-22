@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 @Entity(name = "tblCustomer")
 public class Customer {
     @Id
-    @GeneratedValue
+    @GeneratedValue (strategy = GenerationType.AUTO)
     private int id;
 
     private String firstName;
@@ -15,6 +15,7 @@ public class Customer {
     private boolean deleted;
 
     @ManyToOne
+    @JoinColumn (name = "address")
     private Address address;
 
     // CONSTRUCTOR

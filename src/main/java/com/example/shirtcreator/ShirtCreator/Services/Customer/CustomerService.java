@@ -1,4 +1,4 @@
-package com.example.shirtcreator.ShirtCreator.Services;
+package com.example.shirtcreator.ShirtCreator.Services.Customer;
 
 import com.example.shirtcreator.ShirtCreator.Business.CustomerVerification;
 import com.example.shirtcreator.ShirtCreator.Persistence.Address;
@@ -22,8 +22,21 @@ public class CustomerService {
     private CustomerVerification customerVerification;
 
     @GetMapping(path = "/api/customer/{id}", produces = "application/json")
-    public Customer getCustomer(@PathVariable int id) {
-        return customerRepository.getOne(id);
+    public MessageNewCustomer getCustomer(@PathVariable int id) {
+        Optional<Customer> c = customerRepository.findById(id);
+        if (c.isPresent()) {
+            Customer customer = c.get();
+
+            MessageNewCustomer m = new MessageNewCustomer();
+            m.setFirstName(customer.getFirstName());
+            m.setLastName(customer.getLastName());
+            m.setEmail(customer.getEmail());
+            m.setAddress(customer.getAddress());
+
+            return m;
+        } else {
+            return null;
+        }
     }
 
     @DeleteMapping(path = "/api/customer/{id}", produces = "application/json")
@@ -58,29 +71,39 @@ public class CustomerService {
                     c.setAddress(addressOptional.get());
                 }
         c.setAddress(customer.getAddress());
-        customerRepository.save(c);
-        return true;
+
+        if (customerVerification.validateEmailAddress(c.getEmail())){
+                customerRepository.save(c);
+            return true;
+            } else {
+            return false;
+        }
     }
 
     @PostMapping(path = "/api/customer/", produces = "application/json")
-    public Customer createCustomer(@RequestBody Customer customer) {
-        String firstName = customer.getFirstName();
-        String lastName = customer.getLastName();
-        String email = customer.getEmail();
+    public Customer createCustomer(@RequestBody MessageNewCustomer m) {
+        String firstName = m.getFirstName();
+        String lastName = m.getLastName();
+        String email = m.getEmail();
 
-        Address address = customer.getAddress();
+        Address address = m.getAddress();
         Optional <Address> addressOptional = addressRepository.findByStreetAndPlzAndLocation(address.getStreet(), address.getPlz(), address.getLocation());
         if (addressOptional.isEmpty()) {
             address = addressRepository.save(address);
         } else {
             address = addressOptional.get();
         }
-        customer.setAddress(address);
+        m.setAddress(address);
 
         Customer c = new Customer(firstName, lastName, email, address);
         c.setDeleted(false);
-        customerRepository.save(c);
-        return c;
+
+        if (customerVerification.validateEmailAddress(c.getEmail())){
+            customerRepository.save(c);
+            return c;
+        } else {
+            return null;
+        }
     }
 
     @GetMapping(path = "/api/customers", produces = "application/json")
