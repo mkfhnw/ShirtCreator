@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" href="/icon_tshirt.png">
+    <link rel="icon" href="/icon_tshirt.PNG">
     <title>TShirt Configurator</title>
     <link href="/css/custom.css" rel="stylesheet">
     <link href="/css/bootstrap.min.css" rel="stylesheet">
@@ -89,7 +89,7 @@
             <div class="control-panel">
                 <div class="control-panel-inner">
 
-                    <div class="configuration-panel">
+                    <div class="configuration-panel" id="configuration-panel">
                         <div class="d-flex justify-content-between">
                             <div class="input-group mb-1">
                                 <div>
@@ -134,11 +134,12 @@
                         <hr>
                         <h4>Current Configuration Price</h4>
                         <hr>
-                        <button type="button" class="btn btn-primary" style="border: 0; background-color: #03857E;"><b>Order now!</b></button>
+                        <button type="button" id="btnOrder" class="btn btn-primary" style="background-color: #03857E;">
+                            <b>Order now!</b></button>
                     </div>
 
-<!--                    Order-Panel-->
-                    <div class="order-panel d-none">
+                    <!--                    Order-Panel-->
+                    <div class="order-panel d-none" id="order-panel">
                         <form class="row g-3">
                             <div class="d-flex justify-content-between">
                                 <!--quantity-->
@@ -211,14 +212,14 @@
                             <div class="col-12">
                                 <button type="button" class="btn btn-primary" id="btnBack"
                                         style="border: 0; background-color: #03857E;"><b>Back</b></button>
-                                <button type="submit" class="btn btn-primary" id="btnSubmit"
+                                <button type="button" class="btn btn-primary" id="btnSubmit"
                                         style="border: 0; background-color: #03857E;"><b>Submit</b></button>
                             </div>
                         </form>
                     </div>
 
-<!--                    Aftersales-Panel-->
-                    <div class="aftersales-panel d-none">
+                    <!--                    Aftersales-Panel-->
+                    <div class="aftersales-panel d-none" id="aftersales-panel">
                         <hr>
                         <h4>Thank you!</h4>
                         <hr>
@@ -231,9 +232,10 @@
         </div>
     </div>
 </div>
-<script src="/js/bootstrap.bundle.min.js"></script>
-<script src="/js/popper.min.js"></script>
+
 <script src="/js/jquery.min.js"></script>
+<script src="/js/popper.min.js"></script>
+<script src="/js/bootstrap.bundle.min.js"></script>
 <script src="/js/main.js"></script>
 </body>
 </html>

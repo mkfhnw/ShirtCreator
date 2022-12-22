@@ -103,3 +103,7 @@ button.btn_green {
     background-color: #5d5e61;
 }
 
+.btn:not(:disabled):not(.disabled) {
+    cursor: pointer;
+}
+
