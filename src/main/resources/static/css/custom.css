@@ -66,8 +66,12 @@ button.btn_green {
 .carousel-indicators .active {
     background-color: #ECECEC;
 }
-carousel-indicators.button{
+.carousel-indicators.button{
     width: 5vw;
+}
+
+.preview-column {
+    background-color: #EEEEEE;
 }
 
 /* align label of Switch left -> doesn't work */
@@ -82,6 +86,7 @@ carousel-indicators.button{
     justify-content: center;
     width: 100%;
     height: 100%;
+    background-color: #5d5e61;
 }
 
 .control-panel-inner {
@@ -91,4 +96,10 @@ carousel-indicators.button{
     border-radius: 1vw;
     margin: 1vw;
     padding: 1vw;
+    background-color: white;
 }
+
+.control-column {
+    background-color: #5d5e61;
+}
+
