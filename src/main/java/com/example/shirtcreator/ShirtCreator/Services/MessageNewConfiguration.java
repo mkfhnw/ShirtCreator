@@ -4,6 +4,8 @@ public class MessageNewConfiguration {
 
     private String cut, pattern, size, color;
 
+    private int configurationId;
+
     public String getCut( ) {
         return cut;
     }
