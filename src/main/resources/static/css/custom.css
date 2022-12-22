@@ -19,6 +19,9 @@
     background-color: #03857E;
 }
 /* buttons for choosing the colour */
+button.btn-color {
+    /* Only used for JS selection */
+}
 button.btn_white {
     background-color: ghostwhite;
     height: 2vw;
