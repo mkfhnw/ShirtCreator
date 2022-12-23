@@ -49,17 +49,6 @@ public class ConfigurationService {
 
         return c.getId();
     }
-    //TODO fix bug, method doesnt work.
-    @DeleteMapping(path = "/api/configuration/{id}", produces = "application/json")
-    public boolean deleteConfiguration(@RequestParam Integer id) {
-        Configuration c = configurationRepository.getOne(id);
-        if (c == null)
-            return false;
-        c.setDeleted(true);
-        configurationRepository.save(c);
-        return true;
-    }
-
 
     @PutMapping(path = "/api/configuration/{id}", produces = "application/json")
     public boolean updateConfiguration(@PathVariable Integer id, @RequestBody Configuration configuration) {
