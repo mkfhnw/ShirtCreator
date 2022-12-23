@@ -114,6 +114,9 @@ public class ConfigurationService {
         return configurationVerification.calculateConfigurationPrice(c);
     }
 
+    // TODO: getPrice with configuration ID
+    // ID der Konfiguration wird zuerst abgefragt, anschliessend kann mit dieser ID direkt der Preis geladen werden
+
 
 
 }

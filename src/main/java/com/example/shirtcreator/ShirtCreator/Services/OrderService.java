@@ -58,8 +58,7 @@ public class OrderService {
 
         if (orderVerification.validateOrder(o)) {
             // Preis der Bestellung berechnen und setzen
-            //o.setPrice(orderVerification.calculateOrderPrice(o));
-            o.setPrice(4.6);
+            o.setPrice(orderVerification.calculateOrderPrice(o));
             orderRepository.save(o);
             return o;
         } else {
