@@ -19,6 +19,13 @@ $(document).ready(function () {
         document.getElementById("order-panel").classList.remove("d-none");
     });
 
+    // Opens login popup window as soon as the button login is clicked
+    document.getElementById("login_button").addEventListener("click", function() {
+        const modal = document.getElementById("modal");
+        modal.style.display = "block";
+    });
+
+
     document.getElementById("btnBack").addEventListener("click", (e) => {
         document.getElementById("order-panel").classList.add("d-none");
         document.getElementById("configuration-panel").classList.remove("d-none");
@@ -32,6 +39,39 @@ $(document).ready(function () {
     document.getElementById("btnNewOrder").addEventListener("click", (e) => {
         document.getElementById("aftersales-panel").classList.add("d-none");
         document.getElementById("configuration-panel").classList.remove("d-none");
+    });
+
+    // Opens the login popup as soon as the login button is clicked
+    document.getElementById("login_button").addEventListener("click", function() {
+        document.getElementById("modal").style.display = "block";
+    });
+
+    // Closes the login popup
+    document.getElementById("close-modal-button").addEventListener("click", function() {
+        document.getElementById("modal").style.display = "none";
+    });
+
+    // Switches between the two tabs login and registration
+    const modalTabs = document.querySelectorAll(".modal-tab");
+
+    modalTabs.forEach(function(modalTab) {
+        modalTab.addEventListener("click", function() {
+            const tab = this.dataset.tab;
+            const tabContent = document.getElementById(tab);
+
+            modalTabs.forEach(function(modalTab) {
+                modalTab.classList.remove("active");
+            });
+
+            this.classList.add("active");
+
+            const modalTabContents = document.querySelectorAll(".modal-tab-content");
+            modalTabContents.forEach(function(modalTabContent) {
+                modalTabContent.classList.remove("active");
+            });
+
+            tabContent.classList.add("active");
+        });
     });
 
     // ------------------------------------- Color buttons
@@ -95,5 +135,46 @@ function swap_shirts() {
             .replaceAll('{side}', "side")
     })
 
+    // ----------------------------------------------- Handles modal (login popup)
+    const openLoginButtons = document.querySelectorAll('[data-modal-target]')
+    const closeLoginButtons = document.querySelectorAll('[data-close-button]')
+    const overlay = document.getElementById('overlay')
 
+    // Opens login popup
+    openLoginButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const modal = document.querySelector(button.dataset.modalTarget)
+            openModal(modal)
+        })
+    })
+
+    // Switches the two tabs registration and login
+    overlay.addEventListener('click', () => {
+        const modals = document.querySelectorAll('.loginModal.active')
+        modals.forEach(modal => {
+            closeModal(modal)
+        })
+    })
+
+    // Closes login popup
+    closeLoginButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const modal = button.closest('.loginModal')
+            closeModal(modal)
+        })
+    })
+
+    function openModal(loginModal) {
+        if (loginModal == null)
+            return
+                loginModal.classList.add('active')
+                overlay.classList.add('active')
+    }
+
+    function closeModal(loginModal) {
+        if (loginModal == null)
+            return
+                loginModal.classList.remove('active')
+                overlay.classList.remove('active')
+    }
 }
