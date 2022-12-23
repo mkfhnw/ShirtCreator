@@ -62,12 +62,19 @@ button.btn_blue {
 button.btn_blue:hover {
     background-color: #5e768a;
 }
+.navbar a:hover{
+    color: #03857E;
+    font-weight: bold;
+}
 button.btn_green {
     background-color: #606A3C;
     height: 2vw;
     width: 2vw;
     border: 0;
     border-radius: 50%;
+}
+.button.btn-outline-success{
+    float: right;
 }
 button.btn_green:hover {
     background-color: #728430;
@@ -123,3 +130,94 @@ button.btn_green:hover {
     cursor: pointer;
 }
 
+/* Modal design */
+#modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 93%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+}
+
+#modal-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50%;
+    height: 50%;
+    background-color: white;
+    display: flex;
+}
+
+@media (max-width: 600px) {
+    #modal-content {
+        width: 90%;
+        height: 90%;
+    }
+}
+
+#modal-left {
+    height: 100%;
+    width: 40%;
+}
+#modal-left img{
+    height: 100%;
+    width: 100%;
+}
+
+#modal-right {
+    width: 80%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+#modal-tabs {
+    display: flex;
+    border-bottom: 1px solid gray;
+}
+
+.modal-tab {
+    flex: 1;
+    border: none;
+    background-color: white;
+    outline: none;
+    cursor: pointer;
+    font-size: 16px;
+    padding: 10px;
+    transition: background-color 0.3s;
+}
+
+.modal-tab.active {
+    background-color: #03857E;
+}
+
+.modal-tab-content {
+    flex: 1;
+    display: none;
+    padding: 20px;
+}
+
+.modal-tab-content.active {
+    display: block;
+}
+
+#close-modal-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    border: none;
+    background-color: transparent;
+    outline: none;
+    cursor: pointer;
+    font-size: 24px;
+    color: gray;
+    transition: color 0.3s;
+}
+
+#close-modal-button:hover {
+    color: black;
+}
