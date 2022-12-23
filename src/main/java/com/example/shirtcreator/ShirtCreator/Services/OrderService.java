@@ -5,6 +5,7 @@ import com.example.shirtcreator.ShirtCreator.Persistence.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,12 +23,21 @@ public class OrderService {
     private OrderVerification orderVerification;
 
     @GetMapping(path = "/api/orders", produces = "application/json")
-    public List<Order> getOrders(@RequestParam(required = false) Integer customerId) {
-        if (customerId != null) {
-            return orderRepository.findAllByCustomerId(customerId);
-        } else {
-            return orderRepository.findAll();
+    public List<MessageOrder> getOrdersForCustomer(@RequestParam Integer customerId) {
+
+        List<Order> orders = orderRepository.findAllByCustomerId(customerId);
+        List<MessageOrder> m = new ArrayList<>();
+        for (Order o : orders) {
+            MessageOrder mo = new MessageOrder();
+            mo.setId(o.getId());
+            mo.setCustomerId(o.getCustomer().getid());
+            mo.setConfigurationId(o.getConfiguration().getId());
+            mo.setQuantity(o.getQuantity());
+            mo.setShippingMethod(o.getShippingMethod().toString());
+            mo.setPrice(o.getPrice());
+            m.add(mo);
         }
+        return m;
     }
 
 
@@ -48,7 +58,8 @@ public class OrderService {
 
         if (orderVerification.validateOrder(o)) {
             // Preis der Bestellung berechnen und setzen
-            o.setPrice(orderVerification.calculateOrderPrice(o));
+            //o.setPrice(orderVerification.calculateOrderPrice(o));
+            o.setPrice(4.6);
             orderRepository.save(o);
             return o;
         } else {
