@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" href="/icon_tshirt.PNG">
-    <title>TShirt Configurator</title>
+    <title>ShirtCreator</title>
     <link href="/css/custom.css" rel="stylesheet">
     <link href="/css/bootstrap.min.css" rel="stylesheet">
 </head>
@@ -18,7 +18,7 @@
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
+        <ul class="navbar-nav ml-auto">
             <li class="nav-item active">
                 <a class="nav-link" href="#">Home</a>
             </li>
@@ -29,8 +29,17 @@
                 <a class="nav-link" href="#">Contact</a>
             </li>
         </ul>
+        <form class="form-inline my-2 my-lg-0">
+            <button type="button" id="login_button" data-modal-target="#modal" class="btn btn-outline-success my-2 my-sm-0" style="float: right";>Login</button>
+        </form>
     </div>
 </nav>
+<!--Configurator-->
+<script src="/js/jquery.min.js"></script>
+
+<script src="/js/popper.min.js"></script>
+<script src="/js/bootstrap.bundle.min.js"></script>
+<script src="/js/main.js"></script>
 <div class="container-fluid text-center">
     <div class="row">
         <!--Shirt Preview Column-->
@@ -135,7 +144,7 @@
                             <b>Order now!</b></button>
                     </div>
 
-                    <!--                    Order-Panel-->
+                    <!--Order-Panel-->
                     <div class="order-panel d-none" id="order-panel">
                         <form class="row g-3">
                             <div class="d-flex justify-content-between">
@@ -228,11 +237,45 @@
             </div>
         </div>
     </div>
-</div>
 
-<script src="/js/jquery.min.js"></script>
-<script src="/js/popper.min.js"></script>
-<script src="/js/bootstrap.bundle.min.js"></script>
-<script src="/js/main.js"></script>
+    <!-- Modal -->
+    <div id="modal">
+        <div id="modal-content">
+            <div id="modal-left">
+                <img src="/Login-picture.PNG" alt="Logo">
+            </div>
+            <div id="modal-right">
+                <div id="modal-tabs">
+                    <button class="modal-tab active" data-tab="login">Login</button>
+                    <button class="modal-tab" data-tab="registration">Registration</button>
+                </div>
+                <div id="login" class="modal-tab-content active">
+                    <div>
+                        <label for="email-login">Email</label>
+                        <input type="email" id="email-login" name="email">
+                    </div>
+                    <div>
+                        <label for="password-login">Password</label>
+                        <input type="password" id="password-login" name="password">
+                    </div>
+                    <button id="login-button">OK</button>
+                </div>
+
+                <div id="registration" class="modal-tab-content">
+                    <div>
+                        <label for="email-registration">Email</label>
+                        <input type="email" id="email-registration" name="email">
+                    </div>
+                    <div>
+                        <label for="password-registration">Password</label>
+                        <input type="password" id="password-registration" name="password">
+                    </div>
+                    <button id="create-account-button">Create Account</button>
+                </div>
+                <button id="close-modal-button">X</button>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>
