@@ -14,6 +14,7 @@ public class Customer {
     private String email;
     private boolean deleted;
 
+    //TODO: Adresse sollte in Customer-Tabelle nur mit ID aufgeführt werden (siehe Order und Configuration)
     @ManyToOne(fetch = FetchType.LAZY)
     private Address address;
 
