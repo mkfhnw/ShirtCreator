@@ -14,8 +14,7 @@ public class Customer {
     private String email;
     private boolean deleted;
 
-    @ManyToOne
-    @JoinColumn (name = "address")
+    @ManyToOne(fetch = FetchType.LAZY)
     private Address address;
 
     // CONSTRUCTOR
