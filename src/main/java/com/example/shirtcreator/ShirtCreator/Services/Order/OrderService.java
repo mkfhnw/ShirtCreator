@@ -103,8 +103,10 @@ public class OrderService {
         Optional<OrderItem> oi = itemRepository.findById(itemId);
         if (or.isPresent() && oi.isPresent()) {
             Order o = or.get();
+            OrderItem ori = oi.get();
             o.getItems().remove(oi.get());
             o.setPrice(orderVerification.calculateOrderPrice(o));
+            itemRepository.delete(ori);
             orderRepository.save(o);
             return true;
         } else {
