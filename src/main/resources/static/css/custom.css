@@ -192,7 +192,8 @@ button.btn_green:hover {
 }
 
 .modal-tab.active {
-    background-color: #03857E;
+    background-color: #444547;
+    color: white;
 }
 
 .modal-tab-content {
@@ -221,3 +222,30 @@ button.btn_green:hover {
 #close-modal-button:hover {
     color: black;
 }
+.image-email-icon {
+    width: 2vw;
+    height: 2vw;
+}
+.email-icon,
+.password-icon {
+    width: 2vw;
+    height: 2vw;
+}
+#create-account-button {
+    background-color: #03857E;
+    border: 0;
+    color: white;
+    width: 7vw;
+    height: 2vw;
+    border-radius: 0.25vw;
+}
+#ok {
+    background-color: #03857E;
+    border: 0;
+    color: white;
+    width: 5vw;
+    height: 3vw;
+}
+
+
+

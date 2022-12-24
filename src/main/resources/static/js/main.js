@@ -74,6 +74,31 @@ $(document).ready(function () {
         });
     });
 
+    // ---------------------------------------- Handle login popup
+
+    // Get the login and registration tabs and tab content elements
+    const loginTab = document.querySelector('[data-tab="login"]');
+    const registrationTab = document.querySelector('[data-tab="registration"]');
+    const registrationDetails = document.querySelector('#registrationDetails');
+    const registrationDetails2 = document.querySelector('#email-password-registration');
+    const loginTabContent = document.querySelector('#login');
+    const registrationTabContent = document.querySelector('#registration');
+
+    // Add click event listeners to the tab login (none = hidden / block = shown)
+    loginTab.addEventListener('click', (e) => {
+        registrationTabContent.style.display = 'none';
+        registrationDetails.style.display = 'none';
+        registrationDetails2.style.display = 'none';
+        loginTabContent.style.display = 'block';
+    });
+    // Add click event listeners to the tab registration (none = hidden / block = shown)
+    registrationTab.addEventListener('click', (e) => {
+        loginTabContent.style.display = 'none';
+        registrationTabContent.style.display = 'block';
+        registrationDetails.style.display = 'block';
+        registrationDetails2.style.display = 'block';
+    });
+
     // ------------------------------------- Color buttons
     const btns_color = document.getElementsByClassName("btn-color");
     Array.from(btns_color).forEach((element) => {
@@ -177,4 +202,6 @@ function swap_shirts() {
                 loginModal.classList.remove('active')
                 overlay.classList.remove('active')
     }
+
+
 }
