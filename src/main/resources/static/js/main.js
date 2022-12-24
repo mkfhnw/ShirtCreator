@@ -19,13 +19,6 @@ $(document).ready(function () {
         document.getElementById("order-panel").classList.remove("d-none");
     });
 
-    // Opens login popup window as soon as the button login is clicked
-    document.getElementById("login_button").addEventListener("click", function() {
-        const modal = document.getElementById("modal");
-        modal.style.display = "block";
-    });
-
-
     document.getElementById("btnBack").addEventListener("click", (e) => {
         document.getElementById("order-panel").classList.add("d-none");
         document.getElementById("configuration-panel").classList.remove("d-none");
@@ -41,34 +34,28 @@ $(document).ready(function () {
         document.getElementById("configuration-panel").classList.remove("d-none");
     });
 
-    // As soon as the "home" button in navigation is clicked, the user will see the homepage (route) again
-    document.getElementById("home-link").addEventListener("click", (e)=> {
-        window.location = "index.html";
+    // ------------------------------------- Color buttons
+    const btns_color = document.getElementsByClassName("btn-color");
+    Array.from(btns_color).forEach((element) => {
+        element.addEventListener("click", (e) => {
+            current_color = e.target.value;
+            swap_shirts();
+        })
+    })
+
+    // ------------------------------------- Cut & Pattern selectors
+    document.getElementById("cutSelect").addEventListener("change", (e) => {
+        swap_shirts();
+    });
+    document.getElementById("patternSelect").addEventListener("change", (e) => {
+        swap_shirts();
     });
 
-    // Opens Contact landingpage contact as soon as Contact on the navigation bar is clicked
-    const contactLink = document.getElementById('contact-link');
-    contactLink.addEventListener('click', function(event) {
-        // prevent the default link behavior (navigating to a new page)
-        event.preventDefault();
-        window.location.href = 'contact.html';
-    });
-
-    // Deletes all inputs as soon as the send button is clicked
-    document.getElementById('myform').addEventListener('submit', function(event) {
-        event.preventDefault(); // prevent the form from being submitted
-
-        // clear the input fields
-        document.getElementById('name').value = '';
-        document.getElementById('subject').value = '';
-        document.getElementById('phone').value = '';
-        document.getElementById('email').value = '';
-        document.getElementById('message').value = '';
-    });
-
-    // Opens the login popup as soon as the login button is clicked
+    // -------------------------------------- Handle landingpages
+    // Opens login popup as soon as the button login is clicked
     document.getElementById("login_button").addEventListener("click", function() {
-        document.getElementById("modal").style.display = "block";
+        const modal = document.getElementById("modal");
+        modal.style.display = "block";
     });
 
     // Closes the login popup
@@ -99,9 +86,7 @@ $(document).ready(function () {
         });
     });
 
-    // ---------------------------------------- Handle login popup
-
-    // Get the login and registration tabs and tab content elements
+    // Content handling
     const loginTab = document.querySelector('[data-tab="login"]');
     const registrationTab = document.querySelector('[data-tab="registration"]');
     const registrationDetails = document.querySelector('#registrationDetails');
@@ -124,21 +109,24 @@ $(document).ready(function () {
         registrationDetails2.style.display = 'block';
     });
 
-    // ------------------------------------- Color buttons
-    const btns_color = document.getElementsByClassName("btn-color");
-    Array.from(btns_color).forEach((element) => {
-        element.addEventListener("click", (e) => {
-            current_color = e.target.value;
-            swap_shirts();
-        })
-    })
-
-    // ------------------------------------- Cut & Pattern selectors
-    document.getElementById("cutSelect").addEventListener("change", (e) => {
-        swap_shirts();
+    // ROUTE: Opens Contact landingpage contact as soon as Contact on the navigation bar is clicked
+    const contactLink = document.getElementById('contact-link');
+    contactLink.addEventListener('click', function(event) {
+        // prevent the default link behavior (navigating to a new page)
+        event.preventDefault();
+        window.location.href = 'contact.html';
     });
-    document.getElementById("patternSelect").addEventListener("change", (e) => {
-        swap_shirts();
+
+    // CONTACT: Deletes all inputs as soon as the send button is clicked
+    document.getElementById('myform').addEventListener('submit', function(event) {
+        event.preventDefault(); // prevent the form from being submitted
+
+        // clear the input fields
+        document.getElementById('name').value = '';
+        document.getElementById('subject').value = '';
+        document.getElementById('phone').value = '';
+        document.getElementById('email').value = '';
+        document.getElementById('message').value = '';
     });
 
 });
@@ -184,49 +172,6 @@ function swap_shirts() {
             .replaceAll('{color}', current_color)
             .replaceAll('{side}', "side")
     })
-
-    // ----------------------------------------------- Handles modal (login popup)
-    const openLoginButtons = document.querySelectorAll('[data-modal-target]')
-    const closeLoginButtons = document.querySelectorAll('[data-close-button]')
-    const overlay = document.getElementById('overlay')
-
-    // Opens login popup
-    openLoginButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            const modal = document.querySelector(button.dataset.modalTarget)
-            openModal(modal)
-        })
-    })
-
-    // Switches the two tabs registration and login
-    overlay.addEventListener('click', () => {
-        const modals = document.querySelectorAll('.loginModal.active')
-        modals.forEach(modal => {
-            closeModal(modal)
-        })
-    })
-
-    // Closes login popup
-    closeLoginButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            const modal = button.closest('.loginModal')
-            closeModal(modal)
-        })
-    })
-
-    function openModal(loginModal) {
-        if (loginModal == null)
-            return
-                loginModal.classList.add('active')
-                overlay.classList.add('active')
-    }
-
-    function closeModal(loginModal) {
-        if (loginModal == null)
-            return
-                loginModal.classList.remove('active')
-                overlay.classList.remove('active')
-    }
 
 
 }

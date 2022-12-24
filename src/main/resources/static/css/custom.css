@@ -130,7 +130,7 @@ button.btn_green:hover {
     cursor: pointer;
 }
 
-/* Modal design */
+/* ---------------------------------Modal design -------------------------*/
 #modal {
     position: fixed;
     top: 0;
