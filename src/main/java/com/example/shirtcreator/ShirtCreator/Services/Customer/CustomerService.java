@@ -22,18 +22,10 @@ public class CustomerService {
     private CustomerVerification customerVerification;
 
     @GetMapping(path = "/api/customer/{id}", produces = "application/json")
-    public MessageNewCustomer getCustomer(@PathVariable int id) {
+    public Customer getCustomer(@PathVariable int id) {
         Optional<Customer> c = customerRepository.findById(id);
         if (c.isPresent()) {
-            Customer customer = c.get();
-
-            MessageNewCustomer m = new MessageNewCustomer();
-            m.setFirstName(customer.getFirstName());
-            m.setLastName(customer.getLastName());
-            m.setEmail(customer.getEmail());
-            m.setAddress(customer.getAddress());
-
-            return m;
+            return c.get();
         } else {
             return null;
         }
@@ -50,32 +42,32 @@ public class CustomerService {
     }
 
     @PutMapping(path = "/api/customer/{id}", produces = "application/json")
-    public boolean updateCustomer(@PathVariable int id, @RequestBody Customer customer) {
+    public boolean updateCustomer(@PathVariable int id, @RequestBody MessageNewCustomer m) {
         Customer c = customerRepository.getOne(id);
         if (c == null)
             return false;
-        c.setFirstName(customer.getFirstName());
-        c.setLastName(customer.getLastName());
-        c.setEmail(customer.getEmail());
+        c.setFirstName(m.getFirstName());
+        c.setLastName(m.getLastName());
+        c.setEmail(m.getEmail());
 
         Optional<Address> addressOptional = addressRepository.findByStreetAndPlzAndLocation(c.getAddress().getStreet(), c.getAddress().getPlz(), c.getAddress().getLocation());
-                if(addressOptional.isEmpty()){
-                    Address address = new Address();
-                    address.setStreet(c.getAddress().getStreet());
-                    address.setPlz(c.getAddress().getPlz());
-                    address.setLocation(c.getAddress().getLocation());
+        if (addressOptional.isEmpty()) {
+            Address address = new Address();
+            address.setStreet(c.getAddress().getStreet());
+            address.setPlz(c.getAddress().getPlz());
+            address.setLocation(c.getAddress().getLocation());
 
-                    address = addressRepository.save(address);
-                    c.setAddress(address);
-                } else {
-                    c.setAddress(addressOptional.get());
-                }
-        c.setAddress(customer.getAddress());
+            address = addressRepository.save(address);
+            c.setAddress(address);
+        } else {
+            c.setAddress(addressOptional.get());
+        }
+        c.setAddress(m.getAddress());
 
-        if (customerVerification.validateEmailAddress(c.getEmail())){
-                customerRepository.save(c);
+        if (customerVerification.validateEmailAddress(c.getEmail())) {
+            customerRepository.save(c);
             return true;
-            } else {
+        } else {
             return false;
         }
     }
@@ -87,7 +79,7 @@ public class CustomerService {
         String email = m.getEmail();
 
         Address address = m.getAddress();
-        Optional <Address> addressOptional = addressRepository.findByStreetAndPlzAndLocation(address.getStreet(), address.getPlz(), address.getLocation());
+        Optional<Address> addressOptional = addressRepository.findByStreetAndPlzAndLocation(address.getStreet(), address.getPlz(), address.getLocation());
         if (addressOptional.isEmpty()) {
             address = addressRepository.save(address);
         } else {
@@ -98,7 +90,7 @@ public class CustomerService {
         Customer c = new Customer(firstName, lastName, email, address);
         c.setDeleted(false);
 
-        if (customerVerification.validateEmailAddress(c.getEmail())){
+        if (customerVerification.validateEmailAddress(c.getEmail())) {
             customerRepository.save(c);
             return c;
         } else {

@@ -7,8 +7,5 @@ import java.util.List;
 
 @Repository
 public interface ConfigurationRepository extends JpaRepository <Configuration, Integer> {
-    //List<Configuration> findAllbyId( Integer id );
-
     Configuration findConfigurationByCutAndColorAndSizeAndPattern(Configuration.Cut cut, Configuration.Color color, Configuration.Size size, Configuration.Pattern pattern);
-
 }
