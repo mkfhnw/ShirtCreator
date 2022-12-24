@@ -139,6 +139,7 @@ button.btn_green:hover {
     height: 93%;
     background-color: rgba(0, 0, 0, 0.5);
     display: none;
+    border-radius: 2vw;
 }
 
 #modal-content {
@@ -156,6 +157,7 @@ button.btn_green:hover {
     #modal-content {
         width: 90%;
         height: 90%;
+        border-radius: 2vw;
     }
 }
 
@@ -247,5 +249,6 @@ button.btn_green:hover {
     height: 3vw;
 }
 
+/* Contact customizing */
 
 

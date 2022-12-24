@@ -41,6 +41,14 @@ $(document).ready(function () {
         document.getElementById("configuration-panel").classList.remove("d-none");
     });
 
+    // Opens Contact landingpage contact as soon as Contact on the navigation bar is clicked
+    const contactLink = document.getElementById('contact-link');
+    contactLink.addEventListener('click', function(event) {
+        // prevent the default link behavior (navigating to a new page)
+        event.preventDefault();
+        window.location.href = 'contact.html';
+    });
+
     // Opens the login popup as soon as the login button is clicked
     document.getElementById("login_button").addEventListener("click", function() {
         document.getElementById("modal").style.display = "block";
