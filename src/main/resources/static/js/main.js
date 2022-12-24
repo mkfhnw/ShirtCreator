@@ -41,12 +41,29 @@ $(document).ready(function () {
         document.getElementById("configuration-panel").classList.remove("d-none");
     });
 
+    // As soon as the "home" button in navigation is clicked, the user will see the homepage (route) again
+    document.getElementById("home-link").addEventListener("click", function() {
+        window.location = "index.html";
+    });
+
     // Opens Contact landingpage contact as soon as Contact on the navigation bar is clicked
     const contactLink = document.getElementById('contact-link');
     contactLink.addEventListener('click', function(event) {
         // prevent the default link behavior (navigating to a new page)
         event.preventDefault();
         window.location.href = 'contact.html';
+    });
+
+    // Deletes all inputs as soon as the send button is clicked
+    document.getElementById('myform').addEventListener('submit', function(event) {
+        event.preventDefault(); // prevent the form from being submitted
+
+        // clear the input fields
+        document.getElementById('name').value = '';
+        document.getElementById('subject').value = '';
+        document.getElementById('phone').value = '';
+        document.getElementById('email').value = '';
+        document.getElementById('message').value = '';
     });
 
     // Opens the login popup as soon as the login button is clicked
