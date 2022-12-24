@@ -6,8 +6,7 @@
 	- Bestelldatum (Date orderDate --> inkl. Getter and Setter!)
 	- Quantity Order neu = Summe aus Quantities der Items
 - **Item (neu)**:
-	- Attribute: configuration, quantity (inkl. Getter and Setter!)
-	- braucht keine id, muss aber mit Configuration-Id verknüpft werden
+	- Attribute: orderItemId,configuration, quantity (inkl. Getter and Setter!)
 
 ## Message-Klassen
 - MessageOrderItem: configuration, quantity

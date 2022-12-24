@@ -3,7 +3,9 @@ package com.example.shirtcreator.ShirtCreator.Persistence;
 
 import jakarta.persistence.*;
 
-
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 @Entity(name = "tblOrder")
 public class Order {
@@ -22,6 +24,8 @@ public class Order {
     private ShippingMethod shippingMethod;
     private Double price;
 
+    Date orderDate;
+
     // CONSTRUCTOR
     public Order(Customer customer, Configuration configuration, int quantity, ShippingMethod shippingMethod) {
         this.customer = customer;
@@ -29,10 +33,13 @@ public class Order {
         this.quantity = quantity;
         this.shippingMethod = shippingMethod;
         this.price = 0.0;
+        this.orderDate = orderDate;
     }
 
     public Order() {
     }
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    List<OrderItem> orderItems = new ArrayList<>();
 
     // ENUM SHIPPING METHOD
     public enum ShippingMethod {
@@ -94,4 +101,15 @@ public class Order {
         this.price = price;
     }
 
+    public Date getOrderDate( ) {
+        return orderDate;
+    }
+
+    public List<OrderItem> getOrderItems( ) {
+        return orderItems;
+    }
+
+    public void setOrderItems( List<OrderItem> orderItems ) {
+        this.orderItems = orderItems;
+    }
 }
