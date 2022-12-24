@@ -2,37 +2,39 @@ package com.example.shirtcreator.ShirtCreator.Persistence;
 
 import jakarta.persistence.*;
 
-@Entity
+@Entity(name = "tblOrderItem")
 public class OrderItem {
-@Id
-@GeneratedValue
-private int orderItemId;
-private int quantity;
 
-@ManyToOne
-private Configuration configuration;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;
 
-    public int getOrderItemId( ) {
-        return orderItemId;
+    @OneToOne(fetch = FetchType.LAZY)
+    private Configuration configuration;
+    private int quantity;
+
+    // CONSTRUCTOR
+    public OrderItem() {
+
     }
 
-    public void setOrderItemId( int orderItemId ) {
-        this.orderItemId = orderItemId;
+    public Integer getId() {
+        return id;
     }
 
-    public int getQuantity( ) {
-        return quantity;
-    }
-
-    public void setQuantity( int quantity ) {
-        this.quantity = quantity;
-    }
-
-    public Configuration getConfiguration( ) {
+    public Configuration getConfiguration() {
         return configuration;
     }
 
-    public void setConfiguration( Configuration configuration ) {
+    public void setConfiguration(Configuration configuration) {
         this.configuration = configuration;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 }

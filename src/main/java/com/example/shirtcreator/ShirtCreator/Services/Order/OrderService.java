@@ -18,69 +18,115 @@ public class OrderService {
     private CustomerRepository customerRepository;
     @Autowired
     private ConfigurationRepository configurationRepository;
+    @Autowired
+    private ItemRepository itemRepository;
 
     @Autowired
     private OrderVerification orderVerification;
 
     @GetMapping(path = "/api/orders", produces = "application/json")
-    public List<MessageOrder> getOrdersForCustomer(@RequestParam Integer customerId) {
-
+    public List<MessageOrderShort> getOrdersForCustomer(@RequestParam Integer customerId) {
         List<Order> orders = orderRepository.findAllByCustomerId(customerId);
-        List<MessageOrder> m = new ArrayList<>();
+        List<MessageOrderShort> m = new ArrayList<>();
         for (Order o : orders) {
-            MessageOrder mo = new MessageOrder();
-            mo.setId(o.getId());
-            mo.setCustomerId(o.getCustomer().getid());
-            mo.setConfigurationId(o.getConfiguration().getId());
-            mo.setQuantity(o.getQuantity());
-            mo.setShippingMethod(o.getShippingMethod().toString());
-            mo.setPrice(o.getPrice());
-            m.add(mo);
+            MessageOrderShort mos = new MessageOrderShort();
+            mos.setOrderId(o.getId());
+            mos.setCustomerId(o.getCustomer().getid());
+            mos.setOrderDate(o.getOrderDate());
+            mos.setTotalQuantity(o.getTotalQuantity());
+            mos.setShippingMethod(o.getShippingMethod().toString());
+            mos.setPrice(o.getPrice());
+            m.add(mos);
         }
         return m;
     }
 
-
     @PostMapping(path = "/api/order/", produces = "application/json")
-    public Order createOrder(@RequestBody MessageNewOrder m) {
+    public Integer createOrder(@RequestBody MessageNewOrder m) {
         Order o = new Order();
-
         Optional<Customer> customer = customerRepository.findById(m.getCustomerId());
-        Optional<Configuration> config = configurationRepository.findById(m.getConfigurationId());
 
-        if (customer.isPresent() && config.isPresent()) {
+        if (customer.isPresent()) {
             o.setCustomer(customer.get());
-            o.setConfiguration(config.get());
         }
-        Order.ShippingMethod sm = Order.ShippingMethod.valueOf(m.getShippingMethod());
-        o.setShippingMethod(sm);
-        o.setQuantity(m.getQuantity());
+        o.setOrderDate(m.getOrderDate());
 
-        if (orderVerification.validateOrder(o)) {
-            // Preis der Bestellung berechnen und setzen
+        o = orderRepository.save(o);
+        return o.getId();
+    }
+
+    @GetMapping(path = "/api/order/{id}", produces = "application/json")
+    public MessageOrderDetails getOrder(@PathVariable Integer orderId) {
+        Optional<Order> or = orderRepository.findById(orderId);
+        if (or.isPresent()) {
+            Order o = or.get();
+            MessageOrderDetails m = new MessageOrderDetails();
+            m.setOrderId(o.getId());
+            m.setCustomerId(o.getCustomer().getid());
+            m.setOrderDate(o.getOrderDate());
+            m.setTotalQuantity(o.getTotalQuantity());
+            m.setShippingMethod(o.getShippingMethod().toString());
+            m.setPrice(orderVerification.calculateOrderPrice(o));
+            for (OrderItem oi : o.getItems()) {
+                MessageOrderItem moi = new MessageOrderItem();
+                moi.setQuantity(oi.getQuantity());
+                moi.setConfigurationId(oi.getConfiguration().getId());
+                m.getItems().add(moi);
+            }
+            return m;
+        } else {
+            return null;
+        }
+    }
+
+    @PutMapping(path = "/api/order/{id}/addItem", produces = "application/json")
+    public boolean addItemToOrder(@PathVariable int orderId, @RequestBody MessageAddItemToOrder m) {
+        Optional<Order> or = orderRepository.findById(orderId);
+        if (or.isPresent()) {
+            OrderItem oi = new OrderItem();
+            oi.setQuantity(m.getQuantity());
+            oi.setConfiguration(configurationRepository.getOne(m.getConfigurationId()));
+            Order o = or.get();
+            o.getItems().add(oi);
+            o.setPrice(orderVerification.calculateOrderPrice(o));
+            itemRepository.save(oi);
+            orderRepository.save(o);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    @PutMapping(path = "/api/order/{orderId}/deleteItem/{itemId}", produces = "application/json")
+    public boolean deleteItemFromOrder(@PathVariable int orderId, @PathVariable int itemId) {
+        Optional<Order> or = orderRepository.findById(orderId);
+        Optional<OrderItem> oi = itemRepository.findById(itemId);
+        if (or.isPresent() && oi.isPresent()) {
+            Order o = or.get();
+            o.getItems().remove(oi.get());
             o.setPrice(orderVerification.calculateOrderPrice(o));
             orderRepository.save(o);
-            return o;
+            return true;
         } else {
-            return null;
+            return false;
         }
     }
 
-    @GetMapping(path = "/api/order/getPrice", produces = "application/json")
-    public Double getOrderPrice(@RequestBody MessageNewOrder m) {
-        Order o = new Order();
-        Optional<Configuration> c = configurationRepository.findById(m.getConfigurationId());
-        if (c.isPresent()) {
-            o.setConfiguration(c.get());
-        }
-        o.setShippingMethod(Order.ShippingMethod.valueOf(m.getShippingMethod()));
-        o.setQuantity(m.getQuantity());
-        if (orderVerification.validateOrder(o)) {
-            // Preis der Bestellung berechnen und zurückgeben
-            return orderVerification.calculateOrderPrice(o);
-        } else {
-            return null;
-        }
-    }
+//    @GetMapping(path = "/api/order/getPrice", produces = "application/json")
+//    public Double getOrderPrice(@RequestBody MessageOrder m) {
+//        Order o = new Order();
+//        Optional<Configuration> c = configurationRepository.findById(m.getConfigurationId());
+//        if (c.isPresent()) {
+//            o.setConfiguration(c.get());
+//        }
+//        o.setShippingMethod(Order.ShippingMethod.valueOf(m.getShippingMethod()));
+//        o.setTotalQuantity(m.getTotalQuantity());
+//        if (orderVerification.validateOrder(o)) {
+//            // Preis der Bestellung berechnen und zurückgeben
+//            return orderVerification.calculateOrderPrice(o);
+//        } else {
+//            return null;
+//        }
+//    }
 
 }

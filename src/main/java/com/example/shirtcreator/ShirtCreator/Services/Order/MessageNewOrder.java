@@ -1,9 +1,12 @@
 package com.example.shirtcreator.ShirtCreator.Services.Order;
 
+import java.util.Date;
+
 public class MessageNewOrder {
     private Integer customerId;
     private Integer configurationId;
     private Integer quantity;
+    private Date orderDate;
 
     private String shippingMethod;
 
@@ -37,5 +40,13 @@ public class MessageNewOrder {
 
     public void setQuantity(Integer quantity) {
         this.quantity = quantity;
+    }
+
+    public Date getOrderDate() {
+        return orderDate;
+    }
+
+    public void setOrderDate(Date orderDate) {
+        this.orderDate = orderDate;
     }
 }
