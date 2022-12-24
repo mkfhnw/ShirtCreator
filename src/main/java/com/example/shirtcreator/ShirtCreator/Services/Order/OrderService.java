@@ -19,8 +19,7 @@ public class OrderService {
     @Autowired
     private ConfigurationRepository configurationRepository;
     @Autowired
-    private ItemRepository itemRepository;
-
+    private OrderItemRepository orderItemRepository;
     @Autowired
     private OrderVerification orderVerification;
 
@@ -89,7 +88,7 @@ public class OrderService {
             Order o = or.get();
             o.getItems().add(oi);
             o.setPrice(orderVerification.calculateOrderPrice(o));
-            itemRepository.save(oi);
+            orderItemRepository.save(oi);
             orderRepository.save(o);
             return true;
         } else {
@@ -100,13 +99,13 @@ public class OrderService {
     @PutMapping(path = "/api/order/{orderId}/deleteItem/{itemId}", produces = "application/json")
     public boolean deleteItemFromOrder(@PathVariable int orderId, @PathVariable int itemId) {
         Optional<Order> or = orderRepository.findById(orderId);
-        Optional<OrderItem> oi = itemRepository.findById(itemId);
+        Optional<OrderItem> oi = orderItemRepository.findById(itemId);
         if (or.isPresent() && oi.isPresent()) {
             Order o = or.get();
             OrderItem ori = oi.get();
             o.getItems().remove(oi.get());
             o.setPrice(orderVerification.calculateOrderPrice(o));
-            itemRepository.delete(ori);
+            orderItemRepository.delete(ori);
             orderRepository.save(o);
             return true;
         } else {

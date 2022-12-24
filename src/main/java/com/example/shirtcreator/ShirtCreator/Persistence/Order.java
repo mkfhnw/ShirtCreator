@@ -20,10 +20,14 @@ public class Order {
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Customer customer;
+
     private int totalQuantity = 0;
+
     @Enumerated(EnumType.STRING)
     private ShippingMethod shippingMethod;
+
     private Double price;
+
     private Date orderDate;
 
     // CONSTRUCTOR
