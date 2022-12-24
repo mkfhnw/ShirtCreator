@@ -42,7 +42,7 @@ $(document).ready(function () {
     });
 
     // As soon as the "home" button in navigation is clicked, the user will see the homepage (route) again
-    document.getElementById("home-link").addEventListener("click", function() {
+    document.getElementById("home-link").addEventListener("click", (e)=> {
         window.location = "index.html";
     });
 
