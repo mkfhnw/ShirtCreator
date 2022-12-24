@@ -50,42 +50,6 @@ public class ConfigurationService {
         return c.getId();
     }
 
-    @PutMapping(path = "/api/configuration/{id}", produces = "application/json")
-    public boolean updateConfiguration(@PathVariable Integer id, @RequestBody Configuration configuration) {
-        Configuration c = configurationRepository.getOne(id);
-        if (c == null)
-            return false;
-
-        c.setSize(configuration.getSize());
-        c.setColor(configuration.getColor());
-        c.setCut(configuration.getCut());
-        c.setPattern(configuration.getPattern());
-        // Preis der Konfiguration berechnen und setzen
-        c.setPrice(configurationVerification.calculateConfigurationPrice(c));
-
-        configurationRepository.save(c);
-        return true;
-    }
-    @PostMapping(path = "/api/configuration", produces = "application/json")
-    public Configuration createConfiguration(@RequestBody MessageNewConfiguration m) {
-        Configuration c = new Configuration();
-
-        Configuration.Cut cut = Configuration.Cut.valueOf(m.getCut());
-        Configuration.Size size = Configuration.Size.valueOf(m.getSize());
-        Configuration.Pattern pattern = Configuration.Pattern.valueOf(m.getPattern());
-        Configuration.Color color = Configuration.Color.valueOf(m.getColor());
-
-        c.setSize(size);
-        c.setColor(color);
-        c.setCut(cut);
-        c.setPattern(pattern);
-        c.setDeleted(false);
-
-        configurationRepository.save(c);
-
-        return null;
-    }
-
     @PostMapping(path = "/api/configuration/getPrice", produces = "application/json")
     public Double getConfigurationPrice(@RequestBody MessageNewConfiguration m) {
         Configuration.Cut cut = Configuration.Cut.valueOf(m.getCut());
