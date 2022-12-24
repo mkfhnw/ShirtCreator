@@ -10,8 +10,8 @@
 	- braucht keine id, muss aber mit Configuration-Id verknüpft werden
 
 ## Message-Klassen
-- MessageOrderItem: configuration, quantity
-- MessageAddItemToOrder: configuration, quantity
+- MessageOrderItem: configurationId, quantity
+- MessageAddItemToOrder: configurationId, quantity
 - MessageOrderDetails: orderId, orderDate, customerId, items, shippingMethod
 	- ev. MessageOrder entsprechend anpassen und umbenennen
 
@@ -42,3 +42,4 @@
 ## Datenmodell anpassen
 - Entität Item ergänzen
 - Beziehung zu Order ergänzen
+- README anpassen

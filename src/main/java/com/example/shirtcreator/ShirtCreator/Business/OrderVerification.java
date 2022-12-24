@@ -1,6 +1,8 @@
 package com.example.shirtcreator.ShirtCreator.Business;
 
+import com.example.shirtcreator.ShirtCreator.Persistence.Configuration;
 import com.example.shirtcreator.ShirtCreator.Persistence.Order;
+import com.example.shirtcreator.ShirtCreator.Persistence.OrderItem;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -12,7 +14,7 @@ public class OrderVerification {
     public static final double MWST_RATE = 0.081;
 
     public boolean validateOrder(Order o) {
-        if (o.getQuantity() > MAX_QUANTITY) {
+        if (o.getTotalQuantity() > MAX_QUANTITY) {
             return false;
         }
         return true;
@@ -20,11 +22,18 @@ public class OrderVerification {
 
     // Berechnet den Preis einer Bestellung
     public Double calculateOrderPrice(Order o) {
-        Double configurationPrice = o.getConfiguration().getPrice();
+        Double netPrice = 0.0;
         Double orderPrice = 0.0;
 
+        // Nettopreis berechnen
+        for (int i = 0; i < o.getItems().size(); i++) {
+            Double cPrice = o.getItems().get(i).getConfiguration().getPrice();
+            Integer quantity = o.getItems().get(i).getQuantity();
+            netPrice += cPrice * quantity;
+        }
+
         // Preis der Bestellung berechnen
-        orderPrice += configurationPrice * o.getQuantity();
+        orderPrice += netPrice;
         orderPrice *= 1 + MWST_RATE;
         orderPrice = Math.round(orderPrice * 100.0 / 5.0) * 5.0 / 100.0;
         orderPrice += calculateShippingCosts(o);
@@ -34,7 +43,14 @@ public class OrderVerification {
 
     // Berechnet aus Gewicht und Versandbedingung die Kosten für den Paketversand
     private Double calculateShippingCosts(Order o) {
-        int totalWeight = (o.getQuantity() * WEIGHT_TSHIRT) / 1000; // g in kg umgerechnet
+        // Totale Menge berechnen
+        int totalQuantity = 0;
+        for (int i = 0; i < o.getItems().size(); i++) {
+            totalQuantity += o.getItems().get(i).getQuantity();
+        }
+
+        // Totales Gewicht berechnen
+        int totalWeight = (totalQuantity * WEIGHT_TSHIRT) / 1000; // g in kg umgerechnet
 
         // Array für Paketpreise
         Double[][] packageCosts = {{7.0, 9.7, 20.5}, // Economy, mit < 2, 10, 30 kg

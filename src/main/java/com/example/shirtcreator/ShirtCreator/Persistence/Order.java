@@ -3,6 +3,9 @@ package com.example.shirtcreator.ShirtCreator.Persistence;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 
 @Entity(name = "tblOrder")
@@ -12,24 +15,28 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int Id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Configuration configuration;
+    @OneToMany
+    private List<OrderItem> items = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Customer customer;
-    private int quantity;
+    private int totalQuantity = 0;
     @Enumerated(EnumType.STRING)
     private ShippingMethod shippingMethod;
     private Double price;
+    private Date orderDate;
 
     // CONSTRUCTOR
-    public Order(Customer customer, Configuration configuration, int quantity, ShippingMethod shippingMethod) {
-        this.customer = customer;
-        this.configuration = configuration;
-        this.quantity = quantity;
-        this.shippingMethod = shippingMethod;
-        this.price = 0.0;
-    }
+//    public Order(Customer customer, List<OrderItem> items, ShippingMethod shippingMethod, Date orderDate) {
+//        this.customer = customer;
+//        this.items = items;
+//        for (OrderItem i : this.items) {
+//            this.totalQuantity += i.getQuantity();
+//        }
+//        this.shippingMethod = shippingMethod;
+//        this.price = 0.0;
+//        this.orderDate = orderDate;
+//    }
 
     public Order() {
     }
@@ -54,24 +61,18 @@ public class Order {
         return Id;
     }
 
-    public Configuration getConfiguration() {
-        return configuration;
-    }
-
-    public void setConfiguration(Configuration configuration) {
-        this.configuration = configuration;
-    }
-
     public Customer getCustomer() {
         return customer;
     }
 
-    public int getQuantity() {
-        return quantity;
+    public int getTotalQuantity() {
+        return totalQuantity;
     }
 
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
+    public void setTotalQuantity() {
+        for (OrderItem i : this.items) {
+            this.totalQuantity += i.getQuantity();
+        }
     }
 
     public void setCustomer(Customer customer) {
@@ -94,4 +95,23 @@ public class Order {
         this.price = price;
     }
 
+    public void setId(int id) {
+        Id = id;
+    }
+
+    public List<OrderItem> getItems() {
+        return items;
+    }
+
+    public void setItems(List<OrderItem> items) {
+        this.items = items;
+    }
+
+    public Date getOrderDate() {
+        return orderDate;
+    }
+
+    public void setOrderDate(Date orderDate) {
+        this.orderDate = orderDate;
+    }
 }
