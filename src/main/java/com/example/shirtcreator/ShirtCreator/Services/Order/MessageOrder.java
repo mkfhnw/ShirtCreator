@@ -1,4 +1,4 @@
-package com.example.shirtcreator.ShirtCreator.Services;
+package com.example.shirtcreator.ShirtCreator.Services.Order;
 
 public class MessageOrder {
 

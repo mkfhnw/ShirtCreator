@@ -1,6 +1,6 @@
-package com.example.shirtcreator.ShirtCreator.Services;
+package com.example.shirtcreator.ShirtCreator.Services.Configuration;
 
-public class MessageGetConfigurationId {
+public class MessageConfiguration {
 
     private String cut, pattern, size, color;
 

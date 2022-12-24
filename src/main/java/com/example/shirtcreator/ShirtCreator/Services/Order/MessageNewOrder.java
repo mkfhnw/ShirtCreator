@@ -1,6 +1,4 @@
-package com.example.shirtcreator.ShirtCreator.Services;
-
-import com.example.shirtcreator.ShirtCreator.Persistence.Order;
+package com.example.shirtcreator.ShirtCreator.Services.Order;
 
 public class MessageNewOrder {
     private Integer customerId;

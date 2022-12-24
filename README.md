@@ -66,29 +66,20 @@ Grundsätzlicher Aufbau:
       - If order valid, response contains price (else null)
 - **ConfigurationService:**
   - Konfiguration abfragen (*getConfiguration*):
-    - URL: http://localhost:8080/api/configuration/{ID}
+    - URL: http://localhost:8080/api/configuration/
     - Method: GET
-    - Request Parameter: configurationId
+    - Request Parameter: MessageConfiguration (cut, color, size, pattern)
     - Response: HTTP 200 if successful, body contains configuration as JSON
-  - ID einer Konfiguration abfragen (*getConfigurationId*):
-    - URL: http://localhost:8080/api/configuration/search
-    - Method: GET
-    - Request Body: MessageGetConfigurationId (cut, pattern, size, color)
-    - Response: HTTP 200 if successful, response contains configurationId
-  - Preis einer Konfiguration abfragen (*getConfigurationPrice*):
-    - URL: http://localhost:8080/api/configuration/getPrice
-    - Method: GET
-    - Request Body: MessageNewConfiguration (cut, pattern, size, color)
-    - Response: HTTP 200 if successful, response contains price
 - **CustomerService:**
   - Kunde abfragen (*getCustomer*):
-    - URL: http://localhost:8080/api/customer/{ID}
+    - URL: http://localhost:8080/api/customer/{id}
     - Method: GET
     - Request Parameter: customerId
     - Response: HTTP 200 if successful, body contains customer as JSON
   - Kunde löschen (*deleteCustomer*):
     - URL: http://localhost:8080/api/customer/{ID}
     - Method: DELETE
+    - Request Parameter: customerId
     - Response:
       - HTTP 200 if successful
       - If customer was found, response contains true (else false)
@@ -96,7 +87,7 @@ Grundsätzlicher Aufbau:
     - URL: http://localhost:8080/api/customer/{ID}
     - Method: PUT
     - Request Parameter: customerId
-    - Request Body: Customer
+    - Request Body: MessageNewCustomer (firstName, lastName, email, address)
     - Response:
       - HTTP 200 if successful
       - If customer was found and email is valid, response contains true (else false)
@@ -106,7 +97,7 @@ Grundsätzlicher Aufbau:
     - Request Body: MessageNewCustomer (firstName, lastName, email, address)
     - Response:
       - HTTP 200 if successful
-      - If email is valid, response contains customer (else null)
+      - If email is valid, response body contains customer as JSON (else null)
   - E-Mail eines Kunden validieren (*validateEmail*):
     - URL: http://localhost:8080/api/customer/validateEmail
     - Method: GET
@@ -116,7 +107,7 @@ Grundsätzlicher Aufbau:
     - URL: http://localhost:8080/api/customers
     - Method: GET
     - Request Parameter: (optional "filter")
-    - Response: HTTP 200 if successful, response contains JSON-Array with found customers
+    - Response: HTTP 200 if successful, response body contains JSON-Array with found customers
 
 ### Business Logic Layer
 - **ConfigurationVerification:**

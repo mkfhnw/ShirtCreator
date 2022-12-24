@@ -1,4 +1,4 @@
-package com.example.shirtcreator.ShirtCreator.Services;
+package com.example.shirtcreator.ShirtCreator.Services.Order;
 
 import com.example.shirtcreator.ShirtCreator.Business.OrderVerification;
 import com.example.shirtcreator.ShirtCreator.Persistence.*;
