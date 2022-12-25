@@ -169,12 +169,12 @@
                                 <div style="display: flex; flex-direction: row;">
                                     <div class="input-group mb-1">
                                         <label class="input-group-text" for="inputFirstName-registration">First name</label>
-                                        <input type="text" class="form-control" id="inputFirstName-registration1" placeholder="Jane">
+                                        <input type="text" class="form-control" id="inputFirstName-registration" placeholder="Jane">
                                     </div>
                                     <!--lastName-->
                                     <div class="input-group mb-1 ms-2">
                                         <label class="input-group-text" for="inputLastName-registration">Last name</label>
-                                        <input type="text" class="form-control" id="inputLastName-registration2" placeholder="Doe">
+                                        <input type="text" class="form-control" id="inputLastName-registration" placeholder="Doe">
                                     </div>
                                 </div>
 
@@ -194,7 +194,7 @@
                                 <!--location-->
                                 <div class="input-group mb-1 ms-2 w-75">
                                     <label for="inputLocation" class="input-group-text">Location</label>
-                                    <input type="text" class="form-control" id="inputLocation" placeholder="Olten">
+                                    <input type="text" class="form-control" id="inputLocation" placeholder="New York">
                                 </div>
                             </div>
                             <hr>
@@ -204,12 +204,10 @@
                                 <input type="email" class="form-control" id="inputEmail">
                             </div>
                             <!--newsletter-->
-                            <!--TODO: Text linksbündig machen-->
-                            <div class="col-12">
-                                <div class="form-check form-switch">
-                                    <input class="form-check-input" type="checkbox" id="checkNewsletter">
-                                    <label class="form-check-label" for="checkNewsletter">Sign me up for the
-                                        newsletter!</label>
+                            <div class="form-group">
+                                <div class="form-check form-switch" style="display: flex;">
+                                    <input class="form-check-input" type="checkbox" id="inputCheckNewsletter">
+                                    <label class="form-check-label" for="inputCheckNewsletter">Sign me up for the newsletter!</label>
                                 </div>
                             </div>
                             <hr>
@@ -251,80 +249,82 @@
                     <button class="modal-tab" data-tab="registration">Registration</button>
                 </div>
                 <!--Login-->
-                <div class="display-flex align-content-center">
+                <div class="d-flex justify-content-between">
                     <div id="login" class="modal-tab-content active">
                         <div>
+                            <!--EMail-->
                             <label for="email-login">
                                 <img src="/email-icon.png" alt="Label Image" class="email-icon">
                             </label>
                             <input type="email" id="email-login" name="email">
                         </div>
                         <div>
+                            <!--Password-->
                             <label for="password-login">
                                 <img src="password-icon.png" alt="Label Image" class="password-icon">
                                 </label>
                             <input type="password" id="password-login" name="password">
                         </div>
                         <div>
+                            <!--Button OK-->
                         <button ok id="login-button">OK</button>
                         </div>
                     </div>
                 </div>
-                <!--registration-->
+                <!--Registration-->
                 <div id="registration" class="modal-tab-content">
-                    <div class="display-flex align-content-center">
-                        <!--firstName-->
-                        <div class="input-group mb-1">
-                            <label class="input-group-text" for="inputFirstName-registration">First name</label>
-                            <input type="text" class="form-control" id="inputFirstName-registration" placeholder="Jane">
-                        </div>
-                        <!--lastName-->
-                        <div class="input-group mb-1 ms-2">
-                            <label class="input-group-text" for="inputLastName-registration">Last name</label>
-                            <input type="text" class="form-control" id="inputLastName-registration" placeholder="Doe">
+                    <div class="d-flex justify-content-between">
+                        <!--firstName and lastName-->
+                        <!--firstName and lastName-->
+                        <div style="display: flex; flex-direction: row;">
+                            <div class="input-group mb-1">
+                                <label class="input-group-text" for="FirstName-registration">First name</label>
+                                <input type="text" class="form-control" id="FirstName-registration" placeholder="Jane">
+                            </div>
+                            <!--lastName-->
+                            <div class="input-group mb-1 ms-2">
+                                <label class="input-group-text" for="LastName-registration">Last name</label>
+                                <input type="text" class="form-control" id="LastName-registration" placeholder="Doe">
+                            </div>
                         </div>
                     </div>
                     <div class="d-flex justify-content-between"></div>
                     <!--street-->
-                    <div id="registrationDetails" class="modal-tab-content">
-                        <div class="input-group mb-1">
-                            <label for="inputStreet-registration" class="input-group-text">Street</label>
-                            <input type="text" class="form-control" id="inputStreet-registration"
-                            placeholder="Baker Street 221B">
-                        </div>
-                            <!--plz-->
-                            <div class="input-group mb-1 w-25">
-                                <label for="inputPlz-registration" class="input-group-text">PLZ</label>
-                                <input type="text" class="form-control" id="inputPlz-registration" placeholder="4600">
-                            </div>
-                            <!--location-->
-                            <div class="input-group mb-1 ms-2 w-75">
-                                <label for="inputLocation-registration" class="input-group-text">Location</label>
-                                <input type="text" class="form-control" id="inputLocation-registration" placeholder="Olten">
-                            </div>
+                    <div class="input-group mb-1">
+                        <label for="Street-registration" class="input-group-text">Street</label>
+                        <input type="text" class="form-control" id="Street-registration"
+                               placeholder="Baker Street 221B">
                     </div>
-                        <div class="d-flex justify-content-between"></div>
-                        <div id="email-password-registration">
-                            <div>
-                                <label for="email-registration">
-                                    <img src="/email-icon.png" alt="Label Image" class="email-icon">
-                                </label>
-                                    <input type="email" id="email-registration" name="email">
-                            </div>
-                            <div>
-                                <label for="password-registration">
-                                    <img src="/password-icon.png" alt="Label Images" class="password-icon">
-                                </label>
-                                    <input type="password" id="password-registration" name="password">
-                            </div>
+                    <div class="d-flex justify-content-between">
+                        <!--plz-->
+                        <div class="input-group mb-1 w-25">
+                            <label for="Plz-registration" class="input-group-text">PLZ</label>
+                            <input type="text" class="form-control" id="Plz-registration" placeholder="4600">
+                        </div>
+                        <!--location-->
+                        <div class="input-group mb-1 ms-2 w-75">
+                            <label for="Location-registration" class="input-group-text">Location</label>
+                            <input type="text" class="form-control" id="Location-registration" placeholder="New York">
+                        </div>
+                    </div>
+                    <hr>
+                    <!--email-->
+                    <div class="input-group mb-1">
+                        <img src="/email-icon.png" for="Email-registration" id="email-icon-registration" class="input-group-text" width="48vw" height="40vh">
+                        <input type="email" class="form-control" id="Email-registration" placeholder="email@gmail.com">
+                    </div>
+                    <!--password-->
+                    <div class="input-group mb-1">
+                        <img src="/password-icon.png" for="Email-registration" id="password-icon-registration" class="input-group-text" width="48vw" height="40vh">
+                        <input type="password" class="form-control" id="Password-registration" placeholder="password">
+                    </div>
                         <!--newsletter-->
-                            <div class="col-12">
-                                <div class="form-check form-switch">
-                                    <input class="form-check-input" type="checkbox" id="checkNewsletter-registration">
-                                    <label class="form-check-label" for="checkNewsletter-registration">Sign me up for the
-                                        newsletter!</label>
-                                </div>
-                            </div>
+                    <div class="form-group">
+                        <div class="form-check form-switch" style="display: flex;">
+                            <input class="form-check-input" type="checkbox" id="checkNewsletter-registration">
+                            <label class="form-check-label" for="checkNewsletter-registration">Sign me up for the newsletter!</label>
+                        </div>
+                    </div>
                         <div>
                             <button create-account-button id="create-account-button">Create Account</button>
                             <button id="close-modal-button">X</button>
