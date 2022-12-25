@@ -49,12 +49,13 @@ public class OrderService {
             o.setCustomer(customer.get());
         }
         o.setOrderDate(m.getOrderDate());
+        o.setShippingMethod(Order.ShippingMethod.Economy); // Default
 
         o = orderRepository.save(o);
         return o.getId();
     }
 
-    @GetMapping(path = "/api/order/{id}", produces = "application/json")
+    @GetMapping(path = "/api/order/{orderId}", produces = "application/json")
     public MessageOrderDetails getOrder(@PathVariable Integer orderId) {
         Optional<Order> or = orderRepository.findById(orderId);
         if (or.isPresent()) {
@@ -78,21 +79,40 @@ public class OrderService {
         }
     }
 
-    @PutMapping(path = "/api/order/{id}/addItem", produces = "application/json")
-    public boolean addItemToOrder(@PathVariable int orderId, @RequestBody MessageAddItemToOrder m) {
+    @PutMapping(path = "/api/order/{orderId}/updateShippingMethod/{shippingMethod}", produces = "application/json")
+    public boolean updateShippingMethod(@PathVariable Integer orderId, @PathVariable String shippingMethod) {
+        Optional<Order> or = orderRepository.findById(orderId);
+        if (or.isPresent()) {
+            Order o = or.get();
+            o.setShippingMethod(Order.ShippingMethod.valueOf(shippingMethod));
+            o.setPrice(orderVerification.calculateOrderPrice(o));
+            orderRepository.save(o);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    @PutMapping(path = "/api/order/{orderId}/addItem", produces = "application/json")
+    public Integer addItemToOrder(@PathVariable Integer orderId, @RequestBody MessageAddItemToOrder m) {
         Optional<Order> or = orderRepository.findById(orderId);
         if (or.isPresent()) {
             OrderItem oi = new OrderItem();
             oi.setQuantity(m.getQuantity());
             oi.setConfiguration(configurationRepository.getOne(m.getConfigurationId()));
+            orderItemRepository.save(oi);
             Order o = or.get();
             o.getItems().add(oi);
+            int quantity = 0;
+            for (OrderItem ordIt : o.getItems()) {
+                quantity += ordIt.getQuantity();
+            }
+            o.setTotalQuantity(quantity);
             o.setPrice(orderVerification.calculateOrderPrice(o));
-            orderItemRepository.save(oi);
             orderRepository.save(o);
-            return true;
+            return oi.getId();
         } else {
-            return false;
+            return null;
         }
     }
 
@@ -103,7 +123,12 @@ public class OrderService {
         if (or.isPresent() && oi.isPresent()) {
             Order o = or.get();
             OrderItem ori = oi.get();
-            o.getItems().remove(oi.get());
+            o.getItems().remove(ori);
+            int quantity = 0;
+            for (OrderItem ordIt : o.getItems()) {
+                quantity += ordIt.getQuantity();
+            }
+            o.setTotalQuantity(quantity);
             o.setPrice(orderVerification.calculateOrderPrice(o));
             orderItemRepository.delete(ori);
             orderRepository.save(o);

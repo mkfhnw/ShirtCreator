@@ -66,10 +66,11 @@ public class Order {
     }
 
     public int getTotalQuantity() {
-        for (OrderItem i : this.items) {
-            this.totalQuantity += i.getQuantity();
-        }
-        return totalQuantity;
+        return this.totalQuantity;
+    }
+
+    public void setTotalQuantity(int totalQuantity) {
+        this.totalQuantity = totalQuantity;
     }
 
     public void setCustomer(Customer customer) {
