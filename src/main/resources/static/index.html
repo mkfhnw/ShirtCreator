@@ -20,19 +20,14 @@
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ml-auto">
             <li class="nav-item active">
-                <a class="nav-link" href="#">Home</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">About</a>
+                <a class="nav-link" href="#" id="home-link">Home</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#" id="contact-link">Contact</a>
             </li>
         </ul>
         <form class="form-inline my-2 my-lg-0">
-            <button type="button" id="login_button" data-modal-target="#modal"
-                    class="btn btn-outline-success my-2 my-sm-0" style="float: right" ;>Login
-            </button>
+            <button type="button" id="login_button" data-modal-target="#modal" class="btn btn-outline-success my-2 my-sm-0" style="float: right";>Login</button>
         </form>
     </div>
 </nav>
@@ -77,20 +72,17 @@
                 <button type="button" data-mdb-target="#carouselMDExample" data-mdb-slide-to="0" class="active"
                         aria-current="true" aria-label="Slide 1" style="width: 5vw;">
                     <img class="d-block w-100 rounded"
-                         src="/T-Shirts/plain/round/Tshirt_round_white_front_basic.PNG" class="img-fluid"
-                         id="front-view-thumb"/>
+                         src="/T-Shirts/plain/round/Tshirt_round_white_front_basic.PNG" class="img-fluid" id="front-view-thumb"/>
                 </button>
                 <button type="button" data-mdb-target="#carouselMDExample" data-mdb-slide-to="1" aria-label="Slide 2"
                         style="width: 5vw;">
                     <img class="d-block w-100 rounded"
-                         src="/T-Shirts/plain/round/Tshirt_round_white_back_basic.PNG" class="img-fluid"
-                         id="back-view-thumb"/>
+                         src="/T-Shirts/plain/round/Tshirt_round_white_back_basic.PNG" class="img-fluid" id="back-view-thumb"/>
                 </button>
                 <button type="button" data-mdb-target="#carouselMDExample" data-mdb-slide-to="2" aria-label="Slide 3"
                         style="width: 5vw;">
                     <img class="d-block w-100 rounded"
-                         src="/T-Shirts/plain/round/Tshirt_round_white_side_basic.PNG" class="img-fluid"
-                         id="side-view-thumb"/>
+                         src="/T-Shirts/plain/round/Tshirt_round_white_side_basic.PNG" class="img-fluid" id="side-view-thumb"/>
                 </button>
             </div>
         </div>
@@ -260,89 +252,94 @@
             </div>
         </div>
 
-        <!-- Login popup -->
-        <div id="modal">
-            <div id="modal-content">
-                <div id="modal-left">
-                    <img src="/Login-picture.PNG" alt="Logo">
+    <!-- Login popup -->
+    <div id="modal">
+        <div id="modal-content">
+            <div id="modal-left">
+                <img src="/Login-picture.PNG" alt="Logo">
+            </div>
+            <div id="modal-right">
+                <div id="modal-tabs">
+                    <button class="modal-tab active" data-tab="login">Login</button>
+                    <button class="modal-tab" data-tab="registration">Registration</button>
                 </div>
-                <div id="modal-right">
-                    <div id="modal-tabs">
-                        <button class="modal-tab active" data-tab="login">Login</button>
-                        <button class="modal-tab" data-tab="registration">Registration</button>
-                    </div>
-                    <!--Login-->
+                <!--Login-->
+                <div class="d-flex justify-content-between">
                     <div id="login" class="modal-tab-content active">
                         <div>
+                            <!--EMail-->
                             <label for="email-login">
                                 <img src="/email-icon.png" alt="Label Image" class="email-icon">
                             </label>
                             <input type="email" id="email-login" name="email">
                         </div>
                         <div>
+                            <!--Password-->
                             <label for="password-login">
                                 <img src="password-icon.png" alt="Label Image" class="password-icon">
-                            </label>
+                                </label>
                             <input type="password" id="password-login" name="password">
                         </div>
                         <div>
-                            <button ok id="login-button">OK</button>
+                            <!--Button OK-->
+                        <button ok id="login-button">OK</button>
                         </div>
                     </div>
-                    <!--registration-->
-                    <div id="registration" class="modal-tab-content">
-                        <!--firstName-->
-                        <div class="input-group mb-1">
-                            <label class="input-group-text" for="inputFirstName-registration">First name</label>
-                            <input type="text" class="form-control" id="inputFirstName-registration" placeholder="Jane">
-                        </div>
-                        <!--lastName-->
-                        <div class="input-group mb-1 ms-2">
-                            <label class="input-group-text" for="inputLastName-registration">Last name</label>
-                            <input type="text" class="form-control" id="inputLastName-registration" placeholder="Doe">
+                </div>
+                <!--Registration-->
+                <div id="registration" class="modal-tab-content">
+                    <div class="d-flex justify-content-between">
+                        <!--firstName and lastName-->
+                        <!--firstName and lastName-->
+                        <div style="display: flex; flex-direction: row;">
+                            <div class="input-group mb-1">
+                                <label class="input-group-text" for="FirstName-registration">First name</label>
+                                <input type="text" class="form-control" id="FirstName-registration" placeholder="Jane">
+                            </div>
+                            <!--lastName-->
+                            <div class="input-group mb-1 ms-2">
+                                <label class="input-group-text" for="LastName-registration">Last name</label>
+                                <input type="text" class="form-control" id="LastName-registration" placeholder="Doe">
+                            </div>
                         </div>
                     </div>
                     <div class="d-flex justify-content-between"></div>
                     <!--street-->
-                    <div id="registrationDetails" class="modal-tab-content">
-                        <div class="input-group mb-1">
-                            <label for="inputStreet-registration" class="input-group-text">Street</label>
-                            <input type="text" class="form-control" id="inputStreet-registration"
-                                   placeholder="Baker Street 221B">
-                        </div>
+                    <div class="input-group mb-1">
+                        <label for="Street-registration" class="input-group-text">Street</label>
+                        <input type="text" class="form-control" id="Street-registration"
+                               placeholder="Baker Street 221B">
+                    </div>
+                    <div class="d-flex justify-content-between">
                         <!--plz-->
                         <div class="input-group mb-1 w-25">
-                            <label for="inputPlz-registration" class="input-group-text">PLZ</label>
-                            <input type="text" class="form-control" id="inputPlz-registration" placeholder="4600">
+                            <label for="Plz-registration" class="input-group-text">PLZ</label>
+                            <input type="text" class="form-control" id="Plz-registration" placeholder="4600">
                         </div>
                         <!--location-->
                         <div class="input-group mb-1 ms-2 w-75">
-                            <label for="inputLocation-registration" class="input-group-text">Location</label>
-                            <input type="text" class="form-control" id="inputLocation-registration" placeholder="Olten">
+                            <label for="Location-registration" class="input-group-text">Location</label>
+                            <input type="text" class="form-control" id="Location-registration" placeholder="New York">
                         </div>
                     </div>
-                    <div class="d-flex justify-content-between"></div>
-                    <div id="email-password-registration">
-                        <div>
-                            <label for="email-registration">
-                                <img src="/email-icon.png" alt="Label Image" class="email-icon">
-                            </label>
-                            <input type="email" id="email-registration" name="email">
-                        </div>
-                        <div>
-                            <label for="password-registration">
-                                <img src="/password-icon.png" alt="Label Images" class="password-icon">
-                            </label>
-                            <input type="password" id="password-registration" name="password">
-                        </div>
+                    <hr>
+                    <!--email-->
+                    <div class="input-group mb-1">
+                        <img src="/email-icon.png" for="Email-registration" id="email-icon-registration" class="input-group-text" width="48vw" height="40vh">
+                        <input type="email" class="form-control" id="Email-registration" placeholder="email@gmail.com">
+                    </div>
+                    <!--password-->
+                    <div class="input-group mb-1">
+                        <img src="/password-icon.png" for="Email-registration" id="password-icon-registration" class="input-group-text" width="48vw" height="40vh">
+                        <input type="password" class="form-control" id="Password-registration" placeholder="password">
+                    </div>
                         <!--newsletter-->
-                        <div class="col-12">
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" id="checkNewsletter-registration">
-                                <label class="form-check-label" for="checkNewsletter-registration">Sign me up for the
-                                    newsletter!</label>
-                            </div>
+                    <div class="form-group">
+                        <div class="form-check form-switch" style="display: flex;">
+                            <input class="form-check-input" type="checkbox" id="checkNewsletter-registration">
+                            <label class="form-check-label" for="checkNewsletter-registration">Sign me up for the newsletter!</label>
                         </div>
+                    </div>
                         <div>
                             <button create-account-button id="create-account-button">Create Account</button>
                             <button id="close-modal-button">X</button>
@@ -351,7 +348,7 @@
                 </div>
             </div>
         </div>
-    </div>
+        </div>
 </div>
 </body>
 </html>

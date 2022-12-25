@@ -130,7 +130,7 @@ button.btn_green:hover {
     cursor: pointer;
 }
 
-/* Modal design */
+/* ---------------------------------Modal design -------------------------*/
 #modal {
     position: fixed;
     top: 0;
@@ -248,7 +248,156 @@ button.btn_green:hover {
     width: 5vw;
     height: 3vw;
 }
+.contact-icons{
+    height: 35px;
+    width: 35px;
+}
+.address-container, .phone-container, .email-container {
+    display: flex;
+    align-items: center;
+}
 
-/* Contact customizing */
+/* ------------------------------ Contact form-------------------------- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
+.Contact {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: #EEEEEE;
+    background-size: cover;
+}
+
+.Contact .Contactus {
+    text-align: center;
+}
+
+.Contact .Contactus h2 {
+    font-size: 36vw;
+    font-weight: 500;
+}
+.Icon img{
+    height: 50px;
+    width: 50px;
+}
+.Contact .Contactus p {
+    font-weight: 500;
+    color: black;
+}
+
+/* Everything around box */
+.Container {
+    width: 100%;
+    align-items: center;
+}
+
+.Container .ContactInfo {
+    width: 50vw;
+    display: flex;
+    flex-direction: column;
+}
+
+.Container .ContactInfo .Box {
+    position: relative;
+    padding: 20px;
+    display: flex;
+}
+
+.Container .ContactInfo .Box .Icon {
+    min-width: 60px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50px;
+    font-size: 22px;
+}
+
+.Container .ContactInfo .Box .Text {
+    display: flex;
+    margin-left: 20px;
+    font-size: 16px;
+    color: black;
+    flex-direction: column;
+    font-weight: 300;
+}
+
+.Container .ContactInfo .Box .Text h3 {
+    font-weight: 500;
+    color: #00bcd4;
+}
+
+.Form {
+    position: absolute;
+    top: 550px;
+    left: 900px;
+    transform: translate(-50%, -50%);
+    max-width: 550px;
+    width: 100%;
+    background: #fff;
+    padding: 25px;
+    border-radius: 5px;
+}
+
+.Form h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: black;
+    font-size: 35px;
+
+}
+.ContactInfo.Box h3{
+    color: black;
+}
+.Form .input_field {
+    margin-bottom: 10px;
+    border-radius: 0.5vw;
+}
+
+.Form .input_field input[type="text"],
+.Form textarea {
+    border: 1px solid #e0e0e0;
+    width: 100%;
+    padding: 10px;
+    border-radius: 0.5vw;
+}
+
+.Form textarea {
+    resize: none;
+    height: 80px;
+    border-radius: 0.5vw;
+}
+
+.Form .btn input[type="submit"] {
+    border: 0px;
+    margin-top: 15px;
+    padding: 10px;
+    text-align: center;
+    width: 100%;
+    background: #03857E;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 5px;
+    font-weight: bold;
+    border-radius: 10px;
+    cursor: pointer;
+}
+.btn {
+    color: white;
+    background-color: #03857E;
+    border-radius: 2px;
+    border: 0;
+}
+.move-up {
+    margin-top: -50px;
+}
 

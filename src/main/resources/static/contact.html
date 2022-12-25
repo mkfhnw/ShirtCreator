@@ -9,38 +9,85 @@
   <link href="/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-<!-- Contact formula -->
-<div class="row">
-  <div class="col-4">
-    <h1>Let's get in touch</h1>
-    <!--Icon Address-->
-    <p>
-    <i class="fa fa-home"></i> <b>Address:</b> 198 West 21th Street,<br>
-    Suite 721 New York NY 10016
-    </p>
-    <!--Icon Phone-->
-    <p>
-      <i class="fa fa-phone"></i> <b>Phone:</b> +1234 2355 98
-    </p>
-    <!--Icon EMail-->
-    <p>
-      <i class="fa fa-envelope"></i> <b>Email:</b> info@shirtcreator.com
-    </p>
-  </div>
-  <div class="col-8">
-    <h1>My request</h1>
-    <form>
-      <label for="firstname">First Name:</label>
-      <input type="text" id="firstname" name="firstname">
-      <label for="lastname">Last Name:</label>
-      <input type="text" id="lastname" name="lastname">
-      <label for="subject">Subject:</label>
-      <input type="text" id="subject" name="subject">
-      <label for="message">Message:</label>
-      <textarea id="message" name="message"></textarea>
-      <input type="submit" value="Send">
+<!-- Top navigation bar -->
+<nav class="navbar navbar-expand-lg navbar-light custom-nav" style="background-color: white" ;>
+  <a class="navbar-brand" href="#">
+    <img src="/Logo.PNG" class="d-block logo" alt="Website logo"></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+          aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="#" id="home-link">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#" id="contact-link">Contact</a>
+      </li>
+    </ul>
+    <form class="form-inline my-2 my-lg-0">
+      <button type="button" id="login_button" data-modal-target="#modal" class="btn btn-outline-success my-2 my-sm-0" style="float: right";>Login</button>
     </form>
   </div>
-</div>
+</nav>
+<!-- Contact formula -->
+<!------------------------------------------------Details----------------------------------------------------------------->
+<div class="Contact">
+  <div class="Contactus">
+  </div>
+  <div class="Container">
+    <div class="ContactInfo move-up">
+      <div class="Box">
+        <div class="Icon"><img src="/location-icon-contact.png"></div>
+        <div class="Text">
+          <h3 style="color: black">Address</h3>
+          <p>198 West 21th Street,<br>Suite 721,New York NY,<br>10016</p>
+        </div>
+      </div>
+      <div class="Box">
+        <div class="Icon"><img src="/phone-icon-contact.png"></div>
+        <div class="Text">
+          <h3 style="color: black">Phone</h3>
+          <p>+ 1234 5678 91</p>
+        </div>
+      </div>
+      <div class="Box">
+        <div class="Icon"><img src="/email-icon-contact.png"></div>
+        <div class="Text">
+          <h3 style="color: black">Email</h3>
+          <p>info@shirtcreator.com</p>
+        </div>
+      </div>
+    </div>
+    <!----------------------------------Contact form------------------------------------>
+    <div class="Form move-up">
+      <h2><strong>Contact us</strong></h2>
+
+      <form action="" id="myform" >
+        <div class="input_field">
+          <input type="text" placeholder="Name" id="name">
+        </div>
+        <div class="input_field">
+          <input type="text" placeholder="Subject" id="subject">
+        </div>
+        <div class="input_field">
+          <input type="text" placeholder="Phone" id="phone">
+        </div>
+        <div class="input_field">
+          <input type="text" placeholder="Email" id="email">
+        </div>
+        <div class="input_field">
+          <textarea placeholder="Message" id="message"></textarea>
+        </div>
+        <div class="btn">
+          <input type="submit" value="send">
+        </div>
+      </form>
+    </div>
+      </form>
+    </div>
+    </div>
+  </div>
 </body>
 </html>
