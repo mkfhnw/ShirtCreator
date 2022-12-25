@@ -151,4 +151,17 @@ public class Configuration {
         this.price = price;
     }
 
+    // TOSTRING
+    @Override
+    public String toString() {
+        return "Configuration{" +
+                "id=" + id +
+                ", cut=" + cut +
+                ", color=" + color +
+                ", size=" + size +
+                ", pattern=" + pattern +
+                ", price=" + price +
+                ", deleted=" + deleted +
+                '}';
+    }
 }

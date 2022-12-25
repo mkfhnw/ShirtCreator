@@ -44,10 +44,7 @@ public class OrderVerification {
     // Berechnet aus Gewicht und Versandbedingung die Kosten für den Paketversand
     private Double calculateShippingCosts(Order o) {
         // Totale Menge berechnen
-        int totalQuantity = 0;
-        for (int i = 0; i < o.getItems().size(); i++) {
-            totalQuantity += o.getItems().get(i).getQuantity();
-        }
+        int totalQuantity = o.getTotalQuantity();
 
         // Totales Gewicht berechnen
         int totalWeight = (totalQuantity * WEIGHT_TSHIRT) / 1000; // g in kg umgerechnet

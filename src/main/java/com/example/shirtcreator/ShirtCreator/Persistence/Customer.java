@@ -69,4 +69,17 @@ public class Customer {
     public Address getAddress(){return address; }
 
     public void setAddress(Address address) { this.address = address; }
+
+    // TOSTRING
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", deleted=" + deleted +
+                ", address=" + address +
+                '}';
+    }
 }

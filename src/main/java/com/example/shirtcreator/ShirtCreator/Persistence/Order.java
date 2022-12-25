@@ -26,21 +26,17 @@ public class Order {
     @Enumerated(EnumType.STRING)
     private ShippingMethod shippingMethod;
 
-    private Double price;
+    private Double price = 0.0;
 
     private Date orderDate;
 
     // CONSTRUCTOR
-//    public Order(Customer customer, List<OrderItem> items, ShippingMethod shippingMethod, Date orderDate) {
-//        this.customer = customer;
-//        this.items = items;
-//        for (OrderItem i : this.items) {
-//            this.totalQuantity += i.getQuantity();
-//        }
-//        this.shippingMethod = shippingMethod;
-//        this.price = 0.0;
-//        this.orderDate = orderDate;
-//    }
+    public Order(Customer customer, List<OrderItem> items, ShippingMethod shippingMethod, Date orderDate) {
+        this.customer = customer;
+        this.items = items;
+        this.shippingMethod = shippingMethod;
+        this.orderDate = orderDate;
+    }
 
     public Order() {
     }
@@ -70,13 +66,10 @@ public class Order {
     }
 
     public int getTotalQuantity() {
-        return totalQuantity;
-    }
-
-    public void setTotalQuantity() {
         for (OrderItem i : this.items) {
             this.totalQuantity += i.getQuantity();
         }
+        return totalQuantity;
     }
 
     public void setCustomer(Customer customer) {
@@ -117,5 +110,19 @@ public class Order {
 
     public void setOrderDate(Date orderDate) {
         this.orderDate = orderDate;
+    }
+
+    // TOSTRING
+    @Override
+    public String toString() {
+        return "Order{" +
+                "Id=" + Id +
+                ", items=" + items +
+                ", customer=" + customer +
+                ", totalQuantity=" + totalQuantity +
+                ", shippingMethod=" + shippingMethod +
+                ", price=" + price +
+                ", orderDate=" + orderDate +
+                '}';
     }
 }

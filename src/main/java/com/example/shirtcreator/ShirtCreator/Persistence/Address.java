@@ -47,6 +47,17 @@ public class Address {
     public int getPlz() {
         return plz;
     }
+
+    // TOSTRING
+    @Override
+    public String toString() {
+        return "Address{" +
+                "id=" + id +
+                ", street='" + street + '\'' +
+                ", plz=" + plz +
+                ", location='" + location + '\'' +
+                '}';
+    }
 }
 
 

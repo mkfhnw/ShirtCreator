@@ -37,4 +37,14 @@ public class OrderItem {
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
+
+    // TOSTRING
+    @Override
+    public String toString() {
+        return "OrderItem{" +
+                "id=" + id +
+                ", configuration=" + configuration +
+                ", quantity=" + quantity +
+                '}';
+    }
 }
