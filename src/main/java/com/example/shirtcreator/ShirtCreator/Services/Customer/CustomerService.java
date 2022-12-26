@@ -22,7 +22,7 @@ public class CustomerService {
     private CustomerVerification customerVerification;
 
     @GetMapping(path = "/api/customer/{id}", produces = "application/json")
-    public Customer getCustomer(@PathVariable int id) {
+    public Customer getCustomer(@PathVariable Integer id) {
         Optional<Customer> c = customerRepository.findById(id);
         if (c.isPresent()) {
             return c.get();
@@ -32,7 +32,7 @@ public class CustomerService {
     }
 
     @DeleteMapping(path = "/api/customer/{id}", produces = "application/json")
-    public boolean deleteCustomer(@PathVariable int id) {
+    public boolean deleteCustomer(@PathVariable Integer id) {
         Customer c = customerRepository.getOne(id);
         if (c == null)
             return false;
@@ -42,7 +42,7 @@ public class CustomerService {
     }
 
     @PutMapping(path = "/api/customer/{id}", produces = "application/json")
-    public boolean updateCustomer(@PathVariable int id, @RequestBody MessageNewCustomer m) {
+    public boolean updateCustomer(@PathVariable Integer id, @RequestBody MessageNewCustomer m) {
         Customer c = customerRepository.getOne(id);
         if (c == null)
             return false;
@@ -103,7 +103,7 @@ public class CustomerService {
                                        @RequestParam(required = false) String firstName,
                                        @RequestParam(required = false) String lastName,
                                        @RequestParam(required = false) String street,
-                                       @RequestParam(required = false) int plz,
+                                       @RequestParam(required = false) Integer plz,
                                        @RequestParam(required = false) String location) {
         return customerRepository.findAll();
     }

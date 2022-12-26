@@ -13,7 +13,7 @@ public class Order {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int Id;
+    private Integer Id;
 
     @OneToMany
     private List<OrderItem> items = new ArrayList<>();
@@ -21,7 +21,7 @@ public class Order {
     @ManyToOne(fetch = FetchType.LAZY)
     private Customer customer;
 
-    private int totalQuantity = 0;
+    private Integer totalQuantity = 0;
 
     @Enumerated(EnumType.STRING)
     private ShippingMethod shippingMethod;
@@ -57,7 +57,7 @@ public class Order {
     }
 
     // GETTER & SETTER
-    public int getId() {
+    public Integer getId() {
         return Id;
     }
 
@@ -65,11 +65,11 @@ public class Order {
         return customer;
     }
 
-    public int getTotalQuantity() {
+    public Integer getTotalQuantity() {
         return this.totalQuantity;
     }
 
-    public void setTotalQuantity(int totalQuantity) {
+    public void setTotalQuantity(Integer totalQuantity) {
         this.totalQuantity = totalQuantity;
     }
 

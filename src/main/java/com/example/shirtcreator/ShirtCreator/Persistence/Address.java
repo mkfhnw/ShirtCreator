@@ -6,14 +6,14 @@ import jakarta.persistence.*;
 public class Address {
 
     @Id
-    @GeneratedValue
-    private int id;
+    @GeneratedValue (strategy = GenerationType.AUTO)
+    private Integer id;
 
     private String street;
-    private int plz;
+    private Integer plz;
     private String location;
 
-    public Address(String street, int plz, String location) {
+    public Address(String street, Integer plz, String location) {
         this.street = street;
         this.plz = plz;
         this.location = location;
@@ -39,12 +39,12 @@ public class Address {
         return street;
     }
 
-    public void setPlz(int plz) {
+    public void setPlz(Integer plz) {
         this.plz = plz;
     }
 
     // Getters & Setters
-    public int getPlz() {
+    public Integer getPlz() {
         return plz;
     }
 

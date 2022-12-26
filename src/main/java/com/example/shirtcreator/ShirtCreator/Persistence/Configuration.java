@@ -24,15 +24,15 @@ public class Configuration {
 
 
     public enum Cut {
-        Round("Round"),VNeck("VNeck"),Polo("Polo");
+        Round("Round"), VNeck("VNeck"), Polo("Polo");
 
         private String asString;
 
-        Cut( String asString ) {
+        Cut(String asString) {
             this.asString = asString;
         }
 
-        public String toString( ) {
+        public String toString() {
             return asString;
         }
 
@@ -40,51 +40,50 @@ public class Configuration {
 
 
     public enum Color {
-        White("White"),Black("Black"),Red("Red"),Blue("Blue"),Green("Green");
+        White("White"), Black("Black"), Red("Red"), Blue("Blue"), Green("Green");
 
         private String asString;
 
-        Color( String asString ) {
+        Color(String asString) {
             this.asString = asString;
         }
 
-        public String toString( ) {
+        public String toString() {
             return asString;
 
         }
     }
 
     public enum Size {
-        Small("Small"),Medium("Medium"),Large("Large");
+        Small("Small"), Medium("Medium"), Large("Large");
         private String asString;
 
-        Size( String asString ) {
+        Size(String asString) {
             this.asString = asString;
         }
 
-        public String toString( ) {
+        public String toString() {
             return asString;
 
         }
     }
 
     public enum Pattern {
-        Plain("Plain"),Check("Check"),Striped("Striped");
+        Plain("Plain"), Striped("Striped");
         private String asString;
 
-        Pattern( String asString ) {
+        Pattern(String asString) {
             this.asString = asString;
         }
 
-        public String toString( ) {
+        public String toString() {
             return asString;
         }
     }
 
 
-
     //Constructor(s)
-    public Configuration(Integer id, Cut cut,Color color,Size size,Pattern pattern){
+    public Configuration(Integer id, Cut cut, Color color, Size size, Pattern pattern) {
         this.id = id;
         this.cut = cut;
         this.color = color;
@@ -93,44 +92,44 @@ public class Configuration {
         this.price = 0.0;
     }
 
-    public Configuration( ) {
+    public Configuration() {
 
     }
 
     //GETTER & SETTER
-    public Integer getId( ) {
+    public Integer getId() {
         return id;
     }
 
-    public Cut getCut( ) {
+    public Cut getCut() {
         return cut;
     }
 
-    public void setCut( Cut cut ) {
+    public void setCut(Cut cut) {
         this.cut = cut;
     }
 
-    public Color getColor( ) {
+    public Color getColor() {
         return color;
     }
 
-    public void setColor( Color color ) {
+    public void setColor(Color color) {
         this.color = color;
     }
 
-    public Size getSize( ) {
+    public Size getSize() {
         return size;
     }
 
-    public void setSize( Size size ) {
+    public void setSize(Size size) {
         this.size = size;
     }
 
-    public Pattern getPattern( ) {
+    public Pattern getPattern() {
         return pattern;
     }
 
-    public void setPattern( Pattern pattern ) {
+    public void setPattern(Pattern pattern) {
         this.pattern = pattern;
     }
 
@@ -138,7 +137,7 @@ public class Configuration {
         return price;
     }
 
-    public void setPrice(Double price){
+    public void setPrice(Double price) {
         this.price = price;
     }
 

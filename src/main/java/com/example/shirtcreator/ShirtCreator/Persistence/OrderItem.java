@@ -11,7 +11,7 @@ public class OrderItem {
 
     @OneToOne(fetch = FetchType.LAZY)
     private Configuration configuration;
-    private int quantity;
+    private Integer quantity;
 
     // CONSTRUCTOR
     public OrderItem() {
@@ -30,11 +30,11 @@ public class OrderItem {
         this.configuration = configuration;
     }
 
-    public int getQuantity() {
+    public Integer getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(int quantity) {
+    public void setQuantity(Integer quantity) {
         this.quantity = quantity;
     }
 

@@ -54,11 +54,11 @@ public class OrderVerification {
                 {9.0, 10.7, 23.0}, // Priority, mit < 2, 10, 30 kg
                 {18.0, 22.0, 29.0}}; // Express, mit < 2, 10, 30 kg
 
-        // Defaultwerte = Economy < 2 kg
-        int col = 0;
-        int row = 0;
+        Integer col = null;
+        Integer row = null;
 
         // Spaltenindex bestimmen
+        if (totalWeight > 0) col = 0;
         if (totalWeight >= 2) col = 1;
         if (totalWeight >= 10) col = 2;
 
@@ -75,7 +75,11 @@ public class OrderVerification {
                 break;
         }
 
-        return packageCosts[row][col];
+        if (col != null && row != null) {
+            return packageCosts[row][col];
+        } else {
+            return 0.0;
+        }
     }
 
 }

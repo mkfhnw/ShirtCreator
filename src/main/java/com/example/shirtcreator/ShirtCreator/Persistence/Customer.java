@@ -7,15 +7,15 @@ import jakarta.persistence.*;
 public class Customer {
     @Id
     @GeneratedValue (strategy = GenerationType.AUTO)
-    private int id;
+    private Integer id;
 
     private String firstName;
     private String lastName;
     private String email;
     private boolean deleted;
 
-    //TODO: Adresse sollte in Customer-Tabelle nur mit ID aufgeführt werden (siehe Order und Configuration)
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
+    @JoinColumn (name = "address")
     private Address address;
 
     // CONSTRUCTOR
@@ -30,7 +30,7 @@ public class Customer {
     }
 
     // GETTERS & SETTERS
-    public int getid() {
+    public Integer getid() {
         return id;
     }
 
