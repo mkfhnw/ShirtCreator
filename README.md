@@ -15,7 +15,10 @@
 ## Datenmodell
 
 ### ER-Modell
-![ER-Modell für T-Shirt-Konfigurator](/docs/diagrams/ER-Diagramm.png "ER-Modell für T-Shirt-Konfigurator")
+<img src="docs/diagrams/ER-Modell.png" alt="ER-Diagramm" width="600"/>
+
+### ER-Diagramm (aus IntelliJ)
+<img src="docs/diagrams/ER-Diagramm.png" alt="ER-Diagramm" width="600"/>
 
 ### Relationales Modell
 <style>.dot{border-bottom: 1px dotted; text-decoration: none;}</style>
