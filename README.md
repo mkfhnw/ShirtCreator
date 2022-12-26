@@ -15,7 +15,7 @@
 ## Datenmodell
 
 ### ER-Modell
-<img src="docs/diagrams/ER-Modell.png" alt="ER-Diagramm" width="600"/>
+<img src="docs/diagrams/ER-Modell.png" alt="ER-Modell" width="600"/>
 
 ### ER-Diagramm (aus IntelliJ)
 <img src="docs/diagrams/ER-Diagramm.png" alt="ER-Diagramm" width="600"/>
