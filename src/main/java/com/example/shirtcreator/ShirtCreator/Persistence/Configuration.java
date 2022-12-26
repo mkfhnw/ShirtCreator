@@ -21,8 +21,6 @@ public class Configuration {
     @Enumerated(EnumType.STRING)
     private Pattern pattern;
     private Double price;
-    private boolean deleted;
-
 
 
     public enum Cut {
@@ -92,7 +90,6 @@ public class Configuration {
         this.color = color;
         this.size = size;
         this.pattern = pattern;
-        this.deleted = false;
         this.price = 0.0;
     }
 
@@ -137,12 +134,6 @@ public class Configuration {
         this.pattern = pattern;
     }
 
-    public boolean isDeleted( ) {
-        return deleted;
-    }
-
-    public void setDeleted( boolean deleted ) {this.deleted = deleted;}
-
     public Double getPrice() {
         return price;
     }
@@ -161,7 +152,6 @@ public class Configuration {
                 ", size=" + size +
                 ", pattern=" + pattern +
                 ", price=" + price +
-                ", deleted=" + deleted +
                 '}';
     }
 }

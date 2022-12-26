@@ -19,10 +19,12 @@
 
 ### Relationales Modell
 <style>.dot{border-bottom: 1px dotted; text-decoration: none;}</style>
-**Address** (<u>id</u>, street, plz, location)  
-**Customer** (<u>id</u>, firstName, lastName, email, deleted, <u class="dot">fk_address</u>)  
-**Configuration** (<u>id</u>, cut, color, size, pattern, price, deleted)  
-**Order** (<u>id</u>, <u class="dot">fk_configuration</u>, <u class="dot">fk_customer</u>, quantity, shippingMethod, price)  
+- **Address** (<u>id</u>, street, plz, location)  
+- **Customer** (<u>id</u>, firstName, lastName, email, deleted, <u class="dot">fk_address</u>)  
+- **Configuration** (<u>id</u>, cut, color, size, pattern, price)  
+- **Order** (<u>id</u>, <u class="dot">fk_customer</u>, totalQuantity, shippingMethod, price, orderDate)
+- **OrderItem** (<u>id</u>, <u class="dot">fk_configuration</u>, quantity)
+- **OrderItems** (<u><u class="dot">fk_order</u>, <u class="dot">fk_orderItem</u></u>)
 
 ***
 
@@ -47,20 +49,48 @@ Grundsätzlicher Aufbau:
   - Bestellung erstellen (*createOrder*):
     - URL: http://localhost:8080/api/order/
     - Method: POST
-    - Request Body: MessageNewOrder (customerId, configurationId, quantity, shippingMethod) als JSON
+    - Request Body: MessageNewOrder (customerId, orderDate) as JSON
     - Response:
-      - HTTP 200 if successful
-      - If order valid, response contains order (else null)
+      - HTTP 200 if successful, body of response contains orderId
+      - HTTP 404 if not successful
+  - Bestellung abfragen (*getOrder*):
+    - URL: http://localhost:8080/api/order/{orderId}
+    - Method: GET
+    - Request Body: keiner
+    - Response:
+      - HTTP 200 if successful, body of response contains order information as JSON (else null)
+        - MessageOrderDetails (orderId, customerId, totalQuantity, orderDate, shippingMethod, price, items)
   - Bestellungen von Kunden abfragen (*getOrdersForCustomer*):
     - URL: http://localhost:8080/api/orders
     - Method: GET
     - Request Parameter: customerId
+    - Request Body: keiner
     - Response:
-        - HTTP 200 if successful, body contains list of found orders as JSON
+        - HTTP 200 if successful, body of response contains list of found orders as JSON-Array
+          - MessageOrderShort (orderId, customerId, totalQuantity, orderDate, shippingMethod, price)
+        - HTTP 404 if customer was not found
+  - Versandbedingung aktualisieren (*updateShippingMethod*):
+    - URL: http://localhost:8080/api/order/{orderId}/updateShippingMethod/{shippingMethod}
+    - Method: PUT
+    - Request Body: keiner
+    - Response:
+      - HTTP 200 if successful, body of response contains boolean (true if successful, else false)
+  - Artikel zu einer Bestellung hinzufügen (*addItemToOrder*):
+    - URL: http://localhost:8080/api/order/{orderId}/addItem
+    - Method: PUT
+    - Request Body: MessageAddItemToOrder (quantity, configurationId) as JSON
+    - Response:
+      - HTTP 200 if successful, body of response contains orderItemId (else null)
+  - Artikel von einer Bestellung löschen (*deleteItemFromOrder*):
+    - URL: http://localhost:8080/api/order/{orderId}/deleteItem/{itemId}
+    - Method: PUT
+    - Request Body: keiner
+    - Response:
+      - HTTP 200 if successful, body of response contains boolean (true if successful, else false)
   - Preis einer Bestellung abfragen (*getOrderPrice*):
     - URL: http://localhost:8080/api/order/getPrice
     - Method: GET
-    - Request Body: MessageNewOrder (customerId, configurationId, quantity, shippingMethod) als JSON
+    - Request Body: MessageNewOrder (customerId, configurationId, quantity, shippingMethod) as JSON
     - Response:
       - HTTP 200 if successful
       - If order valid, response contains price (else null)
@@ -68,46 +98,49 @@ Grundsätzlicher Aufbau:
   - Konfiguration abfragen (*getConfiguration*):
     - URL: http://localhost:8080/api/configuration/
     - Method: GET
-    - Request Parameter: MessageConfiguration (cut, color, size, pattern)
-    - Response: HTTP 200 if successful, body contains configuration as JSON
+    - Request Parameter: MessageConfiguration (cut, color, size, pattern) as JSON
+    - Request Body: keiner
+    - Response:
+      - HTTP 200 if successful, body of response contains configuration information as JSON
+      - HTTP 404 if configuration was not found
 - **CustomerService:**
   - Kunde abfragen (*getCustomer*):
     - URL: http://localhost:8080/api/customer/{id}
     - Method: GET
-    - Request Parameter: customerId
-    - Response: HTTP 200 if successful, body contains customer as JSON
+    - Request Body: keiner
+    - Response:
+      - HTTP 200 if successful, body of response contains customer information as JSON (else null)
   - Kunde löschen (*deleteCustomer*):
-    - URL: http://localhost:8080/api/customer/{ID}
+    - URL: http://localhost:8080/api/customer/{id}
     - Method: DELETE
-    - Request Parameter: customerId
+    - Request Body: keiner
     - Response:
-      - HTTP 200 if successful
-      - If customer was found, response contains true (else false)
+      - HTTP 200 if successful, body of response contains boolean (true if successful, else false)
   - Kunde aktualisieren (*updateCustomer*):
-    - URL: http://localhost:8080/api/customer/{ID}
+    - URL: http://localhost:8080/api/customer/{id}
     - Method: PUT
-    - Request Parameter: customerId
-    - Request Body: MessageNewCustomer (firstName, lastName, email, address)
+    - Request Body: MessageNewCustomer (firstName, lastName, email, address) as JSON
     - Response:
-      - HTTP 200 if successful
-      - If customer was found and email is valid, response contains true (else false)
+      - HTTP 200 if successful, body of response contains boolean (true if successful, else false)
   - Kunde erstellen (*createCustomer*):
     - URL: http://localhost:8080/api/customer/
     - Method: POST
-    - Request Body: MessageNewCustomer (firstName, lastName, email, address)
+    - Request Body: MessageNewCustomer (firstName, lastName, email, address) as JSON
     - Response:
-      - HTTP 200 if successful
-      - If email is valid, response body contains customer as JSON (else null)
-  - E-Mail eines Kunden validieren (*validateEmail*):
-    - URL: http://localhost:8080/api/customer/validateEmail
-    - Method: GET
-    - Request Body: email as String
-    - Response: HTTP 200 if successful, response contains true or false
+      - HTTP 200 if successful, body of response contains customer information as JSON (else null)
   - Alle Kunden abfragen (*getCustomers*):
     - URL: http://localhost:8080/api/customers
     - Method: GET
     - Request Parameter: (optional "filter")
-    - Response: HTTP 200 if successful, response body contains JSON-Array with found customers
+    - Request Body: keiner
+    - Response:
+      - HTTP 200 if successful, body of response contains list of found customers as JSON-Array
+  - E-Mail eines Kunden validieren (*validateEmail*):
+    - URL: http://localhost:8080/api/customer/validateEmail
+    - Method: GET
+    - Request Body: email as String
+    - Response:
+      - HTTP 200 if successful, body of response contains boolean (true if valid, else false)
 
 ### Business Logic Layer
 - **ConfigurationVerification:**

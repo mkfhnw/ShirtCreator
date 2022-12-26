@@ -23,23 +23,6 @@ public class OrderService {
     @Autowired
     private OrderVerification orderVerification;
 
-    @GetMapping(path = "/api/orders", produces = "application/json")
-    public List<MessageOrderShort> getOrdersForCustomer(@RequestParam Integer customerId) {
-        List<Order> orders = orderRepository.findAllByCustomerId(customerId);
-        List<MessageOrderShort> m = new ArrayList<>();
-        for (Order o : orders) {
-            MessageOrderShort mos = new MessageOrderShort();
-            mos.setOrderId(o.getId());
-            mos.setCustomerId(o.getCustomer().getid());
-            mos.setOrderDate(o.getOrderDate());
-            mos.setTotalQuantity(o.getTotalQuantity());
-            mos.setShippingMethod(o.getShippingMethod().toString());
-            mos.setPrice(o.getPrice());
-            m.add(mos);
-        }
-        return m;
-    }
-
     @PostMapping(path = "/api/order/", produces = "application/json")
     public Integer createOrder(@RequestBody MessageNewOrder m) {
         Order o = new Order();
@@ -77,6 +60,23 @@ public class OrderService {
         } else {
             return null;
         }
+    }
+
+    @GetMapping(path = "/api/orders", produces = "application/json")
+    public List<MessageOrderShort> getOrdersForCustomer(@RequestParam Integer customerId) {
+        List<Order> orders = orderRepository.findAllByCustomerId(customerId);
+        List<MessageOrderShort> m = new ArrayList<>();
+        for (Order o : orders) {
+            MessageOrderShort mos = new MessageOrderShort();
+            mos.setOrderId(o.getId());
+            mos.setCustomerId(o.getCustomer().getid());
+            mos.setOrderDate(o.getOrderDate());
+            mos.setTotalQuantity(o.getTotalQuantity());
+            mos.setShippingMethod(o.getShippingMethod().toString());
+            mos.setPrice(o.getPrice());
+            m.add(mos);
+        }
+        return m;
     }
 
     @PutMapping(path = "/api/order/{orderId}/updateShippingMethod/{shippingMethod}", produces = "application/json")
