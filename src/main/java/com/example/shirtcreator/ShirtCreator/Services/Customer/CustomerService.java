@@ -50,19 +50,18 @@ public class CustomerService {
         c.setLastName(m.getLastName());
         c.setEmail(m.getEmail());
 
-        Optional<Address> addressOptional = addressRepository.findByStreetAndPlzAndLocation(c.getAddress().getStreet(), c.getAddress().getPlz(), c.getAddress().getLocation());
+        Optional<Address> addressOptional = addressRepository.findByStreetAndPlzAndLocation(m.getAddress().getStreet(), m.getAddress().getPlz(), m.getAddress().getLocation());
         if (addressOptional.isEmpty()) {
             Address address = new Address();
-            address.setStreet(c.getAddress().getStreet());
-            address.setPlz(c.getAddress().getPlz());
-            address.setLocation(c.getAddress().getLocation());
+            address.setStreet(m.getAddress().getStreet());
+            address.setPlz(m.getAddress().getPlz());
+            address.setLocation(m.getAddress().getLocation());
 
             address = addressRepository.save(address);
             c.setAddress(address);
         } else {
             c.setAddress(addressOptional.get());
         }
-        c.setAddress(m.getAddress());
 
         if (customerVerification.validateEmailAddress(c.getEmail())) {
             customerRepository.save(c);
