@@ -33,9 +33,10 @@ public class CustomerService {
 
     @DeleteMapping(path = "/api/customer/{id}", produces = "application/json")
     public boolean deleteCustomer(@PathVariable Integer id) {
-        Customer c = customerRepository.getOne(id);
-        if (c == null)
+        Optional<Customer> co = customerRepository.findById(id);
+        if (co.isEmpty())
             return false;
+        Customer c = co.get();
         c.setDeleted(true);
         customerRepository.save(c);
         return true;
@@ -43,9 +44,10 @@ public class CustomerService {
 
     @PutMapping(path = "/api/customer/{id}", produces = "application/json")
     public boolean updateCustomer(@PathVariable Integer id, @RequestBody MessageNewCustomer m) {
-        Customer c = customerRepository.getOne(id);
-        if (c == null)
+        Optional<Customer> co = customerRepository.findById(id);
+        if (co.isEmpty())
             return false;
+        Customer c = co.get();
         c.setFirstName(m.getFirstName());
         c.setLastName(m.getLastName());
         c.setEmail(m.getEmail());

@@ -96,10 +96,12 @@ public class OrderService {
     @PutMapping(path = "/api/order/{orderId}/addItem", produces = "application/json")
     public Integer addItemToOrder(@PathVariable Integer orderId, @RequestBody MessageAddItemToOrder m) {
         Optional<Order> or = orderRepository.findById(orderId);
-        if (or.isPresent()) {
+        Optional<Configuration> co = configurationRepository.findById(m.getConfigurationId());
+        if (or.isPresent() && co.isPresent()) {
             OrderItem oi = new OrderItem();
+            Configuration c = co.get();
             oi.setQuantity(m.getQuantity());
-            oi.setConfiguration(configurationRepository.getOne(m.getConfigurationId()));
+            oi.setConfiguration(c);
             orderItemRepository.save(oi);
             Order o = or.get();
             o.getItems().add(oi);
