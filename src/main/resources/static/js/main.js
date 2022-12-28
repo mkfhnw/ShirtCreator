@@ -47,6 +47,7 @@ $(document).ready(function () {
     document.getElementById("btnNewOrder").addEventListener("click", (e) => {
         document.getElementById("aftersales-panel").classList.add("d-none");
         document.getElementById("configuration-panel").classList.remove("d-none");
+        setVariablesToInitial();
     });
 
     document.getElementById("btnAddToCart").addEventListener("click", (e) => {
@@ -390,4 +391,28 @@ function update_shopping_cart() {
         $("#tblShoppingBasket tbody").append(newRow);
     }
 
+}
+
+function setVariablesToInitial() {
+    configId = 1;
+    configCut = "Round";
+    configColor = "White";
+    configSize = "Small";
+    configPattern = "Plain";
+    configPrice = 15;
+    configQuantity = 1;
+    current_price = 15;
+
+    orderId = -1;
+    orderShippingMethod = "Economy";
+    orderPrice = 0;
+
+    customerId = -1;
+
+    document.getElementById("cutSelect").selectedIndex = 0;
+    document.getElementById("sizeSelect").selectedIndex = 0;
+    document.getElementById("patternSelect").selectedIndex = 0;
+    document.getElementById("inputQuantity").value = 1;
+
+    swap_shirts();
 }
