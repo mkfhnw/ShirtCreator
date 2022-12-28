@@ -69,7 +69,7 @@ public class Configuration {
     }
 
     public enum Pattern {
-        Plain("Plain"), Striped("Striped");
+        Plain("Plain"), Striped("Striped"), Check("Check");
         private String asString;
 
         Pattern(String asString) {
