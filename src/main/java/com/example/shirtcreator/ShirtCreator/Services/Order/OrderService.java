@@ -26,11 +26,13 @@ public class OrderService {
     @PostMapping(path = "/api/order/", produces = "application/json")
     public Integer createOrder(@RequestBody MessageNewOrder m) {
         Order o = new Order();
-        Optional<Customer> customer = customerRepository.findById(m.getCustomerId());
-
-        if (customer.isPresent()) {
-            o.setCustomer(customer.get());
+        if (m.getCustomerId() != null) {
+            Optional<Customer> customer = customerRepository.findById(m.getCustomerId());
+            if (customer.isPresent()) {
+                o.setCustomer(customer.get());
+            }
         }
+
         o.setOrderDate(m.getOrderDate());
         o.setShippingMethod(Order.ShippingMethod.Economy); // Default
 
@@ -105,6 +107,8 @@ public class OrderService {
             orderItemRepository.save(oi);
             Order o = or.get();
             o.getItems().add(oi);
+
+            // TODO: quantity and price is wrong in db
             int quantity = 0;
             for (OrderItem ordIt : o.getItems()) {
                 quantity += ordIt.getQuantity();

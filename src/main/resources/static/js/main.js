@@ -1,21 +1,19 @@
 // Globale Variablen für Attribute Configuration und Order
-const configCut = "";
-const configColor = "";
-const configSize = "";
-const configPattern = "";
-const configPrice = 0.0;
+let configId = 1;
+let configCut = "Round";
+let configColor = "White";
+let configSize = "Small";
+let configPattern = "Plain";
+let configPrice = 15;
+let configQuantity = 1;
+let orderId = -1;
 const orderQuantity = 0;
 const orderShippingMethod = "";
-const orderPrice = 0.0;
+let orderPrice = 0;
 const shirt_template = "/T-Shirts/{pattern}/{cut}/Tshirt_{cut}_{color}_{side}_basic.PNG"
-let current_config_id = 1;
-let current_cut = "Round";
-let current_color = "White";
-let current_size = "Small";
-let current_pattern = "Plain";
-let current_quantity = 1;
-let item_price = 15.0;
-let current_price = 15.0;
+let shoppingCart = [];
+
+let current_price = 15;
 
 $(document).ready(function () {
 
@@ -25,6 +23,10 @@ $(document).ready(function () {
     document.getElementById("btnOrder").addEventListener("click", (e) => {
         document.getElementById("configuration-panel").classList.add("d-none");
         document.getElementById("order-panel").classList.remove("d-none");
+        if (orderId = -1)
+            create_order();
+        else
+            update_order();
     });
 
     document.getElementById("btnBack").addEventListener("click", (e) => {
@@ -35,6 +37,7 @@ $(document).ready(function () {
     document.getElementById("btnSubmit").addEventListener("click", (e) => {
         document.getElementById("order-panel").classList.add("d-none");
         document.getElementById("aftersales-panel").classList.remove("d-none");
+        // TODO CreateCustomer, UpdateOrder
     });
 
     document.getElementById("btnNewOrder").addEventListener("click", (e) => {
@@ -42,11 +45,20 @@ $(document).ready(function () {
         document.getElementById("configuration-panel").classList.remove("d-none");
     });
 
+    document.getElementById("btnAddToCart").addEventListener("click", (e) => {
+        // TODO Graphics
+        //document.getElementById("aftersales-panel").classList.add("d-none");
+        //document.getElementById("configuration-panel").classList.remove("d-none");
+        add_to_shopping_cart();
+        update_order_price();
+    });
+
     // ------------------------------------- Color buttons
     const btns_color = document.getElementsByClassName("btn-color");
     Array.from(btns_color).forEach((element) => {
         element.addEventListener("click", (e) => {
-            current_color = e.target.value;
+            console.log("color");
+            configColor = e.target.value;
             update_configuration();
             swap_shirts();
         })
@@ -54,27 +66,35 @@ $(document).ready(function () {
 
     // ------------------------------------- Cut & Pattern & Size selectors
     document.getElementById("cutSelect").addEventListener("change", (e) => {
+        console.log("cut " + configCut);
         let cut_select = document.getElementById("cutSelect");
-        current_cut = cut_select.options[cut_select.selectedIndex].text;
+        configCut = cut_select.options[cut_select.selectedIndex].text;
         update_configuration();
         swap_shirts();
+        console.log("cut " + configCut);
     });
     document.getElementById("patternSelect").addEventListener("change", (e) => {
+        console.log("pattern " + configPattern);
         let pattern_select = document.getElementById("patternSelect");
-        current_pattern = pattern_select.options[pattern_select.selectedIndex].text;
+        configPattern = pattern_select.options[pattern_select.selectedIndex].text;
         update_configuration();
         swap_shirts();
+        console.log("pattern " + configPattern);
     });
     document.getElementById("sizeSelect").addEventListener("change", (e) => {
+        console.log("size " + configSize);
         let size_select = document.getElementById("sizeSelect");
-        current_size = size_select.options[size_select.selectedIndex].text;
+        configSize = size_select.options[size_select.selectedIndex].text;
         update_configuration();
+        console.log("size " + configSize);
     });
 
     // ------------------------------------- Quantity
     document.getElementById("inputQuantity").addEventListener("change", (e) => {
-        current_quantity = document.getElementById("inputQuantity").value;
-        update_price();
+        console.log("quantity " + configQuantity);
+        configQuantity = document.getElementById("inputQuantity").value;
+        update_config_price();
+        console.log("quantity " + configQuantity);
     });
 
     // ------------------------------------- Shipping selector
@@ -177,26 +197,26 @@ function swap_shirts() {
     let img_side = [side_view, side_view_thumb]
 
     // Grab all information required to build target string
-    let cut = current_cut.toLowerCase();
-    let pattern = current_pattern.toLowerCase();
+    let cut = configCut.toLowerCase();
+    let pattern = configPattern.toLowerCase();
 
     // Replace images
     img_front.forEach((element) => {
         element.src = shirt_template.replace('{pattern}', pattern)
             .replaceAll('{cut}', cut)
-            .replaceAll('{color}', current_color)
+            .replaceAll('{color}', configColor)
             .replaceAll('{side}', "front")
     })
     img_back.forEach((element) => {
         element.src = shirt_template.replace('{pattern}', pattern)
             .replaceAll('{cut}', cut)
-            .replaceAll('{color}', current_color)
+            .replaceAll('{color}', configColor)
             .replaceAll('{side}', "back")
     })
     img_side.forEach((element) => {
         element.src = shirt_template.replace('{pattern}', pattern)
             .replaceAll('{cut}', cut)
-            .replaceAll('{color}', current_color)
+            .replaceAll('{color}', configColor)
             .replaceAll('{side}', "side")
     })
 
@@ -204,20 +224,89 @@ function swap_shirts() {
 
 function update_configuration() {
 
-    $.getJSON("http://localhost:8080/api/configuration", {"cut" : current_cut , "pattern" : current_pattern , "size" : current_size , "color" : current_color})
+    $.getJSON("http://localhost:8080/api/configuration", {"cut" : configCut , "pattern" : configPattern , "size" : configSize , "color" : configColor})
         .done(handleConfigurationReply)
-
-    update_price();
 }
+
+function create_order() {
+    let order_date = new Date(new Date().toString().split('GMT')[0]+' UTC').toISOString()
+
+    $.ajax({
+        type: "POST",
+        url: "/api/order/",
+        data: JSON.stringify({ customer : null , orderDate: order_date }),
+        success: orderCreated,
+        dataType: 'json',
+        contentType: 'application/json'
+    });
+}
+
+function update_order() {
+    let order_date = new Date(new Date().toString().split('GMT')[0]+' UTC').toISOString()
+
+    $.ajax({
+        type: "POST",
+        url: "/api/order/",
+        data: JSON.stringify({ customer : null , orderDate: order_date }),
+        success: orderCreated,
+        dataType: 'json',
+        contentType: 'application/json'
+    });
+}
+
+function orderCreated(response){
+
+    orderId = response;
+    addItemsToOrder();
+}
+
+function addItemsToOrder(){
+
+    for (let item of shoppingCart) {
+        addItemToOrder(item);
+    }
+}
+
+function addItemToOrder(item){
+
+    $.ajax({
+        type: "PUT",
+        url: "/api/order/"+orderId+"/addItem",
+        data: JSON.stringify({ quantity : item["quantity"] , configurationId: item["id"] }),
+        success: null,
+        dataType: 'json',
+        contentType: 'application/json'
+    });
+
+}
+
+
 
 function handleConfigurationReply(configuration){
-
-    current_config_id = configuration["id"];
-    item_price = configuration["price"];
+    console.log("handle config " + configPrice)
+    configId = configuration["id"];
+    configPrice = configuration["price"];
+    console.log("handle config " + configPrice)
+    update_config_price();
 }
 
-function update_price(){
+function update_config_price(){
+    console.log("update price " + current_price);
+    current_price = configPrice * configQuantity;
+    document.getElementById("config_price").innerText = current_price.toString() + ".- CHF";
+    console.log("update price " + current_price);
+}
 
-    current_price = item_price * current_quantity;
-    document.getElementById("item_price").innerText = current_price.toString() + " CHF";
+function update_order_price() {
+    console.log("update orderPrice " + orderPrice);
+    orderPrice += current_price;
+    document.getElementById("order_price").innerText = orderPrice.toString() + ".- CHF";
+    console.log("update orderPrice " + orderPrice);
+}
+
+
+function add_to_shopping_cart() {
+    console.log("add_to_shopping_cart " );
+    shoppingCart.push({"id" : configId, "quantity" : configQuantity});
+    console.log(shoppingCart);
 }
