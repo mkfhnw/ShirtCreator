@@ -142,7 +142,7 @@ public class OrderService {
     }
 
     @PutMapping(path = "/api/order/{orderId}/deleteItem/{itemId}", produces = "application/json")
-    public boolean deleteItemFromOrder(@PathVariable int orderId, @PathVariable int itemId) {
+    public Integer deleteItemFromOrder(@PathVariable int orderId, @PathVariable int itemId) {
         Optional<Order> or = orderRepository.findById(orderId);
         Optional<OrderItem> oi = orderItemRepository.findById(itemId);
         if (or.isPresent() && oi.isPresent()) {
@@ -157,9 +157,9 @@ public class OrderService {
             o.setPrice(orderVerification.calculateOrderPrice(o));
             orderItemRepository.delete(ori);
             orderRepository.save(o);
-            return true;
+            return itemId;
         } else {
-            return false;
+            return null;
         }
     }
 

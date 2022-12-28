@@ -7,6 +7,7 @@ let configPattern = "Plain";
 let configPrice = 15;
 let configQuantity = 1;
 let current_price = 15;
+let current_item_id = -1;
 
 let orderId = -1;
 const orderQuantity = 0;
@@ -53,7 +54,7 @@ $(document).ready(function () {
         if (orderId === -1) {
             createOrder();
         } else {
-            add_to_shopping_cart();
+            addItemToOrder(configQuantity, configId);
         }
     });
 
@@ -221,6 +222,18 @@ function addItemToOrder(quantity, configuration_id) {
     });
 }
 
+// delete Item from existing order
+function deleteItemFromOrder(item_id) {
+    $.ajax({
+        type: "PUT",
+        url: "/api/order/" + orderId + "/deleteItem/" + item_id,
+        data: null,
+        success: handleDeleteItemFromOrder,
+        dataType: 'json',
+        contentType: 'application/json'
+    });
+}
+
 // update existing order - when present with customerId
 function updateOrder() {
     let order_date = new Date(new Date().toString().split('GMT')[0] + ' UTC').toISOString()
@@ -288,9 +301,18 @@ function handleGetConfiguration(configuration) {
 
 function handleCreateOrder(response) {
     orderId = response;
-    add_to_shopping_cart();
+    addItemToOrder(configQuantity, configId);
 }
 function handleAddItemToOrder(response) {
+    current_item_id = response;
+    shoppingCart.push({"itemId": current_item_id, "configId": configId, "quantity": configQuantity, "itemPrice": configPrice, "sumPrice": current_price});
+    update_shopping_cart();
+    getOrderPrice();
+}
+
+function handleDeleteItemFromOrder(response) {
+    shoppingCart.splice(shoppingCart.findIndex(shoppingCart.itemId = response), 1);
+    update_shopping_cart();
     getOrderPrice();
 }
 
@@ -366,21 +388,14 @@ function update_shopping_cart() {
     $("#tblShoppingBasket tbody").empty();
     for (let item of shoppingCart) {
         var newRow = "<tr>";
-        newRow += "<td>" + item["id"] + "</td>";
+        newRow += "<td>" + item["itemId"] + "</td>";
+        newRow += "<td>" + item["configId"] + "</td>";
         newRow += "<td>" + item["quantity"] + "</td>";
+        newRow += "<td>" + item["itemPrice"] + "</td>";
+        newRow += "<td>" + item["sumPrice"] + "</td>";
         newRow += "</tr>";
         $("#tblShoppingBasket tbody").append(newRow);
     }
-}
-
-
-/******************
- Shopping Cart functions
- ******************/
-function add_to_shopping_cart() {
-    shoppingCart.push({"id": configId, "quantity": configQuantity});
-    addItemToOrder(configQuantity, configId);
-    update_shopping_cart();
 }
 
 
@@ -396,6 +411,7 @@ function setVariablesToInitial() {
     configPrice = 15;
     configQuantity = 1;
     current_price = 15;
+    current_item_id = -1;
 
     orderId = -1;
     orderShippingMethod = "Economy";
