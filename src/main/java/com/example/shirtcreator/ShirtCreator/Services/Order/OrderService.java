@@ -5,6 +5,7 @@ import com.example.shirtcreator.ShirtCreator.Persistence.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.swing.plaf.basic.BasicInternalFrameTitlePane;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -97,6 +98,7 @@ public class OrderService {
 
     @PutMapping(path = "/api/order/{orderId}/addItem", produces = "application/json")
     public Integer addItemToOrder(@PathVariable Integer orderId, @RequestBody MessageAddItemToOrder m) {
+        System.out.println("addItemToOrder");
         Optional<Order> or = orderRepository.findById(orderId);
         Optional<Configuration> co = configurationRepository.findById(m.getConfigurationId());
         if (or.isPresent() && co.isPresent()) {

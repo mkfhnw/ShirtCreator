@@ -160,18 +160,27 @@
                         <hr>
                         <div class="shopping-basket" id="shopping-basket">
                             <h5>Shopping cart is still empty.</h5>
+                            <table id="tblShoppingBasket">
+                                <thead>
+                                    <tr>Configuration ID</tr>
+                                    <tr>Anzahl</tr>
+                                </thead>
+                                <tbody>
+
+                                </tbody>
+                            </table>
                         </div>
                         <hr>
-                        <!--<div class="input-group">
+                        <div class="input-group">
                             <label class="input-group-text" for="selectShippingMethod">Shipping</label>
                             <select class="form-select d-inline-block" id="selectShippingMethod"
                                     aria-label="Default select example">
-                                <option value="1">Economy (delivery within 2 workdays)</option>
-                                <option value="2">Priority (delivery next workday)</option>
-                                <option value="3">Express (delivery next workday by 9 a.m.)</option>
+                                <option value="Economy">Economy (delivery within 2 workdays)</option>
+                                <option value="Priority">Priority (delivery next workday)</option>
+                                <option value="Express">Express (delivery next workday by 9 a.m.)</option>
                             </select>
                         </div>
-                        <hr>-->
+                        <hr>
                         <div class="d-flex justify-content-between">
                             <h5>Order Price</h5>
                             <label id="order_price">0.- CHF</label>
@@ -183,16 +192,6 @@
 
                     <!--Order-Panel-->
                     <div class="order-panel d-none" id="order-panel">
-                        <div class="input-group mb-1">
-                            <label class="input-group-text" for="selectShippingMethod">Shipping</label>
-                            <select class="form-select d-inline-block" id="selectShippingMethod"
-                                    aria-label="Default select example">
-                                <option value="1">Economy (delivery within 2 workdays)</option>
-                                <option value="2">Priority (delivery next workday)</option>
-                                <option value="3">Express (delivery next workday by 9 a.m.)</option>
-                            </select>
-                        </div>
-                        <hr>
                         <!--firstName and lastName-->
                         <div class="d-flex justify-content-between">
                             <div style="display: flex; flex-direction: row;">

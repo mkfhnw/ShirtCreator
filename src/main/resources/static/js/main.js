@@ -8,7 +8,7 @@ let configPrice = 15;
 let configQuantity = 1;
 let orderId = -1;
 const orderQuantity = 0;
-const orderShippingMethod = "";
+let orderShippingMethod = "Economy";
 let orderPrice = 0;
 const shirt_template = "/T-Shirts/{pattern}/{cut}/Tshirt_{cut}_{color}_{side}_basic.PNG"
 let shoppingCart = [];
@@ -23,10 +23,7 @@ $(document).ready(function () {
     document.getElementById("btnOrder").addEventListener("click", (e) => {
         document.getElementById("configuration-panel").classList.add("d-none");
         document.getElementById("order-panel").classList.remove("d-none");
-        if (orderId = -1)
-            create_order();
-        else
-            update_order();
+
     });
 
     document.getElementById("btnBack").addEventListener("click", (e) => {
@@ -46,11 +43,20 @@ $(document).ready(function () {
     });
 
     document.getElementById("btnAddToCart").addEventListener("click", (e) => {
+
         // TODO Graphics
         //document.getElementById("aftersales-panel").classList.add("d-none");
         //document.getElementById("configuration-panel").classList.remove("d-none");
-        add_to_shopping_cart();
-        update_order_price();
+console.log("btnAddToCart " + orderId)
+        if (orderId === -1) {
+            create_order();
+        } else {
+            console.log("btnAddToCart2 " + orderId)
+            //update_order();
+            add_to_shopping_cart();
+            update_order_price();
+        }
+
     });
 
     // ------------------------------------- Color buttons
@@ -99,7 +105,9 @@ $(document).ready(function () {
 
     // ------------------------------------- Shipping selector
     document.getElementById("selectShippingMethod").addEventListener("change", (e) => {
-        //TODO
+        let shipping_select = document.getElementById("selectShippingMethod");
+        orderShippingMethod = shipping_select.options[shipping_select.selectedIndex].value;
+        update_shipping_method();
     });
 
     // -------------------------------------- Handle landingpages
@@ -248,31 +256,37 @@ function update_order() {
         type: "POST",
         url: "/api/order/",
         data: JSON.stringify({ customer : null , orderDate: order_date }),
-        success: orderCreated,
+        success: null,
+        dataType: 'json',
+        contentType: 'application/json'
+    });
+}
+
+function update_shipping_method() {
+
+    $.ajax({
+        type: "PUT",
+        url: "/api/order/"+orderId+"/updateShippingMethod/"+orderShippingMethod,
+        data: null,
+        success: null,
         dataType: 'json',
         contentType: 'application/json'
     });
 }
 
 function orderCreated(response){
-
     orderId = response;
-    addItemsToOrder();
+    add_to_shopping_cart();
+    update_order_price();
 }
 
-function addItemsToOrder(){
 
-    for (let item of shoppingCart) {
-        addItemToOrder(item);
-    }
-}
-
-function addItemToOrder(item){
-
+function addItemToOrder(quantity, configuration_id){
+console.log("addItemToOrder " + quantity + configuration_id + " " + orderId);
     $.ajax({
         type: "PUT",
         url: "/api/order/"+orderId+"/addItem",
-        data: JSON.stringify({ quantity : item["quantity"] , configurationId: item["id"] }),
+        data: JSON.stringify({ quantity : quantity , configurationId: configuration_id }),
         success: null,
         dataType: 'json',
         contentType: 'application/json'
@@ -306,7 +320,24 @@ function update_order_price() {
 
 
 function add_to_shopping_cart() {
-    console.log("add_to_shopping_cart " );
+    console.log("add_to_shopping_cart " + orderId);
     shoppingCart.push({"id" : configId, "quantity" : configQuantity});
+    console.log("add_to_shopping_cart2 " + orderId);
+    addItemToOrder(configQuantity, configId);
+    update_shopping_cart();
+
     console.log(shoppingCart);
+}
+
+function update_shopping_cart() {
+    $("#tblShoppingBasket tbody").empty();
+
+    for (let item of shoppingCart) {
+        var newRow = "<tr>";
+        newRow += "<td>" + item["id"]+ "</td>";
+        newRow += "<td>" + item["quantity"] + "</td>";
+        newRow += "</tr>";
+        $("#tblShoppingBasket tbody").append(newRow);
+    }
+
 }
