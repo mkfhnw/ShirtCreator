@@ -303,8 +303,8 @@ function handleCreateCustomer(customer) {
     updateOrder();
 }
 
-function handleGetOrderPrice(response) {
-    updateOrderPrice();
+function handleGetOrderPrice(price) {
+    updateOrderPrice(price);
 }
 
 
