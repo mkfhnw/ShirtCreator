@@ -17,8 +17,12 @@
 
 .btn btn-primary{
     background-color: #03857E;
+    outline: none;
+    font-weight: normal;
 }
-/* buttons for choosing the colour */
+.btn btn-primary:hover{
+    background-color: #02534f;
+}
 button.btn-color {
     /* Only used for JS selection */
 }
@@ -135,11 +139,10 @@ button.btn_green:hover {
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 93%;
+    width: 500px;
+    height: 500px;
     background-color: rgba(0, 0, 0, 0.5);
     display: none;
-    border-radius: 2vw;
 }
 
 #modal-content {
@@ -151,16 +154,16 @@ button.btn_green:hover {
     height: 50%;
     background-color: white;
     display: flex;
+    border-right: 20vw;
 }
 
 @media (max-width: 600px) {
     #modal-content {
-        width: 90%;
-        height: 90%;
+        width: 100%;
+        height: 100%;
         border-radius: 2vw;
     }
 }
-
 #modal-left {
     height: 100%;
     width: 40%;
@@ -256,6 +259,10 @@ button.btn_green:hover {
     display: flex;
     align-items: center;
 }
+.input-group-text {
+    margin: 10px;
+}
+
 
 /* ------------------------------ Contact form-------------------------- */
 * {

@@ -114,7 +114,7 @@ $(document).ready(function () {
         document.getElementById("modal").style.display = "none";
     });
 
-    // Switches between the two tabs login and registration
+// Switches between the two tabs login and registration and sets them active or not
     const modalTabs = document.querySelectorAll(".modal-tab");
 
     modalTabs.forEach(function (modalTab) {
@@ -130,10 +130,10 @@ $(document).ready(function () {
 
             const modalTabContents = document.querySelectorAll(".modal-tab-content");
             modalTabContents.forEach(function (modalTabContent) {
-                modalTabContent.classList.remove("active");
+                modalTabContent.style.display = 'none';
             });
 
-            tabContent.classList.add("active");
+            tabContent.style.display = 'block';
         });
     });
 
@@ -162,7 +162,7 @@ $(document).ready(function () {
 
     // ROUTE: Opens Contact landingpage contact as soon as Contact on the navigation bar is clicked
     const contactLink = document.getElementById('contact-link');
-    contactLink.addEventListener('click', function (event) {
+    contactLink.addEventListener('click', (e) => {
         // prevent the default link behavior (navigating to a new page)
         event.preventDefault();
         window.location.href = 'contact.html';
