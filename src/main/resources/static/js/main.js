@@ -303,9 +303,21 @@ function handleCreateOrder(response) {
     orderId = response;
     addItemToOrder(configQuantity, configId);
 }
+
 function handleAddItemToOrder(response) {
     current_item_id = response;
-    shoppingCart.push({"itemId": current_item_id, "configId": configId, "quantity": configQuantity, "itemPrice": configPrice, "sumPrice": current_price});
+    shoppingCart.push({
+        "itemId": current_item_id,
+        "configId": configId,
+        "quantity": configQuantity,
+        "itemPrice": configPrice,
+        "sumPrice": current_price,
+        "cut": configCut,
+        "pattern": configPattern,
+        "size": configSize,
+        "color": configColor
+    });
+    document.getElementById("emptyCart").classList.add("d-none");
     update_shopping_cart();
     getOrderPrice();
 }
@@ -374,27 +386,36 @@ function swap_shirts() {
 // Updates Configuration Price
 function update_config_price() {
     current_price = configPrice * configQuantity;
-    document.getElementById("config_price").innerText = current_price.toString() + ".- CHF";
+    document.getElementById("config_price").innerText = "CHF " + current_price.toString();
 }
 
 // Updates Order Price
 function updateOrderPrice(price) {
     orderPrice = price;
-    document.getElementById("order_price").innerText = orderPrice.toString() + ".- CHF";
+    document.getElementById("order_price").innerText = "CHF " + orderPrice.toString();
 }
 
 // Updates Shopping cart
 function update_shopping_cart() {
     $("#tblShoppingBasket tbody").empty();
     for (let item of shoppingCart) {
+        var link = "javascript:deleteItemFromOrder(" + item["itemId"] + ")";
         var newRow = "<tr>";
-        newRow += "<td>" + item["itemId"] + "</td>";
-        newRow += "<td>" + item["configId"] + "</td>";
+        newRow += "<td>" + (shoppingCart.indexOf(item) + 1) + "</td>";
+        newRow += "<td>" + item["cut"] + "</td>";
+        newRow += "<td>" + item["color"] + "</td>";
+        newRow += "<td>" + item["pattern"] + "</td>";
+        newRow += "<td>" + item["size"] + "</td>";
         newRow += "<td>" + item["quantity"] + "</td>";
         newRow += "<td>" + item["itemPrice"] + "</td>";
-        newRow += "<td>" + item["sumPrice"] + "</td>";
+        newRow += "<td>" + "CHF " + item["sumPrice"] + "</td>";
+        newRow += "<td><a href=\"" + link + "\">" + "X" + "</a></td>";
         newRow += "</tr>";
         $("#tblShoppingBasket tbody").append(newRow);
+    }
+    if (shoppingCart.length > 0) {
+        document.getElementById("emptyCart").classList.add("d-none");
+        document.getElementById("tblShoppingBasket").classList.remove("d-none");
     }
 }
 

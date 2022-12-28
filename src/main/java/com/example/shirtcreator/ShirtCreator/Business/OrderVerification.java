@@ -17,8 +17,8 @@ public class OrderVerification {
 
     // Berechnet den Preis einer Bestellung
     public Double calculateOrderPrice(Order o) {
-        double netPrice = 0.0;
-        double orderPrice = 0.0;
+        Double netPrice = 0.0;
+        Double orderPrice = 0.0;
 
         // Nettopreis berechnen
         for (int i = 0; i < o.getItems().size(); i++) {
