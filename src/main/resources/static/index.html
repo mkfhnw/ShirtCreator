@@ -80,17 +80,20 @@
                 <button type="button" data-mdb-target="#carouselMDExample" data-mdb-slide-to="0" class="active"
                         aria-current="true" aria-label="Slide 1" style="width: 5vw;">
                     <img class="d-block w-100 rounded"
-                         src="/T-Shirts/plain/round/Tshirt_round_white_front_basic.PNG" class="img-fluid" id="front-view-thumb"/>
+                         src="/T-Shirts/plain/round/Tshirt_round_white_front_basic.PNG" class="img-fluid"
+                         id="front-view-thumb"/>
                 </button>
                 <button type="button" data-mdb-target="#carouselMDExample" data-mdb-slide-to="1" aria-label="Slide 2"
                         style="width: 5vw;">
                     <img class="d-block w-100 rounded"
-                         src="/T-Shirts/plain/round/Tshirt_round_white_back_basic.PNG" class="img-fluid" id="back-view-thumb"/>
+                         src="/T-Shirts/plain/round/Tshirt_round_white_back_basic.PNG" class="img-fluid"
+                         id="back-view-thumb"/>
                 </button>
                 <button type="button" data-mdb-target="#carouselMDExample" data-mdb-slide-to="2" aria-label="Slide 3"
                         style="width: 5vw;">
                     <img class="d-block w-100 rounded"
-                         src="/T-Shirts/plain/round/Tshirt_round_white_side_basic.PNG" class="img-fluid" id="side-view-thumb"/>
+                         src="/T-Shirts/plain/round/Tshirt_round_white_side_basic.PNG" class="img-fluid"
+                         id="side-view-thumb"/>
                 </button>
             </div>
         </div>
@@ -157,24 +160,29 @@
                         <hr>
                         <div class="d-flex justify-content-between">
                             <h5>Configuration Price</h5>
-                            <label id="config_price">15.- CHF</label>
+                            <label id="config_price">CHF 15</label>
                             <button type="button" id="btnAddToCart" class="btn btn-primary"
                                     style="background-color: #03857E;">
                                 <b>Add to cart</b></button>
                         </div>
                         <hr>
                         <div class="shopping-basket" id="shopping-basket">
-                            <h5>Shopping cart is still empty.</h5>
-                            <table id="tblShoppingBasket">
-                                <thead>
-                                    <tr>Item ID</tr>
-                                    <tr>Configuration ID</tr>
-                                    <tr>Anzahl</tr>
-                                    <tr>Preis 1 Stk.</tr>
-                                    <tr>Totaler Preis</tr>
+                            <h6 class="emptyCart" id="emptyCart">Shopping cart is still empty.</h6>
+                            <table class="table table-hover table-sm d-none" id="tblShoppingBasket" style="font-size: 70%">
+                                <thead class="thead-light">
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Cut</th>
+                                    <th scope="col">Color</td>
+                                    <th scope="col">Pattern</td>
+                                    <th scope="col">Size</td>
+                                    <th scope="col">Q</td>
+                                    <th scope="col">U/P</td>
+                                    <th scope="col">Total</td>
+                                    <th scope="col"></th>
+                                </tr>
                                 </thead>
                                 <tbody>
-
                                 </tbody>
                             </table>
                         </div>
@@ -191,7 +199,7 @@
                         <hr>
                         <div class="d-flex justify-content-between">
                             <h5>Order Price</h5>
-                            <label id="order_price">0.- CHF</label>
+                            <label id="order_price">CHF 0.00</label>
                             <button type="button" id="btnOrder" class="btn btn-primary"
                                     style="background-color: #03857E;">
                                 <b>Checkout</b></button>

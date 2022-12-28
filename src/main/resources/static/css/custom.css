@@ -1,5 +1,5 @@
 .preview-item {
-    width:25vw;
+    width: 25vw;
     display: block;
     margin: auto;
 }
@@ -11,11 +11,12 @@
 .custom-nav {
     background-color: white;
 }
-.col{
+
+.col {
     background-color: white;
 }
 
-.btn btn-primary{
+.btn btn-primary {
     background-color: #03857E;
     outline: none;
     font-weight: normal;
@@ -26,16 +27,19 @@
 button.btn-color {
     /* Only used for JS selection */
 }
+
 button.btn_white {
     background-color: ghostwhite;
     height: 2vw;
     width: 2vw;
-    border: solid darkgrey 1px ;
+    border: solid darkgrey 1px;
     border-radius: 50%;
 }
+
 button.btn_white:hover {
     background-color: #F0F0F0;
 }
+
 button.btn_black {
     background-color: #2B2B2B;
     height: 2vw;
@@ -43,9 +47,11 @@ button.btn_black {
     border: 0;
     border-radius: 50%;
 }
+
 button.btn_black:hover {
     background-color: #453737;
 }
+
 button.btn_red {
     background-color: #7B2C2C;
     height: 2vw;
@@ -53,9 +59,11 @@ button.btn_red {
     border: 0;
     border-radius: 50%;
 }
+
 button.btn_red:hover {
     background-color: #955353;
 }
+
 button.btn_blue {
     background-color: #365670;
     height: 2vw;
@@ -63,13 +71,16 @@ button.btn_blue {
     border: 0;
     border-radius: 50%;
 }
+
 button.btn_blue:hover {
     background-color: #5e768a;
 }
-.navbar a:hover{
+
+.navbar a:hover {
     color: #03857E;
     font-weight: bold;
 }
+
 button.btn_green {
     background-color: #606A3C;
     height: 2vw;
@@ -77,23 +88,29 @@ button.btn_green {
     border: 0;
     border-radius: 50%;
 }
-.button.btn-outline-success{
+
+.button.btn-outline-success {
     float: right;
 }
+
 button.btn_green:hover {
     background-color: #728430;
 }
-.button.btn btn-primary{
+
+.button.btn btn-primary {
     background-color: #03857E;
 }
+
 .carousel-indicators {
     position: absolute;
     border: 0;
 }
+
 .carousel-indicators .active {
     background-color: #ECECEC;
 }
-.carousel-indicators.button{
+
+.carousel-indicators.button {
     width: 5vw;
 }
 
@@ -119,7 +136,7 @@ button.btn_green:hover {
 .control-panel-inner {
     min-width: 20vw;
     flex-direction: row;
-    border: 1px solid rgb(105,105,105);
+    border: 1px solid rgb(105, 105, 105);
     border-radius: 1vw;
     margin: 1vw;
     padding: 1vw;
@@ -164,11 +181,13 @@ button.btn_green:hover {
         border-radius: 2vw;
     }
 }
+
 #modal-left {
     height: 100%;
     width: 40%;
 }
-#modal-left img{
+
+#modal-left img {
     height: 100%;
     width: 100%;
 }
@@ -227,15 +246,18 @@ button.btn_green:hover {
 #close-modal-button:hover {
     color: black;
 }
+
 .image-email-icon {
     width: 2vw;
     height: 2vw;
 }
+
 .email-icon,
 .password-icon {
     width: 2vw;
     height: 2vw;
 }
+
 #create-account-button {
     background-color: #03857E;
     border: 0;
@@ -244,6 +266,7 @@ button.btn_green:hover {
     height: 2vw;
     border-radius: 0.25vw;
 }
+
 #ok {
     background-color: #03857E;
     border: 0;
@@ -251,10 +274,12 @@ button.btn_green:hover {
     width: 5vw;
     height: 3vw;
 }
-.contact-icons{
+
+.contact-icons {
     height: 35px;
     width: 35px;
 }
+
 .address-container, .phone-container, .email-container {
     display: flex;
     align-items: center;
@@ -290,10 +315,12 @@ button.btn_green:hover {
     font-size: 36vw;
     font-weight: 500;
 }
-.Icon img{
+
+.Icon img {
     height: 50px;
     width: 50px;
 }
+
 .Contact .Contactus p {
     font-weight: 500;
     color: black;
@@ -362,9 +389,11 @@ button.btn_green:hover {
     font-size: 35px;
 
 }
-.ContactInfo.Box h3{
+
+.ContactInfo.Box h3 {
     color: black;
 }
+
 .Form .input_field {
     margin-bottom: 10px;
     border-radius: 0.5vw;
@@ -398,13 +427,14 @@ button.btn_green:hover {
     border-radius: 10px;
     cursor: pointer;
 }
+
 .btn {
     color: white;
     background-color: #03857E;
     border-radius: 2px;
     border: 0;
 }
+
 .move-up {
     margin-top: -50px;
 }
-
