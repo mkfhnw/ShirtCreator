@@ -6,14 +6,19 @@ let configSize = "Small";
 let configPattern = "Plain";
 let configPrice = 15;
 let configQuantity = 1;
+let current_price = 15;
+
 let orderId = -1;
 const orderQuantity = 0;
 let orderShippingMethod = "Economy";
 let orderPrice = 0;
+
+let customerId = -1;
+
 const shirt_template = "/T-Shirts/{pattern}/{cut}/Tshirt_{cut}_{color}_{side}_basic.PNG"
 let shoppingCart = [];
 
-let current_price = 15;
+
 
 $(document).ready(function () {
 
@@ -34,7 +39,9 @@ $(document).ready(function () {
     document.getElementById("btnSubmit").addEventListener("click", (e) => {
         document.getElementById("order-panel").classList.add("d-none");
         document.getElementById("aftersales-panel").classList.remove("d-none");
-        // TODO CreateCustomer, UpdateOrder
+
+        create_customer();
+        // TODO UpdateOrder
     });
 
     document.getElementById("btnNewOrder").addEventListener("click", (e) => {
@@ -54,7 +61,7 @@ console.log("btnAddToCart " + orderId)
             console.log("btnAddToCart2 " + orderId)
             //update_order();
             add_to_shopping_cart();
-            update_order_price();
+            get_order_price();
         }
 
     });
@@ -250,12 +257,18 @@ function create_order() {
 }
 
 function update_order() {
+    console.log("update_order");
     let order_date = new Date(new Date().toString().split('GMT')[0]+' UTC').toISOString()
+    let customer_id = null;
+    if (customerId !== -1)
+        customer_id = customerId;
+
+    console.log("update_order " + customer_id + " " + order_date);
 
     $.ajax({
-        type: "POST",
-        url: "/api/order/",
-        data: JSON.stringify({ customer : null , orderDate: order_date }),
+        type: "PUT",
+        url: "/api/order/"+orderId,
+        data: JSON.stringify({ customerId : customer_id , orderDate: order_date }),
         success: null,
         dataType: 'json',
         contentType: 'application/json'
@@ -268,16 +281,45 @@ function update_shipping_method() {
         type: "PUT",
         url: "/api/order/"+orderId+"/updateShippingMethod/"+orderShippingMethod,
         data: null,
-        success: null,
+        success: get_order_price,
         dataType: 'json',
         contentType: 'application/json'
     });
 }
 
+function create_customer() {
+    let inputFirstName = document.getElementById("inputFirstName-registration1").value;
+    let inputLastName = document.getElementById("inputLastName-registration2").value;
+    let inputStreet = document.getElementById("inputStreet").value;
+    let inputPlz = document.getElementById("inputPlz").value;
+    let inputLocation = document.getElementById("inputLocation").value;
+    let inputEmail = document.getElementById("inputEmail").value;
+    let address_data = {street : inputStreet, plz : inputPlz, location : inputLocation};
+    let customer_data = { firstName : inputFirstName, lastName : inputLastName, email : inputEmail, address : address_data};
+
+    console.log(customer_data);
+
+    $.ajax({
+        type: "POST",
+        url: "/api/customer/",
+        data: JSON.stringify(customer_data),
+        success: handleCustomerCreated,
+        dataType: 'json',
+        contentType: 'application/json'
+    });
+}
+
+function handleCustomerCreated(customer) {
+    console.log("handleCustomerCreated");
+    customerId = customer["id"];
+    console.log("handleCustomerCreated " + customerId);
+    update_order();
+
+}
+
 function orderCreated(response){
     orderId = response;
     add_to_shopping_cart();
-    update_order_price();
 }
 
 
@@ -287,7 +329,7 @@ console.log("addItemToOrder " + quantity + configuration_id + " " + orderId);
         type: "PUT",
         url: "/api/order/"+orderId+"/addItem",
         data: JSON.stringify({ quantity : quantity , configurationId: configuration_id }),
-        success: null,
+        success: get_order_price,
         dataType: 'json',
         contentType: 'application/json'
     });
@@ -311,11 +353,19 @@ function update_config_price(){
     console.log("update price " + current_price);
 }
 
-function update_order_price() {
-    console.log("update orderPrice " + orderPrice);
-    orderPrice += current_price;
+function get_order_price() {
+    console.log("get_order_price " + orderPrice + " " + orderId);
+
+    $.getJSON("http://localhost:8080/api/order/" + orderId + "/getPrice")
+        .done(update_order_price)
+
+    console.log("get_order_price " + orderPrice);
+}
+
+function update_order_price(price) {
+    console.log("update_order_price" + price);
+    orderPrice = price;
     document.getElementById("order_price").innerText = orderPrice.toString() + ".- CHF";
-    console.log("update orderPrice " + orderPrice);
 }
 
 

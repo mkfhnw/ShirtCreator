@@ -82,6 +82,30 @@ public class OrderService {
         return m;
     }
 
+    @PutMapping(path = "/api/order/{orderId}", produces = "application/json")
+    public boolean updateOrder(@PathVariable Integer orderId, @RequestBody MessageUpdateOrder m) {
+        System.out.println("updateOrder");
+        Optional<Order> or = orderRepository.findById(orderId);
+        if (or.isPresent()) {
+            Order o = or.get();
+            System.out.println("updateOrder2");
+            if (m.getCustomerId() != null) {
+                System.out.println("updateOrder3");
+                Optional<Customer> customer = customerRepository.findById(m.getCustomerId());
+                if (customer.isPresent()) {
+                    System.out.println("updateOrder4");
+                    o.setCustomer(customer.get());
+                }
+            }
+        System.out.println("updateOrder5");
+        o.setOrderDate(m.getOrderDate());
+        orderRepository.save(o);
+        return true;
+        } else {
+            return false;
+        }
+    }
+
     @PutMapping(path = "/api/order/{orderId}/updateShippingMethod/{shippingMethod}", produces = "application/json")
     public boolean updateShippingMethod(@PathVariable Integer orderId, @PathVariable String shippingMethod) {
         Optional<Order> or = orderRepository.findById(orderId);
@@ -110,7 +134,6 @@ public class OrderService {
             Order o = or.get();
             o.getItems().add(oi);
 
-            // TODO: quantity and price is wrong in db
             int quantity = 0;
             for (OrderItem ordIt : o.getItems()) {
                 quantity += ordIt.getQuantity();
@@ -146,21 +169,17 @@ public class OrderService {
         }
     }
 
-//    @GetMapping(path = "/api/order/getPrice", produces = "application/json")
-//    public Double getOrderPrice(@RequestBody MessageOrder m) {
-//        Order o = new Order();
-//        Optional<Configuration> c = configurationRepository.findById(m.getConfigurationId());
-//        if (c.isPresent()) {
-//            o.setConfiguration(c.get());
-//        }
-//        o.setShippingMethod(Order.ShippingMethod.valueOf(m.getShippingMethod()));
-//        o.setTotalQuantity(m.getTotalQuantity());
-//        if (orderVerification.validateOrder(o)) {
-//            // Preis der Bestellung berechnen und zurückgeben
-//            return orderVerification.calculateOrderPrice(o);
-//        } else {
-//            return null;
-//        }
-//    }
+    @GetMapping(path = "/api/order/{orderId}/getPrice", produces = "application/json")
+    public Double getOrderPrice(@PathVariable Integer orderId) {
+        System.out.println("in getOrderPrice");
+        Optional<Order> or = orderRepository.findById(orderId);
+        if (or.isPresent()) {
+            Order o = or.get();
+            System.out.println(o.getPrice());
+            return o.getPrice();
+        } else {
+            return null;
+        }
+    }
 
 }
