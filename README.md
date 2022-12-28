@@ -43,9 +43,9 @@
 
 Grundsätzlicher Aufbau:
 
-- Navigationsleiste (navbar) mit Logo und vier Buttons (Home, About, Contact, Login)
+- Navigationsleiste (navbar) mit Logo und drei Buttons (Home, Contact, Login)
 - Hauptframe mit zwei Spalten: T-Shirt-Anzeige (preview-column) und Bedienfeld (control-column)
-- für T-Shirt-Anzeige wurde ein Karussell (carousel) für die T-Shirt-Ansichten implementiert
+- für T-Shirt-Anzeige wurde ein Karussell (carousel) mit den verschiedenen Ansichten implementiert
 - Bedienfeld wechselt per Knopfdruck zwischen folgenden drei Divs:
     - Panel für T-Shirt-Konfiguration (configuration-panel)
         - Klick auf Btn "Order now!" triggert Funktion
@@ -59,124 +59,128 @@ Grundsätzlicher Aufbau:
 
 - **OrderService:**
     - Bestellung erstellen (*createOrder*):
-        - URL: http://localhost:8080/api/order/
-        - Method: POST
-        - Request Body: MessageNewOrder (customerId, orderDate) as JSON
-        - Response:
-            - HTTP 200 if successful, body of response contains orderId
-            - HTTP 404 if not successful
+        - HTTP-Method: POST
+        - Path: http://localhost:8080/api/order/
+        - Parameters: None
+        - Request Body: MessageNewOrder (customerId, orderDate) - JSON
+        - Response: orderId - JSON
     - Bestellung abfragen (*getOrder*):
-        - URL: http://localhost:8080/api/order/{orderId}
-        - Method: GET
-        - Request Body: keiner
-        - Response:
-            - HTTP 200 if successful, body of response contains order information as JSON (else null)
-                - MessageOrderDetails (orderId, customerId, totalQuantity, orderDate, shippingMethod, price, items)
+        - HTTP-Method: GET
+        - Path: http://localhost:8080/api/order/{orderId}
+        - Parameters: None
+        - Request Body: None
+        - Response: MessageOrderDetails - JSON
+            - MessageOrderDetails (orderId, customerId, totalQuantity, orderDate, shippingMethod, price, items)
     - Bestellungen von Kunden abfragen (*getOrdersForCustomer*):
-        - URL: http://localhost:8080/api/orders
-        - Method: GET
-        - Request Parameter: customerId
-        - Request Body: keiner
-        - Response:
-            - HTTP 200 if successful, body of response contains list of found orders as JSON-Array
-                - MessageOrderShort (orderId, customerId, totalQuantity, orderDate, shippingMethod, price)
-            - HTTP 404 if customer was not found
+        - HTTP-Method: GET
+        - Path: http://localhost:8080/api/orders
+        - Parameters: customerId - Integer
+        - Request Body: None
+        - Response: List<MessageOrderShort> - JSON
+            - MessageOrderShort (orderId, customerId, totalQuantity, orderDate, shippingMethod, price)
+    - Bestellung aktualisieren (*updateOrder*):
+        - HTTP-Method: PUT
+        - Path: http://localhost:8080/api/order/{orderId}
+        - Parameters: None
+        - Request Body: MessageUpdateOrder (customerId, orderDate) - JSON
+        - Response: boolean - JSON
     - Versandbedingung aktualisieren (*updateShippingMethod*):
-        - URL: http://localhost:8080/api/order/{orderId}/updateShippingMethod/{shippingMethod}
-        - Method: PUT
-        - Request Body: keiner
-        - Response:
-            - HTTP 200 if successful, body of response contains boolean (true if successful, else false)
+        - HTTP-Method: PUT
+        - Path: http://localhost:8080/api/order/{orderId}/updateShippingMethod/{shippingMethod}
+        - Parameters: None
+        - Request Body: None
+        - Response: boolean - JSON
     - Artikel zu einer Bestellung hinzufügen (*addItemToOrder*):
-        - URL: http://localhost:8080/api/order/{orderId}/addItem
-        - Method: PUT
-        - Request Body: MessageAddItemToOrder (quantity, configurationId) as JSON
-        - Response:
-            - HTTP 200 if successful, body of response contains orderItemId (else null)
+        - HTTP-Method: PUT
+        - Path: http://localhost:8080/api/order/{orderId}/addItem
+        - Parameters: None
+        - Request Body: MessageAddItemToOrder (quantity, configurationId) - JSON
+        - Response: orderItemId - JSON
     - Artikel von einer Bestellung löschen (*deleteItemFromOrder*):
-        - URL: http://localhost:8080/api/order/{orderId}/deleteItem/{itemId}
-        - Method: PUT
-        - Request Body: keiner
-        - Response:
-            - HTTP 200 if successful, body of response contains boolean (true if successful, else false)
+        - HTTP-Method: PUT
+        - Path: http://localhost:8080/api/order/{orderId}/deleteItem/{itemId}
+        - Parameters: None
+        - Request Body: None
+        - Response: orderItemId - JSON
     - Preis einer Bestellung abfragen (*getOrderPrice*):
-        - URL: http://localhost:8080/api/order/getPrice
-        - Method: GET
-        - Request Body: MessageNewOrder (customerId, configurationId, quantity, shippingMethod) as JSON
-        - Response:
-            - HTTP 200 if successful
-            - If order valid, response contains price (else null)
+        - HTTP-Method: GET
+        - Path: http://localhost:8080/api/order/{orderId}/getPrice
+        - Parameters: None
+        - Request Body: None
+        - Response: orderPrice - JSON
 - **ConfigurationService:**
     - Konfiguration abfragen (*getConfiguration*):
-        - URL: http://localhost:8080/api/configuration/
-        - Method: GET
-        - Request Parameter: MessageConfiguration (cut, color, size, pattern) as JSON
-        - Request Body: keiner
-        - Response:
-            - HTTP 200 if successful, body of response contains configuration information as JSON
-            - HTTP 404 if configuration was not found
+        - HTTP-Method: GET
+        - Path: http://localhost:8080/api/configuration/
+        - Parameters: cut, pattern, size, color - String
+        - Request Body: None
+        - Response: Configuration - JSON
 - **CustomerService:**
     - Kunde abfragen (*getCustomer*):
-        - URL: http://localhost:8080/api/customer/{id}
-        - Method: GET
-        - Request Body: keiner
-        - Response:
-            - HTTP 200 if successful, body of response contains customer information as JSON (else null)
+        - HTTP-Method: GET
+        - Path: http://localhost:8080/api/customer/{id}
+        - Parameters: None
+        - Request Body: None
+        - Response: Customer - JSON
     - Kunde löschen (*deleteCustomer*):
-        - URL: http://localhost:8080/api/customer/{id}
-        - Method: DELETE
-        - Request Body: keiner
-        - Response:
-            - HTTP 200 if successful, body of response contains boolean (true if successful, else false)
+        - HTTP-Method: DELETE
+        - Path: http://localhost:8080/api/customer/{id}
+        - Parameters: None
+        - Request Body: None
+        - Response: boolean - JSON
     - Kunde aktualisieren (*updateCustomer*):
-        - URL: http://localhost:8080/api/customer/{id}
-        - Method: PUT
-        - Request Body: MessageNewCustomer (firstName, lastName, email, address) as JSON
-        - Response:
-            - HTTP 200 if successful, body of response contains boolean (true if successful, else false)
+        - HTTP-Method: PUT
+        - Path: http://localhost:8080/api/customer/{id}
+        - Parameters: None
+        - Request Body: MessageNewCustomer (firstName, lastName, email, address) - JSON
+        - Response: boolean - JSON
     - Kunde erstellen (*createCustomer*):
-        - URL: http://localhost:8080/api/customer/
-        - Method: POST
-        - Request Body: MessageNewCustomer (firstName, lastName, email, address) as JSON
-        - Response:
-            - HTTP 200 if successful, body of response contains customer information as JSON (else null)
+        - HTTP-Method: POST
+        - Path: http://localhost:8080/api/customer/
+        - Parameters: None
+        - Request Body: MessageNewCustomer (firstName, lastName, email, address) - JSON
+        - Response: Customer - JSON
     - Alle Kunden abfragen (*getCustomers*):
-        - URL: http://localhost:8080/api/customers
-        - Method: GET
-        - Request Parameter: (optional "filter")
-        - Request Body: keiner
-        - Response:
-            - HTTP 200 if successful, body of response contains list of found customers as JSON-Array
+        - HTTP-Method: GET
+        - Path: http://localhost:8080/api/customers
+        - Parameters: filter (optional) - String
+        - Request Body: None
+        - Response: List<Customer> - JSON
     - E-Mail eines Kunden validieren (*validateEmail*):
-        - URL: http://localhost:8080/api/customer/validateEmail
-        - Method: GET
-        - Request Body: email as String
-        - Response:
-            - HTTP 200 if successful, body of response contains boolean (true if valid, else false)
+        - HTTP-Method: GET
+        - Path: http://localhost:8080/api/customer/validateEmail
+        - Parameters: None
+        - Request Body: email - String
+        - Response: boolean - JSON
 
 ### Business Logic Layer
 
 - **ConfigurationVerification:**
-    - *calculateConfigurationPrice* nimmt eine Konfiguration entgegen und berechnet ihren Preis
+    - *calculateConfigurationPrice*:
+        - nimmt eine Konfiguration entgegen und berechnet ihren Preis
         - gibt den Preis als Double zurück
 - **OrderVerification:**
-    - *validateOrder* nimmt eine Bestellung entgegen und prüft die maximale T-Shirt-Anzahl
+    - *validateOrder*:
+        - nimmt eine Bestellung entgegen und prüft die maximale T-Shirt-Anzahl
         - gibt entsprechend true (bei Anzahl < MAX_QUANTITY) oder false (bei Anzahl > MAX_QUANTITY)
-    - *calculateOrderPrice* nimmt eine Bestellung entgegen und berechnet ihren Preis
-        - gibt den Preis als Double zurück
+    - *calculateOrderPrice*:
+        - nimmt eine Bestellung entgegen und berechnet ihren Preis
         - ruft *calculateShippingCosts* auf
-    - *calculateShippingCosts* nimmt eine Bestellung entgegen und berechnet ihre Versandkosten
+        - gibt den Preis als Double zurück
+    - *calculateShippingCosts*:
+        - nimmt eine Bestellung entgegen und berechnet ihre Versandkosten
         - gibt die Kosten als Double zurück
 - **CustomerVerification:**
-    - *validateEmailAddress* nimmt eine E-Mail-Adresse als String entgegen und prüft, ob diese valide ist
+    - *validateEmailAddress*:
+        - nimmt eine E-Mail-Adresse als String entgegen und prüft, ob diese valide ist
         - gibt entsprechend true oder false zurück
 
 ### Persistence Layer
 
 - Für jede Entität wurde ein entsprechendes Repository erstellt.
-- Die Entitäten wurden mit den passenden Annotationen versehen.
+- Die Entitäten wurden mit den nötigen Annotationen versehen.
 - Das Datenmodell wurde gemäss Abschnitt "Datenmodell" umgesetzt.
-- Für die Datenhaltung haben wir uns für die eingebettete DB H2 entschieden.
+- Für die Datenhaltung haben wir uns für die eingebettete DB **H2** entschieden.
 
 ***
 
@@ -220,7 +224,8 @@ inhaltlich laufend verifiziert hat. Somit mussten beispielsweise bestehende Serv
 werden, die Entitäten um weitere, fehlende Attribute ergänzt werden und die Projektstruktur angepasst werden. Des
 Weiteren war für uns anfangs nicht klar, was alles in die Businesslogik gehört und wie wir diese konkret umsetzen
 möchten. Schlussendlich haben wir nun alle Preis-spezifischen Dinge sowie E-Mail-Validierung und Maximal-Bestellung in
-der Businesslogik realisiert.
+der Businesslogik realisiert. Auch die Arbeit mit Bootstrap stellte uns vor Herausforderungen, da dieses Rahmenwerk
+nicht den gleichen Ansatz verfolgt wie die Grundanforderungen aus den Vorlesungen.
 
 Alles in allem war dies ein sehr aufschlussreiches Projekt, in welchem viele im Unterricht behandelten Aspekte
 zusammenkamen. Es war spannend zu sehen, wie diese Aspekte zusammenwirken und was es alles braucht, um eine

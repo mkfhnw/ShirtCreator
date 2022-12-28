@@ -1,8 +1,6 @@
 package com.example.shirtcreator.ShirtCreator.Business;
 
-import com.example.shirtcreator.ShirtCreator.Persistence.Configuration;
 import com.example.shirtcreator.ShirtCreator.Persistence.Order;
-import com.example.shirtcreator.ShirtCreator.Persistence.OrderItem;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -14,16 +12,13 @@ public class OrderVerification {
     public static final double MWST_RATE = 0.081;
 
     public boolean validateOrder(Order o) {
-        if (o.getTotalQuantity() > MAX_QUANTITY) {
-            return false;
-        }
-        return true;
+        return o.getTotalQuantity() <= MAX_QUANTITY;
     }
 
     // Berechnet den Preis einer Bestellung
     public Double calculateOrderPrice(Order o) {
-        Double netPrice = 0.0;
-        Double orderPrice = 0.0;
+        double netPrice = 0.0;
+        double orderPrice = 0.0;
 
         // Nettopreis berechnen
         for (int i = 0; i < o.getItems().size(); i++) {
