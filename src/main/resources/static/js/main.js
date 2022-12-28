@@ -8,9 +8,17 @@ const orderQuantity = 0;
 const orderShippingMethod = "";
 const orderPrice = 0.0;
 const shirt_template = "/T-Shirts/{pattern}/{cut}/Tshirt_{cut}_{color}_{side}_basic.PNG"
-let current_color = "white";
+let current_config_id = 1;
+let current_cut = "Round";
+let current_color = "White";
+let current_size = "Small";
+let current_pattern = "Plain";
+let current_quantity = 1;
+let item_price = 15.0;
+let current_price = 15.0;
 
 $(document).ready(function () {
+
 
     // Event listeners
     // ------------------------------------- Control panel
@@ -39,16 +47,39 @@ $(document).ready(function () {
     Array.from(btns_color).forEach((element) => {
         element.addEventListener("click", (e) => {
             current_color = e.target.value;
+            update_configuration();
             swap_shirts();
         })
     })
 
-    // ------------------------------------- Cut & Pattern selectors
+    // ------------------------------------- Cut & Pattern & Size selectors
     document.getElementById("cutSelect").addEventListener("change", (e) => {
+        let cut_select = document.getElementById("cutSelect");
+        current_cut = cut_select.options[cut_select.selectedIndex].text;
+        update_configuration();
         swap_shirts();
     });
     document.getElementById("patternSelect").addEventListener("change", (e) => {
+        let pattern_select = document.getElementById("patternSelect");
+        current_pattern = pattern_select.options[pattern_select.selectedIndex].text;
+        update_configuration();
         swap_shirts();
+    });
+    document.getElementById("sizeSelect").addEventListener("change", (e) => {
+        let size_select = document.getElementById("sizeSelect");
+        current_size = size_select.options[size_select.selectedIndex].text;
+        update_configuration();
+    });
+
+    // ------------------------------------- Quantity
+    document.getElementById("inputQuantity").addEventListener("change", (e) => {
+        current_quantity = document.getElementById("inputQuantity").value;
+        update_price();
+    });
+
+    // ------------------------------------- Shipping selector
+    document.getElementById("selectShippingMethod").addEventListener("change", (e) => {
+        //TODO
     });
 
     // -------------------------------------- Handle landingpages
@@ -134,10 +165,6 @@ $(document).ready(function () {
 // -------------------------- Custom functions
 function swap_shirts() {
 
-    // Grab control elements
-    let cut_select = document.getElementById("cutSelect");
-    let pattern_select = document.getElementById("patternSelect");
-
     // Grab images
     let front_view = document.getElementById("front-view");
     let back_view = document.getElementById("back-view");
@@ -150,8 +177,8 @@ function swap_shirts() {
     let img_side = [side_view, side_view_thumb]
 
     // Grab all information required to build target string
-    let cut = cut_select.options[cut_select.selectedIndex].text.toLowerCase();
-    let pattern = pattern_select.options[pattern_select.selectedIndex].text.toLowerCase();
+    let cut = current_cut.toLowerCase();
+    let pattern = current_pattern.toLowerCase();
 
     // Replace images
     img_front.forEach((element) => {
@@ -173,5 +200,24 @@ function swap_shirts() {
             .replaceAll('{side}', "side")
     })
 
+}
 
+function update_configuration() {
+
+    $.getJSON("http://localhost:8080/api/configuration", {"cut" : current_cut , "pattern" : current_pattern , "size" : current_size , "color" : current_color})
+        .done(handleConfigurationReply)
+
+    update_price();
+}
+
+function handleConfigurationReply(configuration){
+
+    current_config_id = configuration["id"];
+    item_price = configuration["price"];
+}
+
+function update_price(){
+
+    current_price = item_price * current_quantity;
+    document.getElementById("item_price").innerText = current_price.toString() + " CHF";
 }

@@ -12,15 +12,15 @@ public class ConfigurationService {
     @Autowired
     private ConfigurationRepository configurationRepository;
 
-    @GetMapping(path = "/api/configuration/", produces = "application/json")
-    public Configuration getConfiguration(@RequestBody MessageConfiguration m) {
+    @GetMapping(path = "/api/configuration", produces = "application/json")
+    public Configuration getConfiguration(@RequestParam String cut, String pattern, String size, String color) {
 
-        Configuration.Cut cut = Configuration.Cut.valueOf(m.getCut());
-        Configuration.Color color = Configuration.Color.valueOf(m.getColor());
-        Configuration.Size size = Configuration.Size.valueOf(m.getSize());
-        Configuration.Pattern pattern = Configuration.Pattern.valueOf(m.getPattern());
+        Configuration.Cut cut_e = Configuration.Cut.valueOf(cut);
+        Configuration.Pattern pattern_e = Configuration.Pattern.valueOf(pattern);
+        Configuration.Size size_e = Configuration.Size.valueOf(size);
+        Configuration.Color color_e = Configuration.Color.valueOf(color);
 
-        Configuration c = configurationRepository.findConfigurationByCutAndColorAndSizeAndPattern(cut, color, size, pattern);
+        Configuration c = configurationRepository.findConfigurationByCutAndColorAndSizeAndPattern(cut_e, color_e, size_e, pattern_e);
 
         return c;
     }
