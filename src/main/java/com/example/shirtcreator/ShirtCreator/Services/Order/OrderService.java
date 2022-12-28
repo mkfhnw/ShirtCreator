@@ -84,23 +84,18 @@ public class OrderService {
 
     @PutMapping(path = "/api/order/{orderId}", produces = "application/json")
     public boolean updateOrder(@PathVariable Integer orderId, @RequestBody MessageUpdateOrder m) {
-        System.out.println("updateOrder");
         Optional<Order> or = orderRepository.findById(orderId);
         if (or.isPresent()) {
             Order o = or.get();
-            System.out.println("updateOrder2");
             if (m.getCustomerId() != null) {
-                System.out.println("updateOrder3");
                 Optional<Customer> customer = customerRepository.findById(m.getCustomerId());
                 if (customer.isPresent()) {
-                    System.out.println("updateOrder4");
                     o.setCustomer(customer.get());
                 }
             }
-        System.out.println("updateOrder5");
-        o.setOrderDate(m.getOrderDate());
-        orderRepository.save(o);
-        return true;
+            o.setOrderDate(m.getOrderDate());
+            orderRepository.save(o);
+            return true;
         } else {
             return false;
         }
@@ -122,7 +117,6 @@ public class OrderService {
 
     @PutMapping(path = "/api/order/{orderId}/addItem", produces = "application/json")
     public Integer addItemToOrder(@PathVariable Integer orderId, @RequestBody MessageAddItemToOrder m) {
-        System.out.println("addItemToOrder");
         Optional<Order> or = orderRepository.findById(orderId);
         Optional<Configuration> co = configurationRepository.findById(m.getConfigurationId());
         if (or.isPresent() && co.isPresent()) {
@@ -171,11 +165,9 @@ public class OrderService {
 
     @GetMapping(path = "/api/order/{orderId}/getPrice", produces = "application/json")
     public Double getOrderPrice(@PathVariable Integer orderId) {
-        System.out.println("in getOrderPrice");
         Optional<Order> or = orderRepository.findById(orderId);
         if (or.isPresent()) {
             Order o = or.get();
-            System.out.println(o.getPrice());
             return o.getPrice();
         } else {
             return null;
