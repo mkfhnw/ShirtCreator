@@ -323,7 +323,13 @@ function handleAddItemToOrder(response) {
 }
 
 function handleDeleteItemFromOrder(response) {
-    shoppingCart.splice(shoppingCart.findIndex(shoppingCart.itemId = response), 1);
+    let index = -1;
+    for (let item of shoppingCart) {
+        if (item["itemId"] === response) {
+            index = shoppingCart.indexOf(item)
+        }
+    }
+    shoppingCart.splice(index, 1);
     update_shopping_cart();
     getOrderPrice();
 }
