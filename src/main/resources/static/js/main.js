@@ -168,6 +168,13 @@ $(document).ready(function () {
         window.location.href = 'contact.html';
     });
 
+    // TODO: Does not work yet! When clicked on "Home", index.html opens
+    const homeLink = document.getElementById('home-link');
+
+    homeLink.addEventListener('click', (e) => {
+        window.open('index.html', '_blank');
+    });
+
     // CONTACT: Deletes all inputs as soon as the send button is clicked
     document.getElementById('myform').addEventListener('submit', function (event) {
         event.preventDefault(); // prevent the form from being submitted
