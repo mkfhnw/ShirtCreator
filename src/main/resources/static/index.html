@@ -29,11 +29,13 @@
             </li>
         </ul>
         <!--Login-->
+        <div style="padding-left: 75vw">
         <form class="form-inline my-2 my-lg-0">
             <button type="button" class="btn btn-primary" id="login_button" data-modal-target="#modal"
                     style="float: right; background-color: #03857E">
                 <b>Login</b></button>
         </form>
+        </div>
     </div>
 </nav>
 <!--Configurator-->
@@ -50,54 +52,43 @@
         <!--Shirt Preview Column-->
         <div class="col-8 preview-column" style="background-color: #EEEEEE;">
             <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="true">
+                <!--slide-->
                 <div class="carousel-inner">
+                    <!-- front -->
                     <div class="carousel-item active">
                         <img src="/T-Shirts/plain/round/Tshirt_round_white_front_basic.PNG"
                              class="d-block preview-item" alt="..." id="front-view">
                     </div>
+                    <!--back-->
                     <div class="carousel-item">
                         <img src="/T-Shirts/plain/round/Tshirt_round_white_back_basic.PNG"
                              class="d-block preview-item" alt="..." id="back-view">
                     </div>
+                    <!--side-->
                     <div class="carousel-item">
                         <img src="/T-Shirts/plain/round/Tshirt_round_white_side_basic.PNG"
                              class="d-block preview-item" alt="..." id="side-view">
                     </div>
                 </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
-                        data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Previous</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
-                        data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Next</span>
-                </button>
-            </div>
-            <!-- Thumbnails -->
-            <div class="carousel-indicators">
-                <button type="button" data-mdb-target="#carouselMDExample" data-mdb-slide-to="0" class="active"
-                        aria-current="true" aria-label="Slide 1" style="width: 5vw;">
-                    <img class="d-block w-100 rounded"
-                         src="/T-Shirts/plain/round/Tshirt_round_white_front_basic.PNG" class="img-fluid"
-                         id="front-view-thumb"/>
-                </button>
-                <button type="button" data-mdb-target="#carouselMDExample" data-mdb-slide-to="1" aria-label="Slide 2"
-                        style="width: 5vw;">
-                    <img class="d-block w-100 rounded"
-                         src="/T-Shirts/plain/round/Tshirt_round_white_back_basic.PNG" class="img-fluid"
-                         id="back-view-thumb"/>
-                </button>
-                <button type="button" data-mdb-target="#carouselMDExample" data-mdb-slide-to="2" aria-label="Slide 3"
-                        style="width: 5vw;">
-                    <img class="d-block w-100 rounded"
-                         src="/T-Shirts/plain/round/Tshirt_round_white_side_basic.PNG" class="img-fluid"
-                         id="side-view-thumb"/>
-                </button>
+                <div class="carousel-indicators" style="position: static;">
+                    <!-- front -->
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0"
+                            class="active thumbnail" aria-current="true" aria-label="Slide 1" style="width: 100px;">
+                        <img src="/T-Shirts/plain/round/Tshirt_round_white_front_basic.PNG" class="d-block w-100" alt="...">
+                    </button>
+                    <!--back-->
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
+                            class="thumbnail" aria-label="Slide 2" style="width: 100px;">
+                        <img src="/T-Shirts/plain/round/Tshirt_round_white_back_basic.PNG" class="d-block w-100" alt="...">
+                        <!--sider-->
+                    </button>
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
+                            class="thumbnail" aria-label="Slide 3" style="width: 100px;">
+                        <img src="/T-Shirts/plain/round/Tshirt_round_white_side_basic.PNG" class="d-block w-100" alt="...">
+                    </button>
+                </div>
             </div>
         </div>
-
 
         <!--Control Column-->
         <div class="col-4 control-column" style="background-color: #5d5e61">
@@ -378,9 +369,9 @@
                     <br>
                         <div>
                             <button create-account-button id="create-account-button">Create Account</button>
-                            <button id="close-modal-button">X</button>
                         </div>
                     </div>
+                <button id="close-modal-button">X</button>
                 </div>
             </div>
         </div>
