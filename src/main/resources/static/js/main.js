@@ -241,6 +241,10 @@ function deleteItemFromOrder(item_id) {
     });
 }
 
+function getOrder() {
+    $.getJSON("api/order/" + orderId).done(handleGetOrderReply);
+}
+
 // update existing order - when present with customerId
 function updateOrder() {
     let order_date = new Date(new Date().toString().split('GMT')[0] + ' UTC').toISOString()
@@ -313,32 +317,44 @@ function handleCreateOrder(response) {
 
 function handleAddItemToOrder(response) {
     current_item_id = response;
-    shoppingCart.push({
-        "itemId": current_item_id,
-        "configId": configId,
-        "quantity": configQuantity,
-        "itemPrice": configPrice,
-        "sumPrice": current_price,
-        "cut": configCut,
-        "pattern": configPattern,
-        "size": configSize,
-        "color": configColor
-    });
-    document.getElementById("emptyCart").classList.add("d-none");
-    update_shopping_cart();
+    getOrder();
     getOrderPrice();
 }
 
 function handleDeleteItemFromOrder(response) {
-    let index = -1;
-    for (let item of shoppingCart) {
-        if (item["itemId"] === response) {
-            index = shoppingCart.indexOf(item)
-        }
-    }
-    shoppingCart.splice(index, 1);
-    update_shopping_cart();
+    getOrder();
     getOrderPrice();
+}
+
+function handleGetOrderReply(response) {
+    $("#tblShoppingBasket tbody").empty();
+    let count = 0;
+    for (let item of response["items"]) {
+        count++;
+        let configuration = item["configuration"];
+        let link = "javascript:deleteItemFromOrder(" + item["orderItemId"] + ")";
+        let quantity = item["quantity"];
+        let itemPrice = configuration["price"];
+        let newRow = "<tr>";
+        newRow += "<td>" + count + "</td>";
+        newRow += "<td>" + configuration["cut"] + "</td>";
+        newRow += "<td>" + configuration["color"] + "</td>";
+        newRow += "<td>" + configuration["pattern"] + "</td>";
+        newRow += "<td>" + configuration["size"] + "</td>";
+        newRow += "<td>" + quantity + "</td>";
+        newRow += "<td>" + itemPrice + "</td>";
+        newRow += "<td>" + "CHF " + (quantity * itemPrice) + "</td>";
+        newRow += "<td><a href=\"" + link + "\">" + "X" + "</a></td>";
+        newRow += "</tr>";
+        $("#tblShoppingBasket tbody").append(newRow);
+    }
+    if (response["items"].length > 0) {
+        document.getElementById("emptyCart").classList.add("d-none");
+        document.getElementById("tblShoppingBasket").classList.remove("d-none");
+    } else {
+        document.getElementById("emptyCart").classList.remove("d-none");
+        document.getElementById("tblShoppingBasket").classList.add("d-none");
+    }
 }
 
 function handleUpdateShippingMethod(response) {
@@ -408,30 +424,6 @@ function updateOrderPrice(price) {
     document.getElementById("order_price").innerText = "CHF " + orderPrice.toString();
 }
 
-// Updates Shopping cart
-function update_shopping_cart() {
-    $("#tblShoppingBasket tbody").empty();
-    for (let item of shoppingCart) {
-        var link = "javascript:deleteItemFromOrder(" + item["itemId"] + ")";
-        var newRow = "<tr>";
-        newRow += "<td>" + (shoppingCart.indexOf(item) + 1) + "</td>";
-        newRow += "<td>" + item["cut"] + "</td>";
-        newRow += "<td>" + item["color"] + "</td>";
-        newRow += "<td>" + item["pattern"] + "</td>";
-        newRow += "<td>" + item["size"] + "</td>";
-        newRow += "<td>" + item["quantity"] + "</td>";
-        newRow += "<td>" + item["itemPrice"] + "</td>";
-        newRow += "<td>" + "CHF " + item["sumPrice"] + "</td>";
-        newRow += "<td><a href=\"" + link + "\">" + "X" + "</a></td>";
-        newRow += "</tr>";
-        $("#tblShoppingBasket tbody").append(newRow);
-    }
-    if (shoppingCart.length > 0) {
-        document.getElementById("emptyCart").classList.add("d-none");
-        document.getElementById("tblShoppingBasket").classList.remove("d-none");
-    }
-}
-
 
 /******************
  Set all to initial
@@ -453,15 +445,15 @@ function setVariablesToInitial() {
 
     customerId = -1;
 
-    shoppingCart = [];
-    update_shopping_cart();
+    document.getElementById("emptyCart").classList.remove("d-none");
+    document.getElementById("tblShoppingBasket").classList.add("d-none");
 
     document.getElementById("cutSelect").selectedIndex = 0;
     document.getElementById("sizeSelect").selectedIndex = 0;
     document.getElementById("patternSelect").selectedIndex = 0;
     document.getElementById("inputQuantity").value = 1;
 
-    document.getElementById("config_price").innerText = current_price.toString() + ".- CHF";
-    document.getElementById("order_price").innerText = orderPrice.toString() + ".- CHF";
+    document.getElementById("config_price").innerText = "CHF " + current_price.toString();
+    document.getElementById("order_price").innerText = "CHF " + orderPrice.toString();
     swap_shirts();
 }

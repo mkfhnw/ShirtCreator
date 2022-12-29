@@ -1,6 +1,5 @@
 package com.example.shirtcreator.ShirtCreator.Services.Configuration;
 
-import com.example.shirtcreator.ShirtCreator.Business.ConfigurationVerification;
 import com.example.shirtcreator.ShirtCreator.Persistence.Configuration;
 import com.example.shirtcreator.ShirtCreator.Persistence.ConfigurationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
