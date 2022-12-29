@@ -282,8 +282,8 @@
         </div>
 
     <!-- Login popup -->
-    <div id="modal" style="border-radius: 0px;">
-        <div id="modal-content" style="border-right: 20vw;">
+    <div id="modal" style="margin: auto; top: 50%; transform: translateY(-50%); width: 100%; height: 93%;">
+        <div id="modal-content">
             <div id="modal-left">
                 <img src="/Login-picture.PNG" alt="Logo">
             </div>
@@ -299,9 +299,10 @@
                             <div class="input-group">
                             <!--EMail-->
                                 <br>
-                                <img src="/email-icon.png" for="email-login" id="email-icon-login" class="input-group-text" width="48vw" height="40vh">
-                                <input class="form-control" type="email" id="email-login" name="email" placeholder="email@gmail.com">
+                                <img src="/email-icon.png" for="Email-login" class="input-group-text" width="48vw" height="40vh">
+                                <input type="email" class="form-control" id="Email-login" placeholder="email@gmail.com">
                             </div>
+
                         </div>
                         <br>
                         <div class="input-group">
@@ -334,7 +335,6 @@
                             </div>
                         </div>
                     </div>
-                    <br>
                     <div class="d-flex justify-content-between"></div>
                     <!--street-->
                     <div class="input-group mb-1">
@@ -342,6 +342,7 @@
                         <input type="text" class="form-control" id="Street-registration"
                                placeholder="Baker Street 221B">
                     </div>
+                    <br>
                     <div class="d-flex justify-content-between">
                         <!--plz-->
                         <div class="input-group mb-1 w-25">
@@ -365,6 +366,7 @@
                         <img src="/password-icon.png" for="Email-registration" id="password-icon-registration" class="input-group-text" width="48vw" height="40vh">
                         <input type="password" class="form-control" id="Password-registration" placeholder="password">
                     </div>
+                    <br>
                         <!--newsletter-->
                     <div class="form-group">
                         <div class="form-check form-switch" style="display: flex;">
@@ -375,16 +377,14 @@
                     </div>
                     <br>
                         <div>
-                            <button type="submit" class="btn btn-primary"
-                                    style="background-color: #03857E;">
-                                <b>Create Account</b></button>
+                            <button create-account-button id="create-account-button">Create Account</button>
                             <button id="close-modal-button">X</button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+        </div>
 </div>
 </body>
 </html>
