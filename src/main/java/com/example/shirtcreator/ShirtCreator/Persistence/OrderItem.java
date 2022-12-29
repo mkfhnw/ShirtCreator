@@ -9,7 +9,8 @@ public class OrderItem {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne
+    @JoinColumn(name = "configuration")
     private Configuration configuration;
     private Integer quantity;
 

@@ -48,15 +48,20 @@ public class OrderService {
             Order o = or.get();
             MessageOrderDetails m = new MessageOrderDetails();
             m.setOrderId(o.getId());
-            m.setCustomerId(o.getCustomer().getid());
+            if (o.getCustomer() != null) {
+                m.setCustomerId(o.getCustomer().getid());
+            } else {
+                m.setCustomerId(0);
+            }
             m.setOrderDate(o.getOrderDate());
             m.setTotalQuantity(o.getTotalQuantity());
             m.setShippingMethod(o.getShippingMethod().toString());
             m.setPrice(orderVerification.calculateOrderPrice(o));
             for (OrderItem oi : o.getItems()) {
                 MessageOrderItem moi = new MessageOrderItem();
+                moi.setOrderItemId(oi.getId());
+                moi.setConfiguration(oi.getConfiguration());
                 moi.setQuantity(oi.getQuantity());
-                moi.setConfigurationId(oi.getConfiguration().getId());
                 m.getItems().add(moi);
             }
             return m;
@@ -119,23 +124,47 @@ public class OrderService {
     public Integer addItemToOrder(@PathVariable Integer orderId, @RequestBody MessageAddItemToOrder m) {
         Optional<Order> or = orderRepository.findById(orderId);
         Optional<Configuration> co = configurationRepository.findById(m.getConfigurationId());
+        Integer id = 0;
         if (or.isPresent() && co.isPresent()) {
-            OrderItem oi = new OrderItem();
-            Configuration c = co.get();
-            oi.setQuantity(m.getQuantity());
-            oi.setConfiguration(c);
-            orderItemRepository.save(oi);
             Order o = or.get();
-            o.getItems().add(oi);
+            Configuration c = co.get();
 
+            // Überprüfen, ob Configuration bereits in Order vorhanden
+            // Wenn ja => Quantity von OrderItem erhöhen
+            // Wenn nein => neues OrderItem erstellen
+            List<Integer> configIds = new ArrayList<>();
+            for (OrderItem i : o.getItems()) {
+                configIds.add(i.getConfiguration().getId());
+            }
+            if (configIds.contains(c.getId())) { // Fall, dass Configuration bereits vorhanden
+                OrderItem i = new OrderItem();
+                for (OrderItem ori : o.getItems()) {
+                    if (ori.getConfiguration().getId() == c.getId()) {
+                        i = ori;
+                    }
+                }
+                i.setQuantity(i.getQuantity() + m.getQuantity());
+                orderItemRepository.save(i);
+                id = i.getId();
+            } else { // Fall, dass Configuration noch nicht vorhanden
+                OrderItem oi = new OrderItem();
+                oi.setQuantity(m.getQuantity());
+                oi.setConfiguration(c);
+                orderItemRepository.save(oi);
+                o.getItems().add(oi);
+                id = oi.getId();
+            }
+
+            // Gesamtmenge Bestellung neu berechnen und setzen
             int quantity = 0;
             for (OrderItem ordIt : o.getItems()) {
                 quantity += ordIt.getQuantity();
             }
             o.setTotalQuantity(quantity);
+
             o.setPrice(orderVerification.calculateOrderPrice(o));
             orderRepository.save(o);
-            return oi.getId();
+            return id;
         } else {
             return null;
         }
@@ -149,11 +178,14 @@ public class OrderService {
             Order o = or.get();
             OrderItem ori = oi.get();
             o.getItems().remove(ori);
+
+            // Gesamtmenge Bestellung neu berechnen und setzen
             int quantity = 0;
             for (OrderItem ordIt : o.getItems()) {
                 quantity += ordIt.getQuantity();
             }
             o.setTotalQuantity(quantity);
+
             o.setPrice(orderVerification.calculateOrderPrice(o));
             orderItemRepository.delete(ori);
             orderRepository.save(o);
