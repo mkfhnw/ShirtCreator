@@ -68,6 +68,7 @@ public class Configuration {
         }
     }
 
+    // TODO: Check entfernen
     public enum Pattern {
         Plain("Plain"), Striped("Striped"), Check("Check");
         private String asString;
