@@ -5,7 +5,6 @@ import com.example.shirtcreator.ShirtCreator.Persistence.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.swing.plaf.basic.BasicInternalFrameTitlePane;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -124,19 +123,17 @@ public class OrderService {
     public Integer addItemToOrder(@PathVariable Integer orderId, @RequestBody MessageAddItemToOrder m) {
         Optional<Order> or = orderRepository.findById(orderId);
         Optional<Configuration> co = configurationRepository.findById(m.getConfigurationId());
-        Integer id = 0;
+        Integer id;
         if (or.isPresent() && co.isPresent()) {
             Order o = or.get();
             Configuration c = co.get();
 
             // Überprüfen, ob Configuration bereits in Order vorhanden
-            // Wenn ja => Quantity von OrderItem erhöhen
-            // Wenn nein => neues OrderItem erstellen
             List<Integer> configIds = new ArrayList<>();
             for (OrderItem i : o.getItems()) {
                 configIds.add(i.getConfiguration().getId());
             }
-            if (configIds.contains(c.getId())) { // Fall, dass Configuration bereits vorhanden
+            if (configIds.contains(c.getId())) { // Configuration bereits vorhanden -> Menge erhöhen
                 OrderItem i = new OrderItem();
                 for (OrderItem ori : o.getItems()) {
                     if (ori.getConfiguration().getId() == c.getId()) {
@@ -146,7 +143,7 @@ public class OrderService {
                 i.setQuantity(i.getQuantity() + m.getQuantity());
                 orderItemRepository.save(i);
                 id = i.getId();
-            } else { // Fall, dass Configuration noch nicht vorhanden
+            } else { // Configuration noch nicht vorhanden -> neues OrderItem erstellen
                 OrderItem oi = new OrderItem();
                 oi.setQuantity(m.getQuantity());
                 oi.setConfiguration(c);
@@ -200,6 +197,7 @@ public class OrderService {
         Optional<Order> or = orderRepository.findById(orderId);
         if (or.isPresent()) {
             Order o = or.get();
+            o.setPrice(orderVerification.calculateOrderPrice(o));
             return o.getPrice();
         } else {
             return null;

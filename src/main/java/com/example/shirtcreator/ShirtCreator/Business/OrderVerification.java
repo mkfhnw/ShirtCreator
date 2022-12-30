@@ -31,7 +31,9 @@ public class OrderVerification {
         orderPrice += netPrice;
         orderPrice *= 1 + MWST_RATE;
         orderPrice = Math.round(orderPrice * 100.0 / 5.0) * 5.0 / 100.0;
-        orderPrice += calculateShippingCosts(o);
+        if (o.getTotalQuantity() > 0) {
+            orderPrice += calculateShippingCosts(o);
+        }
 
         return orderPrice;
     }
@@ -49,8 +51,8 @@ public class OrderVerification {
                 {9.0, 10.7, 23.0}, // Priority, mit < 2, 10, 30 kg
                 {18.0, 22.0, 29.0}}; // Express, mit < 2, 10, 30 kg
 
-        Integer col = null;
-        Integer row = null;
+        Integer col = 0;
+        Integer row = 0;
 
         // Spaltenindex bestimmen
         if (totalWeight > 0) col = 0;
@@ -59,22 +61,12 @@ public class OrderVerification {
 
         // Zeilenindex bestimmen
         switch (o.getShippingMethod().toString()) {
-            case "Economy":
-                row = 0;
-                break;
-            case "Priority":
-                row = 1;
-                break;
-            case "Express":
-                row = 2;
-                break;
+            case "Economy" -> row = 0;
+            case "Priority" -> row = 1;
+            case "Express" -> row = 2;
         }
 
-        if (col != null && row != null) {
-            return packageCosts[row][col];
-        } else {
-            return 0.0;
-        }
+        return packageCosts[row][col];
     }
 
 }
