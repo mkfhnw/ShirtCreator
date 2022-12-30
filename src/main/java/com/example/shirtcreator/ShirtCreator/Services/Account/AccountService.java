@@ -167,6 +167,7 @@ public class AccountService {
     // @DeleteMapping   <- I'm sure we don't want front-end users to randomly delete accounts...
 
     // ------------------------------------------------------------------------------------------------- Helper methods
+    // TODO: Put method generateLoginToken in a new class (e.g., AccountVerification) in Business folder
     public String generateLoginToken() {
 
         // Generate new random string based on random ints & make sure it's not used yet

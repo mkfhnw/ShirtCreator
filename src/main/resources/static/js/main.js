@@ -52,7 +52,6 @@ $(document).ready(function () {
     });
 
     document.getElementById("btnAddToCart").addEventListener("click", (e) => {
-        // TODO Graphics
         if (orderId === -1) {
             createOrder();
         } else {
