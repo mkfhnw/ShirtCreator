@@ -56,6 +56,7 @@ Grundsätzlicher Aufbau:
         - *configuration-panel*: Panel für T-Shirt-Konfiguration, Warenkorb und Checkout
         - *order-panel*: Panel für Kundendaten
         - *aftersales-panel*: Panel für Bestellbestätigung
+- **Footer** mit "Why choose ShirtCreator?", Social Media Icons und Copyright
 
 ### Service Layer
 
