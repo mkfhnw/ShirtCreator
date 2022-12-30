@@ -8,7 +8,7 @@ public class MessageNewAccount {
     private String street;
     private int plz;
     private String location;
-    private String eMail;
+    private String email;
     private String password;
 
     // No special constructor required - take default
@@ -54,12 +54,12 @@ public class MessageNewAccount {
         this.location = location;
     }
 
-    public String geteMail() {
-        return eMail;
+    public String getEmail() {
+        return email;
     }
 
-    public void seteMail(String eMail) {
-        this.eMail = eMail;
+    public void setEmail(String eMail) {
+        this.email = eMail;
     }
 
     public String getPassword() { return password; }

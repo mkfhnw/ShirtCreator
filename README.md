@@ -34,6 +34,7 @@
 - **OrderItem** (<u>id</u>, <u style="border-bottom: 1px dotted; text-decoration: none;">fk_configuration</u>, quantity)
 - **OrderItems** (<u><u style="border-bottom: 1px dotted; text-decoration: none;">
   fk_order</u>, <u style="border-bottom: 1px dotted; text-decoration: none;">fk_orderItem</u></u>)
+- **Account** (<u>id</u>, <u style="border-bottom: 1px dotted; text-decoration: none;">fk_customer</u>, password)
 
 ***
 
@@ -43,17 +44,18 @@
 
 Grundsätzlicher Aufbau:
 
-- Navigationsleiste (navbar) mit Logo und drei Buttons (Home, Contact, Login)
-- Hauptframe mit zwei Spalten: T-Shirt-Anzeige (preview-column) und Bedienfeld (control-column)
-- für T-Shirt-Anzeige wurde ein Karussell (carousel) mit den verschiedenen Ansichten implementiert
-- Bedienfeld wechselt per Knopfdruck zwischen folgenden drei Divs:
-    - Panel für T-Shirt-Konfiguration (configuration-panel)
-        - Klick auf Btn "Order now!" triggert Funktion
-    - Panel für Kundendaten (order-panel)
-    - Panel für Bestätigung (aftersales-panel)
-- Für die Login-Funktion wurde ein Popup implementiert:
-    - Login: um sich mit einem bestehenden Kundenkonto anzumelden
-    - Registration: um ein neues Kundenkonto zu erstellen
+- **Navigationsleiste** (*navbar*) mit Logo und drei Buttons (*Home*, *Contact*, *Login*)
+    - *Contact*: zeigt Landingpage mit Kontaktangaben des Unternehmens sowie einem Kontaktformular an
+    - *Home*: zeigt wieder die Homepage an
+    - *Login*: öffnet ein Popup für Login und Registrierung
+        - Login: um sich mit einem bestehenden Kundenkonto anzumelden
+        - Registrierung: um ein neues Kundenkonto zu erstellen
+- **Hauptframe** (*container*) mit zwei Spalten: T-Shirt-Anzeige (*preview-column*) und Bedienfeld (*control-column*)
+    - **T-Shirt-Anzeige**: enthält ein Karussell (*carousel slide*) mit den verschiedenen T-Shirt-Ansichten
+    - **Bedienfeld**: wechselt per Knopfdruck zwischen *configuration-panel*, *order-panel* und *aftersales-panel*
+        - *configuration-panel*: Panel für T-Shirt-Konfiguration, Warenkorb und Checkout
+        - *order-panel*: Panel für Kundendaten
+        - *aftersales-panel*: Panel für Bestellbestätigung
 
 ### Service Layer
 
@@ -152,6 +154,19 @@ Grundsätzlicher Aufbau:
         - Parameters: None
         - Request Body: email - String
         - Response: boolean - JSON
+- **AccountService:**
+    - Konto abfragen (*getAccount*):
+        - HTTP-Method: GET
+        - Path: http://localhost:8080/api/account/{id}
+        - Parameters: None
+        - Request Body: None
+        - Response: Account - JSON
+    - Konto erstellen (*createAccount*):
+        - HTTP-Methode: POST
+        - Path: http://localhost:8080/api/account/
+        - Parameters: None
+        - Request Body: MessageNewAccount (firstName, lastName, street, plz, location, email, password) - JSON
+        - Response: Account - JSON
 
 ### Business Logic Layer
 
