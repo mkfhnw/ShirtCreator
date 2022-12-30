@@ -17,6 +17,7 @@ public class Account {
     private Customer customer;
 
     private String password;
+    private String token;
 
     // Constructor
     public Account() {
@@ -42,5 +43,13 @@ public class Account {
     }
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 }

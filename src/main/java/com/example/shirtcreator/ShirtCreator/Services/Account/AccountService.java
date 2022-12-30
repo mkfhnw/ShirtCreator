@@ -1,6 +1,5 @@
 package com.example.shirtcreator.ShirtCreator.Services.Account;
 
-import com.example.shirtcreator.ShirtCreator.Business.CustomerVerification;
 import com.example.shirtcreator.ShirtCreator.Persistence.*;
 import com.google.common.hash.Hashing;
 import org.slf4j.Logger;
@@ -9,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
 import java.util.Optional;
+import java.util.Random;
 
 @RestController
 public class AccountService {
@@ -23,11 +24,20 @@ public class AccountService {
     private AddressRepository addressRepository;
     Logger logger = LoggerFactory.getLogger(AccountService.class);
 
-    // Mappings
-    @GetMapping(path = "/api/account/{id}", produces = "application/json")
-    public Account getAccount(@PathVariable Integer id) {
-        Optional<Account> account = accountRepository.findById(id);
-        return account.orElse(null);
+    HashMap<String, Integer> tokenMap = new HashMap<>();
+
+    // ------------------------------------------------------------------------------------------------- Mappings
+    @GetMapping(path = "/api/account/{token}", produces = "application/json")
+    public Account getAccount(@PathVariable String token) {
+        Optional<Account> accountOptional = accountRepository.findAccountByToken(token);
+        if(accountOptional.isPresent()) {
+            logger.info("Retrieved account with token: " + token);
+            return accountOptional.get();
+        } else {
+            logger.error("Could not retrieve account with token: " + token);
+            return null;
+        }
+
     }
 
     @PostMapping(path = "/api/account/", produces = "application/json")
@@ -62,14 +72,117 @@ public class AccountService {
         String passwordHash = Hashing.sha256().hashString(requestBody.getPassword(), StandardCharsets.UTF_8).toString();
         account.setPassword(passwordHash);
 
+        // Generate random token so user is directly logged in
+        String token = this.generateLoginToken();
+        account.setToken(token);
+
         // Save to db
-        accountRepository.save(account);
+        Account savedAccount = accountRepository.save(account);
         logger.info("New account created.");
+
+        // Make entry in loginMap
+        this.tokenMap.put(savedAccount.getToken(), savedAccount.getId());
+
         return account;
     }
 
-    // @PutMapping      <- We don't have the opportunity to change passwords atm, so no need for puts
+    @PutMapping(path = "/api/account/login", produces = "application/json")
+    public MessageToken login(@RequestBody MessageLogin requestBody) {
+
+        // We don't save the e-mail on account-level, but on customer level - so we need to get the corresponding customer first
+        Optional<Customer> customerOptional = customerRepository.findCustomerByEmail(requestBody.geteMail());
+
+        // If customer doesn't exist, abort login
+        if(customerOptional.isEmpty()) {
+            logger.error("Could not find customer with e-mail: " + requestBody.geteMail());
+            MessageToken messageToken = new MessageToken();
+            messageToken.setToken("");
+            return messageToken;
+        }
+
+        // Otherwise, get account based on customerID (as it is the foreign key in tbl_Account)
+        Customer customer = customerOptional.get();
+        Optional<Account> accountOptional = accountRepository.findById(customer.getid());
+        if(accountOptional.isEmpty()) {
+            logger.error("Could not find account with ID: " + customer.getid());
+            MessageToken messageToken = new MessageToken();
+            messageToken.setToken("");
+            return messageToken;
+        }
+
+        // Check whether account is already logged in
+        Account account = accountOptional.get();
+        if(account.getToken() != null && this.tokenMap.containsKey(account.getToken())) {
+            logger.info("Account with ID " + account.getId() + " already logged in.");
+            MessageToken response = new MessageToken();
+            response.setToken(account.getToken());
+            return response;
+        }
+
+        // Otherwise "log in" account (if password hashes match)
+        String passwordHash = Hashing.sha256().hashString(requestBody.getPassword(), StandardCharsets.UTF_8).toString();
+        if(account.getPassword().equals(passwordHash)) {
+            String token = this.generateLoginToken();
+            account.setToken(token);
+            this.tokenMap.put(token, account.getId());
+            accountRepository.save(account);
+            logger.info("Account with ID " + account.getId() + " and token " + account.getToken() + " successfully logged in.");
+            MessageToken messageToken = new MessageToken();
+            messageToken.setToken(account.getToken());
+            return messageToken;
+        }
+
+        // If we get here, we got a password mismatch
+        logger.error("Could not log in account due to password mismatch.");
+        MessageToken messageToken = new MessageToken();
+        messageToken.setToken("");
+        return messageToken;
+
+    }
+
+    @PutMapping(path = "/api/account/logout", produces = "text/plain")
+    public String logout(@RequestBody MessageToken requestBody) {
+
+        // Logout user if token is valid
+        if(this.tokenMap.containsKey(requestBody.getToken())) {
+            Optional<Account> accountOptional = accountRepository.findAccountByToken(requestBody.getToken());
+            if(accountOptional.isEmpty()) {
+                logger.error("Invalid token for logout: " + requestBody.getToken());
+                return "false";
+            }
+            Account account = accountOptional.get();
+            account.setToken("");
+            accountRepository.save(account);
+            this.tokenMap.remove(requestBody.getToken());
+            logger.info("Logged out account with token: " + requestBody.getToken());
+            return "true";
+        }
+
+        // If we get here, something went wrong
+        logger.error("Could not log out account with token: " + requestBody.getToken());
+        return "false";
+
+    }
 
     // @DeleteMapping   <- I'm sure we don't want front-end users to randomly delete accounts...
+
+    // ------------------------------------------------------------------------------------------------- Helper methods
+    public String generateLoginToken() {
+
+        // Generate new random string based on random ints & make sure it's not used yet
+        String token = "";
+        Random random = new Random();
+        int leftLimit = 97; // letter 'a'
+        int rightLimit = 122; // letter 'z'
+        int targetStringLength = 10;
+        do {
+            token = Hashing.sha256().hashString(random.ints(leftLimit, rightLimit + 1)
+                    .limit(targetStringLength)
+                    .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
+                    .toString(), StandardCharsets.UTF_8).toString();
+        } while (this.tokenMap.containsKey(token));
+
+        return token;
+    }
 
 }

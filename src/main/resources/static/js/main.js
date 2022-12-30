@@ -105,6 +105,18 @@ $(document).ready(function () {
     // ------------------------------------- Registration
     document.getElementById("create-account-button").addEventListener("click", (e) => {
         createAccount();
+    });
+
+    // ------------------------------------- Login
+    document.getElementById("okLogin").addEventListener("click", (e) => {
+        e.preventDefault();
+        loginAccount();
+    })
+
+    // ------------------------------------- Logout
+    document.getElementById("okLogout").addEventListener("click", (e) => {
+        e.preventDefault();
+        logoutAccount();
     })
 
     /******************
@@ -328,12 +340,49 @@ async function createAccount() {
         data: JSON.stringify(account),
         dataType: 'json',
         contentType: 'application/json',
-        success: handleAccountCreation
+        success: handleAccount
     })
 
     // Debug
     console.log(JSON.stringify(account))
 
+}
+
+// Log in account
+function loginAccount() {
+
+    // Create JS object
+    let login = {
+        'eMail': document.getElementById('Email-login').value,
+        'password': document.getElementById('password-login').value
+    }
+
+    // Send to backend
+    $.ajax({
+        type: 'PUT',
+        url: '/api/account/login',
+        data: JSON.stringify(login),
+        dataType: 'json',
+        contentType: 'application/json',
+        success: handleLogin
+    })
+
+}
+
+function logoutAccount() {
+    let token = {
+        'token': currentAccount.token
+    }
+
+    // Send to backend
+    $.ajax({
+        type: 'PUT',
+        url: '/api/account/logout',
+        data: JSON.stringify(token),
+        dataType: 'json',
+        contentType: 'application/json',
+        success: handleLogout
+    })
 }
 
 /******************
@@ -405,10 +454,27 @@ function handleGetOrderPrice(price) {
     updateOrderPrice(price);
 }
 
-function handleAccountCreation(account) {
-    currentAccount = account;
+function handleAccount(account) {
+    if(account != null) {
+        currentAccount = account;
+    }
 }
 
+function handleLogin(response) {
+    $.ajax({
+        type: 'GET',
+        url: `/api/account/${response.token}`,
+        dataType: 'json',
+        contentType: 'application/json',
+        success: handleAccount
+    })
+}
+
+function handleLogout(response){
+    if(response === "true") {
+        currentAccount = null;
+    }
+}
 
 /******************
  GUI Update functions
