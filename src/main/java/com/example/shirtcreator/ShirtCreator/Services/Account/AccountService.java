@@ -37,9 +37,9 @@ public class AccountService {
         Account account = new Account();
 
         // Check whether costumer already exists - create new one if not existent yet
-        Optional<Customer> customer = customerRepository.findCustomerByEmail(requestBody.geteMail());
+        Optional<Customer> customer = customerRepository.findCustomerByEmail(requestBody.getEmail());
         if(customer.isPresent()) {
-            logger.info("Customer already existing with email " + requestBody.geteMail());
+            logger.info("Customer already existing with email " + requestBody.getEmail());
 
             // Abort if customer already has account
             if(accountRepository.existsById(customer.get().getid())) {
@@ -50,7 +50,7 @@ public class AccountService {
             account.setCustomer(customer.get());
         } else {
             Address newAddress = new Address(requestBody.getStreet(), requestBody.getPlz(), requestBody.getLocation());
-            Customer newCustomer = new Customer(requestBody.getFirstName(), requestBody.getLastName(), requestBody.geteMail(), newAddress);
+            Customer newCustomer = new Customer(requestBody.getFirstName(), requestBody.getLastName(), requestBody.getEmail(), newAddress);
             addressRepository.save(newAddress); // Important: Save to db, otherwise we'll throw an error
             customerRepository.save(newCustomer); // Important: Save to db, otherwise we'll throw an error
             account.setCustomer(newCustomer);
