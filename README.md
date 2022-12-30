@@ -34,7 +34,7 @@
 - **OrderItem** (<u>id</u>, <u style="border-bottom: 1px dotted; text-decoration: none;">fk_configuration</u>, quantity)
 - **OrderItems** (<u><u style="border-bottom: 1px dotted; text-decoration: none;">
   fk_order</u>, <u style="border-bottom: 1px dotted; text-decoration: none;">fk_orderItem</u></u>)
-- **Account** (<u>id</u>, <u style="border-bottom: 1px dotted; text-decoration: none;">fk_customer</u>, password)
+- **Account** (<u>id</u>, <u style="border-bottom: 1px dotted; text-decoration: none;">fk_customer</u>, password, token)
 
 ***
 
@@ -165,8 +165,21 @@ Grundsätzlicher Aufbau:
         - HTTP-Methode: POST
         - Path: http://localhost:8080/api/account/
         - Parameters: None
-        - Request Body: MessageNewAccount (firstName, lastName, street, plz, location, email, password) - JSON
+        - Request Body: MessageNewAccount (firstName, lastName, street, plz, location, eMail, password) - JSON
         - Response: Account - JSON
+    - Konto anmelden (*login*):
+        - HTTP-Methode: PUT
+        - Path: http://localhost:8080/api/account/login
+        - Parameters: None
+        - Request Body: MessageLogin (eMail, password) - JSON
+        - Response: MessageToken - JSON
+            - MessageToken (token)
+    - Konto abmelden (*logout*):
+        - HTTP-Method: PUT
+        - Path: http://localhost:8080/api/account/logout
+        - Parameters: None
+        - Request Body: MessageToken (token) - JSON
+        - Response: String - JSON
 
 ### Business Logic Layer
 
