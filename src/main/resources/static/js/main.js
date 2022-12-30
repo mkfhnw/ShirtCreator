@@ -19,6 +19,8 @@ let customerId = -1;
 const shirt_template = "/T-Shirts/{pattern}/{cut}/Tshirt_{cut}_{color}_{side}_basic.PNG"
 let shoppingCart = [];
 
+let currentAccount = null;
+
 
 $(document).ready(function () {
 
@@ -99,6 +101,11 @@ $(document).ready(function () {
         orderShippingMethod = shipping_select.options[shipping_select.selectedIndex].value;
         updateShippingMethod();
     });
+
+    // ------------------------------------- Registration
+    document.getElementById("create-account-button").addEventListener("click", (e) => {
+        createAccount();
+    })
 
     /******************
      Handle landingpages
@@ -300,6 +307,34 @@ function createCustomer() {
     });
 }
 
+// Create account
+async function createAccount() {
+
+    // Create JS object
+    let account = {
+        'firstName': document.getElementById("FirstName-registration").value,
+        'lastName': document.getElementById("LastName-registration").value,
+        'street': document.getElementById("Street-registration").value,
+        'plz': document.getElementById("Plz-registration").value,
+        'location': document.getElementById("Location-registration").value,
+        'eMail': document.getElementById("Email-registration").value,
+        'password': document.getElementById("Password-registration").value
+    }
+
+    // Send to backend
+    $.ajax({
+        type: 'POST',
+        url: '/api/account/',
+        data: JSON.stringify(account),
+        dataType: 'json',
+        contentType: 'application/json',
+        success: handleAccountCreation
+    })
+
+    // Debug
+    console.log(JSON.stringify(account))
+
+}
 
 /******************
  Handle functions of REST functions
@@ -368,6 +403,10 @@ function handleCreateCustomer(customer) {
 
 function handleGetOrderPrice(price) {
     updateOrderPrice(price);
+}
+
+function handleAccountCreation(account) {
+    currentAccount = account;
 }
 
 

@@ -5,6 +5,8 @@ import com.example.shirtcreator.ShirtCreator.Persistence.Address;
 import com.example.shirtcreator.ShirtCreator.Persistence.AddressRepository;
 import com.example.shirtcreator.ShirtCreator.Persistence.Customer;
 import com.example.shirtcreator.ShirtCreator.Persistence.CustomerRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,6 +22,8 @@ public class CustomerService {
     private AddressRepository addressRepository;
     @Autowired
     private CustomerVerification customerVerification;
+    Logger logger = LoggerFactory.getLogger(CustomerService.class);
+
 
     @GetMapping(path = "/api/customer/{id}", produces = "application/json")
     public Customer getCustomer(@PathVariable Integer id) {
@@ -93,8 +97,10 @@ public class CustomerService {
 
         if (customerVerification.validateEmailAddress(c.getEmail())) {
             customerRepository.save(c);
+            logger.info("E-Mail validation successful for customer_id: " + c.getid());
             return c;
         } else {
+            logger.info("E-Mail validation failed for customer_id: " + c.getid());
             return null;
         }
     }

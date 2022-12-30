@@ -1,10 +1,10 @@
 package com.example.shirtcreator.ShirtCreator.Services.Account;
 
-import com.example.shirtcreator.ShirtCreator.Persistence.Account;
-import com.example.shirtcreator.ShirtCreator.Persistence.AccountRepository;
-import com.example.shirtcreator.ShirtCreator.Persistence.Customer;
-import com.example.shirtcreator.ShirtCreator.Persistence.CustomerRepository;
+import com.example.shirtcreator.ShirtCreator.Business.CustomerVerification;
+import com.example.shirtcreator.ShirtCreator.Persistence.*;
 import com.google.common.hash.Hashing;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,8 +18,10 @@ public class AccountService {
     @Autowired
     private AccountRepository accountRepository;
     @Autowired
-    CustomerRepository customerRepository;
-
+    private CustomerRepository customerRepository;
+    @Autowired
+    private AddressRepository addressRepository;
+    Logger logger = LoggerFactory.getLogger(AccountService.class);
 
     // Mappings
     @GetMapping(path = "/api/account/{id}", produces = "application/json")
@@ -34,18 +36,35 @@ public class AccountService {
         // Create new account object
         Account account = new Account();
 
-        // Grab customer based on ID - if customer doesn't exist we abort
-        Optional<Customer> customer = customerRepository.findById(requestBody.getCustomerId());
-        if(!customer.isPresent()) { return null; }
-        account.setCustomer(customer.get());
+        // Check whether costumer already exists - create new one if not existent yet
+        Optional<Customer> customer = customerRepository.findCustomerByEmail(requestBody.geteMail());
+        if(customer.isPresent()) {
+            logger.info("Customer already existing with email " + requestBody.geteMail());
 
-        // The password already comes hashed - we double-hash it though. l33t s3cUritY.
+            // Abort if customer already has account
+            if(accountRepository.existsById(customer.get().getid())) {
+                logger.info("Customer already has account - abort account creation.");
+                return null;
+            }
+
+            account.setCustomer(customer.get());
+        } else {
+            Address newAddress = new Address(requestBody.getStreet(), requestBody.getPlz(), requestBody.getLocation());
+            Customer newCustomer = new Customer(requestBody.getFirstName(), requestBody.getLastName(), requestBody.geteMail(), newAddress);
+            addressRepository.save(newAddress); // Important: Save to db, otherwise we'll throw an error
+            customerRepository.save(newCustomer); // Important: Save to db, otherwise we'll throw an error
+            account.setCustomer(newCustomer);
+            logger.info("New Customer created");
+        }
+
+
+        // Only store hashed password. l33t s3cUritY.
         String passwordHash = Hashing.sha256().hashString(requestBody.getPassword(), StandardCharsets.UTF_8).toString();
         account.setPassword(passwordHash);
 
         // Save to db
         accountRepository.save(account);
-
+        logger.info("New account created.");
         return account;
     }
 
