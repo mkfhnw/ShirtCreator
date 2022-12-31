@@ -30,7 +30,7 @@
   deleted, <u style="border-bottom: 1px dotted; text-decoration: none;">fk_address</u>)
 - **Configuration** (<u>id</u>, cut, color, size, pattern, price)
 - **Order** (<u>id</u>, <u style="border-bottom: 1px dotted; text-decoration: none;">fk_customer</u>, totalQuantity,
-  shippingMethod, price, orderDate)
+  shippingMethod, price, orderDate, definitive)
 - **OrderItem** (<u>id</u>, <u style="border-bottom: 1px dotted; text-decoration: none;">fk_configuration</u>, quantity)
 - **OrderItems** (<u><u style="border-bottom: 1px dotted; text-decoration: none;">
   fk_order</u>, <u style="border-bottom: 1px dotted; text-decoration: none;">fk_orderItem</u></u>)
@@ -85,7 +85,7 @@ Grundsätzlicher Aufbau:
         - HTTP-Method: PUT
         - Path: http://localhost:8080/api/order/{orderId}
         - Parameters: None
-        - Request Body: MessageUpdateOrder (customerId, orderDate) - JSON
+        - Request Body: MessageUpdateOrder (customerId, orderDate, definitive) - JSON
         - Response: boolean - JSON
     - Versandbedingung aktualisieren (*updateShippingMethod*):
         - HTTP-Method: PUT
@@ -173,8 +173,7 @@ Grundsätzlicher Aufbau:
         - Path: http://localhost:8080/api/account/login
         - Parameters: None
         - Request Body: MessageLogin (eMail, password) - JSON
-        - Response: MessageToken - JSON
-            - MessageToken (token)
+        - Response: MessageToken (token) - JSON
     - Konto abmelden (*logout*):
         - HTTP-Method: PUT
         - Path: http://localhost:8080/api/account/logout
@@ -203,6 +202,10 @@ Grundsätzlicher Aufbau:
     - *validateEmailAddress*:
         - nimmt eine E-Mail-Adresse als String entgegen und prüft, ob diese valide ist
         - gibt entsprechend true oder false zurück
+- **AccountVerification**:
+    - *generateLoginToken*:
+        - generiert bei einem Login einen neuen Token
+        - gibt Token als String zurück
 
 ### Persistence Layer
 

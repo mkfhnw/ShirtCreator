@@ -1,8 +1,6 @@
 package com.example.shirtcreator.ShirtCreator.Persistence;
 
-import com.example.shirtcreator.ShirtCreator.Services.Account.MessageNewAccount;
 import jakarta.persistence.*;
-import org.hibernate.annotations.Cascade;
 
 @Entity(name="tblAccount")
 public class Account {
@@ -13,7 +11,6 @@ public class Account {
     private Integer Id;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id")
     private Customer customer;
 
     private String password;

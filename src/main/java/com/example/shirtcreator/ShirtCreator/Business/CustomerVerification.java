@@ -1,14 +1,10 @@
 package com.example.shirtcreator.ShirtCreator.Business;
 
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 @Service
 public class CustomerVerification {
-    // Fields
-    Logger logger = LoggerFactory.getLogger(CustomerVerification.class);
 
     public boolean validateEmailAddress(String email) {
         boolean valid = false;
