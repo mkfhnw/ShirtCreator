@@ -344,7 +344,7 @@ function createCustomer() {
 }
 
 // Create account
-async function createAccount() {
+function createAccount() {
 
     // Create JS object
     let account = {
@@ -364,7 +364,37 @@ async function createAccount() {
         data: JSON.stringify(account),
         dataType: 'json',
         contentType: 'application/json',
-        success: handleAccount
+        success: function (response) {
+            handleAccount(response);
+
+            if(response != null) {
+                // Clear UI
+                document.getElementById("FirstName-registration").value = '';
+                document.getElementById("LastName-registration").value = '';
+                document.getElementById("Street-registration").value = '';
+                document.getElementById("Plz-registration").value = '';
+                document.getElementById("Location-registration").value = '';
+                document.getElementById("Email-registration").value = '';
+                document.getElementById("Password-registration").value = '';
+
+                // Blend in feedback
+                let toast = document.getElementById('toast-registration');
+                let toastText = document.getElementById('toast-registration-text');
+                toast.classList.add('text-bg-success');
+                toastText.innerText = 'Registration successful!'
+                let bootstrapToast = new bootstrap.Toast(toast);
+                bootstrapToast.show();
+            } else {
+                // Blend in feedback
+                let toast = document.getElementById('toast-registration');
+                let toastText = document.getElementById('toast-registration-text');
+                toast.classList.add('text-bg-danger');
+                toastText.innerText = 'Registration failed!'
+                let bootstrapToast = new bootstrap.Toast(toast);
+                bootstrapToast.show();
+            }
+
+        }
     })
 
 }
@@ -499,6 +529,9 @@ function handleLogin(response) {
         toastText.innerText = 'Login successful!';
         toast.classList.remove('text-bg-danger');
         toast.classList.add('text-bg-success');
+        document.getElementById('okLogout').classList.remove('d-none');
+        document.getElementById('okLogin').classList.add('d-none');
+        document.getElementById('password-login').value = '';
     }
 
     let bootstrapToast = new bootstrap.Toast(document.getElementById('toast-login'))
@@ -517,6 +550,8 @@ function handleLogout(response){
         toastText.innerText = 'Logout successful!';
         toast.classList.remove('text-bg-danger');
         toast.classList.add('text-bg-success');
+        document.getElementById('okLogout').classList.add('d-none');
+        document.getElementById('okLogin').classList.remove('d-none');
 
     } else {
         toastText.innerText = 'Could not log out.';

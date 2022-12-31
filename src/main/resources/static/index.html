@@ -288,17 +288,17 @@
                 <!--Login-->
                 <div class="d-flex justify-content-between">
                     <div id="login" class="modal-tab-content active">
-                        <div style="display: flex; flex-direction: row;">
-                            <div class="input-group">
+                        <div class="d-flex mb-4">
+                            <h1 class="display-6">Log in to your account</h1>
+                        </div>
+                        <div class="mb-1 d-flex">
+                            <div class="input-group input-group-sm mb-1">
                             <!--EMail-->
-                                <br>
                                 <img src="/png/email-icon.png" for="Email-login" class="input-group-text" width="48vw" height="40vh">
                                 <input type="email" class="form-control" id="Email-login" placeholder="email@gmail.com">
                             </div>
-
                         </div>
-                        <br>
-                        <div class="input-group">
+                        <div class="input-group input-group-sm mb-3">
                             <!--Password-->
                              <img src="png/password-icon.png" for="password-login" alt="Label Image" class="input-group-text" width="48vw" height="40vh">
                             <input class="form-control" type="password" id="password-login" name="password" placeholder="password">
@@ -309,7 +309,7 @@
                             <button type="submit" id="okLogin" class="btn btn-primary"
                                     style="background-color: #03857E;">
                                 <b>Login</b></button>
-                            <button type="submit" id="okLogout" class="btn btn-primary"
+                            <button type="submit" id="okLogout" class="btn btn-primary d-none"
                                     style="background-color: #03857E;">
                                 <b>Logout</b></button>
                         </div>
@@ -331,50 +331,49 @@
                 <div id="registration" class="modal-tab-content">
                     <div class="d-flex justify-content-between">
                         <!--firstName and lastName-->
-                        <div style="display: flex; flex-direction: row;">
-                            <div class="input-group mb-1">
+
+                            <div class="input-group input-group-sm mt-1 mb-1">
                                 <label class="input-group-text" for="FirstName-registration">First name</label>
                                 <input type="text" class="form-control" id="FirstName-registration" placeholder="Jane">
                             </div>
                             <!--lastName-->
-                            <div class="input-group mb-1 ms-2">
+                            <div class="input-group input-group-sm mt-1 mb-1 ms-1">
                                 <label class="input-group-text" for="LastName-registration">Last name</label>
                                 <input type="text" class="form-control" id="LastName-registration" placeholder="Doe">
                             </div>
-                        </div>
+
                     </div>
-                    <br>
+
                     <div class="d-flex justify-content-between"></div>
                     <!--street-->
-                    <div class="input-group mb-1">
+                    <div class="input-group input-group-sm mb-1">
                         <label for="Street-registration" class="input-group-text">Street</label>
                         <input type="text" class="form-control" id="Street-registration"
                                placeholder="Baker Street 221B">
                     </div>
                     <div class="d-flex justify-content-between">
                         <!--plz-->
-                        <div class="input-group mb-1 w-25">
+                        <div class="input-group input-group-sm mb-1 w-25">
                             <label for="Plz-registration" class="input-group-text">PLZ</label>
                             <input type="text" class="form-control" id="Plz-registration" placeholder="4600">
                         </div>
                         <!--location-->
-                        <div class="input-group mb-1 ms-2 w-75">
+                        <div class="input-group input-group-sm ms-2 mb-1 w-75">
                             <label for="Location-registration" class="input-group-text">Location</label>
                             <input type="text" class="form-control" id="Location-registration" placeholder="New York">
                         </div>
                     </div>
                     <hr>
                     <!--email-->
-                    <div class="input-group mb-1">
-                        <img src="/png/email-icon.png" for="Email-registration" id="email-icon-registration" class="input-group-text" width="48vw" height="40vh">
+                    <div class="input-group input-group-sm mb-3">
+                        <img src="/png/email-icon.png" for="Email-registration" id="email-icon-registration" class="input-group-text" width="38vw" height="30vh">
                         <input type="email" class="form-control" id="Email-registration" placeholder="email@gmail.com">
                     </div>
                     <!--password-->
-                    <div class="input-group mb-1">
-                        <img src="/png/password-icon.png" for="Email-registration" id="password-icon-registration" class="input-group-text" width="48vw" height="40vh">
+                    <div class="input-group input-group-sm mb-3">
+                        <img src="/png/password-icon.png" for="Email-registration" id="password-icon-registration" class="input-group-text" width="38vw" height="30vh">
                         <input type="password" class="form-control" id="Password-registration" placeholder="password">
                     </div>
-                    <br>
                         <!--newsletter-->
                     <div class="form-group">
                         <div class="form-check form-switch" style="display: flex;">
@@ -386,7 +385,7 @@
                     </div>
                     <br>
                         <div>
-                            <button create-account-button id="create-account-button">Create Account</button>
+                            <button id="create-account-button" class="btn-sm">Create Account</button>
                         </div>
                     <br>
                     <div class="d-flex justify-content-center">
@@ -400,7 +399,7 @@
                             </div>
                         </div>
                     </div>
-                    </div>
+                </div>
                 <button id="close-modal-button">X</button>
                 </div>
             </div>
