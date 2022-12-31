@@ -178,21 +178,7 @@ $(document).ready(function () {
         registrationDetails2.style.display = 'block';
     });
 
-    // ROUTE: Opens Contact landingpage contact as soon as Contact on the navigation bar is clicked
-    const contactLink = document.getElementById('contact-link');
-    contactLink.addEventListener('click', (e) => {
-        // prevent the default link behavior (navigating to a new page)
-        event.preventDefault();
-        window.location.href = 'contact.html';
-    });
-
-    // TODO: Does not work yet! When clicked on "Home", index.html opens
-    const homeLink = document.getElementById('home-link');
-
-    homeLink.addEventListener('click', (e) => {
-        window.open('index.html', '_blank');
-    });
-
+    // TODO: This throws errors, check the JS console in the browser
     // CONTACT: Deletes all inputs as soon as the send button is clicked
     document.getElementById('myform').addEventListener('submit', function (event) {
         event.preventDefault(); // prevent the form from being submitted
