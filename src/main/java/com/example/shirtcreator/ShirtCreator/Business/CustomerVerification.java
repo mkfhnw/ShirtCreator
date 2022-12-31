@@ -24,7 +24,6 @@ public class CustomerVerification {
                 }
             }
         }
-        logger.info("Mail-Validation: " + valid);
         return valid;
     }
 

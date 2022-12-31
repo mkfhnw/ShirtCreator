@@ -30,6 +30,8 @@ public class Order {
 
     private Date orderDate;
 
+    private Boolean definitive = Boolean.FALSE;
+
     // CONSTRUCTOR
     public Order(Customer customer, List<OrderItem> items, ShippingMethod shippingMethod, Date orderDate) {
         this.customer = customer;
@@ -111,6 +113,18 @@ public class Order {
 
     public void setOrderDate(Date orderDate) {
         this.orderDate = orderDate;
+    }
+
+    public void setId(Integer id) {
+        Id = id;
+    }
+
+    public Boolean getDefinitive() {
+        return definitive;
+    }
+
+    public void setDefinitive(Boolean definitive) {
+        this.definitive = definitive;
     }
 
     // TOSTRING

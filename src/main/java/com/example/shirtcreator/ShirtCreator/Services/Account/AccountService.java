@@ -34,13 +34,11 @@ public class AccountService {
 
     // ------------------------------------------------------------------------------------------------- Mappings
     @GetMapping(path = "/api/account/{token}", produces = "application/json")
-    public MessageToken getAccount(@PathVariable String token) {
+    public Account getAccount(@PathVariable String token) {
         Optional<Account> accountOptional = accountRepository.findAccountByToken(token);
         if(accountOptional.isPresent()) {
             logger.info("Retrieved account with token: " + token);
-            MessageToken messageToken = new MessageToken();
-            messageToken.setToken(accountOptional.get().getToken());
-            return messageToken;
+            return accountOptional.get();
         } else {
             logger.error("Could not retrieve account with token: " + token);
             return null;
@@ -81,7 +79,7 @@ public class AccountService {
         account.setPassword(passwordHash);
 
         // Generate random token so user is directly logged in
-        String token = this.generateLoginToken();
+        String token = accountVerification.generateLoginToken();
         account.setToken(token);
 
         // Save to db
@@ -89,6 +87,7 @@ public class AccountService {
         logger.info("New account created.");
 
         // Make entry in loginMap
+        // TODO: Make the accountVerification.generateLoginToken() take in the account ID as argument, so it can manage the hashmap (put) itself
         accountVerification.put(savedAccount.getToken(), savedAccount.getId());
 
         return account;
@@ -130,7 +129,7 @@ public class AccountService {
         // Otherwise "log in" account (if password hashes match)
         String passwordHash = Hashing.sha256().hashString(requestBody.getPassword(), StandardCharsets.UTF_8).toString();
         if(account.getPassword().equals(passwordHash)) {
-            String token = this.generateLoginToken();
+            String token = accountVerification.generateLoginToken();
             account.setToken(token);
             accountVerification.put(token, account.getId());
             accountRepository.save(account);
@@ -174,28 +173,10 @@ public class AccountService {
 
     // @DeleteMapping   <- I'm sure we don't want front-end users to randomly delete accounts...
 
-    // ------------------------------------------------------------------------------------------------- Helper methods
-    public String generateLoginToken() {
 
-        // Generate new random string based on random ints & make sure it's not used yet
-        String token = "";
-        Random random = new Random();
-        int leftLimit = 97; // letter 'a'
-        int rightLimit = 122; // letter 'z'
-        int targetStringLength = 10;
-        do {
-            token = Hashing.sha256().hashString(random.ints(leftLimit, rightLimit + 1)
-                    .limit(targetStringLength)
-                    .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
-                    .toString(), StandardCharsets.UTF_8).toString();
-        } while (accountVerification.containsKey(token));
-
-        return token;
-    }
-
+    // Delete all current tokens on application shutdown so every user gets logged out
     @PreDestroy
     public void preDestroy() {
-        // Delete all current tokens so every user gets logged out
         List<Account> accountList = accountRepository.findAll();
         for(Account account : accountList) {
             account.setToken(null);

@@ -2,6 +2,9 @@ package com.example.shirtcreator.ShirtCreator.Services.Order;
 
 import com.example.shirtcreator.ShirtCreator.Business.OrderVerification;
 import com.example.shirtcreator.ShirtCreator.Persistence.*;
+import com.example.shirtcreator.ShirtCreator.Services.Account.AccountService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,6 +25,8 @@ public class OrderService {
     private OrderItemRepository orderItemRepository;
     @Autowired
     private OrderVerification orderVerification;
+
+    Logger logger = LoggerFactory.getLogger(OrderService.class);
 
     @PostMapping(path = "/api/order/", produces = "application/json")
     public Integer createOrder(@RequestBody MessageNewOrder m) {
@@ -87,18 +92,23 @@ public class OrderService {
     }
 
     @PutMapping(path = "/api/order/{orderId}", produces = "application/json")
-    public boolean updateOrder(@PathVariable Integer orderId, @RequestBody MessageUpdateOrder m) {
-        Optional<Order> or = orderRepository.findById(orderId);
-        if (or.isPresent()) {
-            Order o = or.get();
-            if (m.getCustomerId() != null) {
-                Optional<Customer> customer = customerRepository.findById(m.getCustomerId());
-                if (customer.isPresent()) {
-                    o.setCustomer(customer.get());
-                }
+    public boolean updateOrder(@PathVariable Integer orderId, @RequestBody MessageUpdateOrder requestBody) {
+        Optional<Order> orderOptional = orderRepository.findById(orderId);
+        if (orderOptional.isPresent()) {
+            Order order = orderOptional.get();
+
+            // Update customer
+            if (order.getCustomer() != null && requestBody.getCustomerId() != null) {
+                Optional<Customer> customer = customerRepository.findById(requestBody.getCustomerId());
+                customer.ifPresent(order::setCustomer);
             }
-            o.setOrderDate(m.getOrderDate());
-            orderRepository.save(o);
+
+            // Update definitive state & date
+            order.setDefinitive(requestBody.getDefinitive());
+            order.setOrderDate(requestBody.getOrderDate());
+
+            // Save & return
+            orderRepository.save(order);
             return true;
         } else {
             return false;

@@ -29,9 +29,17 @@ $(document).ready(function () {
      ******************/
     // ------------------------------------- Control panel
     document.getElementById("btnOrder").addEventListener("click", (e) => {
-        document.getElementById("configuration-panel").classList.add("d-none");
-        document.getElementById("order-panel").classList.remove("d-none");
 
+        // If no user is logged in, take shipping details
+        if(currentAccount == null) {
+            document.getElementById("configuration-panel").classList.add("d-none");
+            document.getElementById("order-panel").classList.remove("d-none");
+        } else {
+            // User is logged in -> Shipping address already available. Skip order-panel, and set order to definitive.
+            updateOrder(true);
+            document.getElementById("configuration-panel").classList.add("d-none");
+            document.getElementById("aftersales-panel").classList.remove("d-none");
+        }
     });
 
     document.getElementById("btnBack").addEventListener("click", (e) => {
@@ -42,7 +50,14 @@ $(document).ready(function () {
     document.getElementById("btnSubmit").addEventListener("click", (e) => {
         document.getElementById("order-panel").classList.add("d-none");
         document.getElementById("aftersales-panel").classList.remove("d-none");
-        createCustomer();
+
+        // Only create new customer if user is not logged in
+        if(currentAccount == null) {
+            createCustomer();
+        }
+
+        // Set definitive state on order
+        updateOrder(true);
     });
 
     document.getElementById("btnNewOrder").addEventListener("click", (e) => {
@@ -211,14 +226,40 @@ function getConfiguration() {
 // create a new Order
 function createOrder() {
     let order_date = new Date(new Date().toString().split('GMT')[0] + ' UTC').toISOString()
-    $.ajax({
-        type: "POST",
-        url: "/api/order/",
-        data: JSON.stringify({customer: null, orderDate: order_date}),
-        success: handleCreateOrder,
-        dataType: 'json',
-        contentType: 'application/json'
-    });
+
+    // If customer is logged in, create order with customer id
+    if(currentAccount != null) {
+        $.ajax({
+            type: "GET",
+            url: `/api/account/${currentAccount}`,
+            dataType: 'json',
+            contentType: 'application/json',
+            success: function (response) {
+                customerId = response['customer']['id'];
+                let payload = {customerId: customerId, orderDate: order_date};
+                $.ajax({
+                    type: "POST",
+                    url: "/api/order/",
+                    data: JSON.stringify(payload),
+                    success: handleCreateOrder,
+                    dataType: 'json',
+                    contentType: 'application/json'
+                });
+            }
+        });
+    } else {
+        // Otherwise, go on without customer ID
+        let payload = {customerId: null, orderDate: order_date}
+        $.ajax({
+            type: "POST",
+            url: "/api/order/",
+            data: JSON.stringify(payload),
+            success: handleCreateOrder,
+            dataType: 'json',
+            contentType: 'application/json'
+        });
+    }
+
 }
 
 // add Item to existing order
@@ -250,15 +291,13 @@ function getOrder() {
 }
 
 // update existing order - when present with customerId
-function updateOrder() {
+function updateOrder(definitiveState) {
     let order_date = new Date(new Date().toString().split('GMT')[0] + ' UTC').toISOString()
-    let customer_id = null;
-    if (customerId !== -1)
-        customer_id = customerId;
+    let customer_id = customerId !== -1 ? customerId : null;
     $.ajax({
         type: "PUT",
         url: "/api/order/" + orderId,
-        data: JSON.stringify({customerId: customer_id, orderDate: order_date}),
+        data: JSON.stringify({customerId: customer_id, orderDate: order_date, definitive: definitiveState}),
         success: null,
         dataType: 'json',
         contentType: 'application/json'
@@ -429,7 +468,7 @@ function handleUpdateShippingMethod(response) {
 
 function handleCreateCustomer(customer) {
     customerId = customer["id"];
-    updateOrder();
+    updateOrder(false);
 }
 
 function handleGetOrderPrice(price) {
@@ -445,14 +484,8 @@ function handleAccount(response) {
 
 function handleLogin(response) {
 
-    // Save account to JS
-    $.ajax({
-        type: 'GET',
-        url: `/api/account/${response.token}`,
-        dataType: 'json',
-        contentType: 'application/json',
-        success: handleAccount
-    })
+    // Save reference
+    currentAccount = response['token'];
 
     // Blend in feedback
     let toast = document.getElementById('toast-login');
