@@ -342,9 +342,6 @@ async function createAccount() {
         success: handleAccount
     })
 
-    // Debug
-    console.log(JSON.stringify(account))
-
 }
 
 // Log in account
@@ -370,7 +367,7 @@ function loginAccount() {
 
 function logoutAccount() {
     let token = {
-        'token': currentAccount.token
+        'token': currentAccount
     }
 
     // Send to backend
@@ -453,13 +450,16 @@ function handleGetOrderPrice(price) {
     updateOrderPrice(price);
 }
 
-function handleAccount(account) {
-    if(account != null) {
-        currentAccount = account;
+function handleAccount(response) {
+
+    if(response != null) {
+        currentAccount = response['token'];
     }
 }
 
 function handleLogin(response) {
+
+    // Save account to JS
     $.ajax({
         type: 'GET',
         url: `/api/account/${response.token}`,
@@ -467,12 +467,47 @@ function handleLogin(response) {
         contentType: 'application/json',
         success: handleAccount
     })
+
+    // Blend in feedback
+    let toast = document.getElementById('toast-login');
+    let toastText = document.getElementById('toast-login-text');
+
+    if(response['token'] === "") {
+        toastText.innerText = 'Could not log in. Check your credentials!';
+        toast.classList.remove('text-bg-success');
+        toast.classList.add('text-bg-danger');
+    } else {
+        toastText.innerText = 'Login successful!';
+        toast.classList.remove('text-bg-danger');
+        toast.classList.add('text-bg-success');
+    }
+
+    let bootstrapToast = new bootstrap.Toast(document.getElementById('toast-login'))
+    bootstrapToast.show()
 }
 
 function handleLogout(response){
-    if(response === "true") {
+
+    // Blend in feedback & set account to null
+    let toast = document.getElementById('toast-login');
+    let toastText = document.getElementById('toast-login-text');
+
+    if(response === true) {
         currentAccount = null;
+
+        toastText.innerText = 'Logout successful!';
+        toast.classList.remove('text-bg-danger');
+        toast.classList.add('text-bg-success');
+
+    } else {
+        toastText.innerText = 'Could not log out.';
+        toast.classList.remove('text-bg-success');
+        toast.classList.add('text-bg-danger');
     }
+
+    let bootstrapToast = new bootstrap.Toast(document.getElementById('toast-login'));
+    bootstrapToast.show();
+
 }
 
 /******************
@@ -527,6 +562,7 @@ function updateOrderPrice(price) {
     orderPrice = price;
     document.getElementById("order_price").innerText = "CHF " + orderPrice.toString();
 }
+
 
 
 /******************

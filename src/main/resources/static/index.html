@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" href="/icon_tshirt.PNG">
+    <link rel="icon" href="/png/icon_tshirt.PNG">
     <title>ShirtCreator</title>
     <link href="/css/custom.css" rel="stylesheet">
     <link href="/css/bootstrap.min.css" rel="stylesheet">
@@ -12,7 +12,7 @@
 <!-- Top navigation bar -->
 <nav class="navbar navbar-expand-lg navbar-light custom-nav" style="background-color: white" ;>
     <a class="navbar-brand" href="#">
-        <img src="/Logo.PNG" class="d-block logo" alt="Website logo"></a>
+        <img src="/png/Logo.PNG" class="d-block logo" alt="Website logo"></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -269,15 +269,16 @@
                         <button type="button" class="btn btn-primary" id="btnNewOrder"
                                 style="border: 0; background-color: #03857E;"><b>Order next shirt</b></button>
                     </div>
+
                 </div>
             </div>
         </div>
 
     <!-- Login popup -->
-    <div id="modal" style="margin: auto; top: 50%; transform: translateY(-50%); width: 100%; height: 93%;">
+    <div id="modal" style="margin: auto; top: 50%; transform: translateY(-50%); width: 100%; height: 100%;">
         <div id="modal-content">
             <div id="modal-left">
-                <img src="/Login-picture.PNG" alt="Logo">
+                <img src="/png/Login-picture.PNG" alt="Logo">
             </div>
             <div id="modal-right">
                 <div id="modal-tabs">
@@ -291,7 +292,7 @@
                             <div class="input-group">
                             <!--EMail-->
                                 <br>
-                                <img src="/email-icon.png" for="Email-login" class="input-group-text" width="48vw" height="40vh">
+                                <img src="/png/email-icon.png" for="Email-login" class="input-group-text" width="48vw" height="40vh">
                                 <input type="email" class="form-control" id="Email-login" placeholder="email@gmail.com">
                             </div>
 
@@ -299,7 +300,7 @@
                         <br>
                         <div class="input-group">
                             <!--Password-->
-                             <img src="password-icon.png" for="password-login" alt="Label Image" class="input-group-text" width="48vw" height="40vh">
+                             <img src="png/password-icon.png" for="password-login" alt="Label Image" class="input-group-text" width="48vw" height="40vh">
                             <input class="form-control" type="password" id="password-login" name="password" placeholder="password">
                         </div>
                         <br>
@@ -311,6 +312,18 @@
                             <button type="submit" id="okLogout" class="btn btn-primary"
                                     style="background-color: #03857E;">
                                 <b>Logout</b></button>
+                        </div>
+                        <br>
+                        <!-- Toast -->
+                        <div class="d-flex justify-content-center">
+                            <div class="toast align-items-center ms-3 text-bg-primary border-0" role="alert" aria-live="assertive" aria-atomic="true" id="toast-login">
+                                <div class="d-flex">
+                                    <div class="toast-body" id="toast-login-text">
+                                        Hello world!
+                                    </div>
+                                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -353,12 +366,12 @@
                     <hr>
                     <!--email-->
                     <div class="input-group mb-1">
-                        <img src="/email-icon.png" for="Email-registration" id="email-icon-registration" class="input-group-text" width="48vw" height="40vh">
+                        <img src="/png/email-icon.png" for="Email-registration" id="email-icon-registration" class="input-group-text" width="48vw" height="40vh">
                         <input type="email" class="form-control" id="Email-registration" placeholder="email@gmail.com">
                     </div>
                     <!--password-->
                     <div class="input-group mb-1">
-                        <img src="/password-icon.png" for="Email-registration" id="password-icon-registration" class="input-group-text" width="48vw" height="40vh">
+                        <img src="/png/password-icon.png" for="Email-registration" id="password-icon-registration" class="input-group-text" width="48vw" height="40vh">
                         <input type="password" class="form-control" id="Password-registration" placeholder="password">
                     </div>
                     <br>
@@ -369,11 +382,24 @@
                             <label class="form-check-label" style="margin-left: 10px;"
                                    for="checkNewsletter-registration">Sign me up for the newsletter!</label>
                         </div>
+
                     </div>
                     <br>
                         <div>
                             <button create-account-button id="create-account-button">Create Account</button>
                         </div>
+                    <br>
+                    <div class="d-flex justify-content-center">
+                        <!-- Toast -->
+                        <div class="toast align-items-center border-0" role="alert" aria-live="assertive" aria-atomic="true" id="toast-registration">
+                            <div class="d-flex">
+                                <div class="toast-body" id="toast-registration-text">
+                                    Hello world!
+                                </div>
+                                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                            </div>
+                        </div>
+                    </div>
                     </div>
                 <button id="close-modal-button">X</button>
                 </div>
@@ -384,17 +410,17 @@
         <h1>Why choose ShirtCreator?</h1>
         <div style="display: flex; justify-content: center; margin-top: 50px;">
             <div>
-                <img src="/diamond.png" alt="Image 1" style="width: 20%;">
+                <img src="/png/diamond.png" alt="Image 1" style="width: 20%;">
                 <p><b>Quality</b></p>
                 <p>Exceptional quality from top to bottom.</p>
             </div>
             <div>
-                <img src="/delivery.png" alt="Image 2" style="width: 20%;">
+                <img src="/png/delivery.png" alt="Image 2" style="width: 20%;">
                 <p><b>Delivery</b></p>
                 <p>Fast delivery worldwide.</p>
             </div>
             <div>
-                <img src="/certificate.png" alt="Image 3" style="width: 20%;">
+                <img src="/png/certificate.png" alt="Image 3" style="width: 20%;">
                 <p><b>Guarantee</b></p>
                 <p>100% customer satisfaction guaranteed.</p>
             </div>
@@ -406,13 +432,13 @@
                     <!-- Social media -->
                     <section class="mb-4" style="margin-top: 30px;">
                         <!-- Facebook -->
-                        <img src="/facebook.png" alt="..." style="width: 1%;">
+                        <img src="/png/facebook.png" alt="..." style="width: 1%;">
                         <!-- Instagram -->
-                        <img src="/instagram.png" alt="..." style="width: 1%;">
+                        <img src="/png/instagram.png" alt="..." style="width: 1%;">
                         <!-- Linkedin -->
-                        <img src="/Linkedin.png" alt="..." style="width: 1%;">
+                        <img src="/png/Linkedin.png" alt="..." style="width: 1%;">
                         <!-- Youtube -->
-                        <img src="/youtube.png" alt="..." style="width: 1%;">
+                        <img src="/png/youtube.png" alt="..." style="width: 1%;">
                     </section>
                 </div>
                 <!-- Copyright -->

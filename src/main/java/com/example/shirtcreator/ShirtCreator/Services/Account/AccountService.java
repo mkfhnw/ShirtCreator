@@ -1,7 +1,9 @@
 package com.example.shirtcreator.ShirtCreator.Services.Account;
 
+import com.example.shirtcreator.ShirtCreator.Business.AccountVerification;
 import com.example.shirtcreator.ShirtCreator.Persistence.*;
 import com.google.common.hash.Hashing;
+import jakarta.annotation.PreDestroy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 
@@ -22,17 +25,22 @@ public class AccountService {
     private CustomerRepository customerRepository;
     @Autowired
     private AddressRepository addressRepository;
-    Logger logger = LoggerFactory.getLogger(AccountService.class);
 
-    HashMap<String, Integer> tokenMap = new HashMap<>();
+    @Autowired
+    AccountVerification accountVerification;
+
+    Logger logger = LoggerFactory.getLogger(AccountService.class);
+    
 
     // ------------------------------------------------------------------------------------------------- Mappings
     @GetMapping(path = "/api/account/{token}", produces = "application/json")
-    public Account getAccount(@PathVariable String token) {
+    public MessageToken getAccount(@PathVariable String token) {
         Optional<Account> accountOptional = accountRepository.findAccountByToken(token);
         if(accountOptional.isPresent()) {
             logger.info("Retrieved account with token: " + token);
-            return accountOptional.get();
+            MessageToken messageToken = new MessageToken();
+            messageToken.setToken(accountOptional.get().getToken());
+            return messageToken;
         } else {
             logger.error("Could not retrieve account with token: " + token);
             return null;
@@ -81,7 +89,7 @@ public class AccountService {
         logger.info("New account created.");
 
         // Make entry in loginMap
-        this.tokenMap.put(savedAccount.getToken(), savedAccount.getId());
+        accountVerification.put(savedAccount.getToken(), savedAccount.getId());
 
         return account;
     }
@@ -112,7 +120,7 @@ public class AccountService {
 
         // Check whether account is already logged in
         Account account = accountOptional.get();
-        if(account.getToken() != null && this.tokenMap.containsKey(account.getToken())) {
+        if(account.getToken() != null && accountVerification.containsKey(account.getToken())) {
             logger.info("Account with ID " + account.getId() + " already logged in.");
             MessageToken response = new MessageToken();
             response.setToken(account.getToken());
@@ -124,7 +132,7 @@ public class AccountService {
         if(account.getPassword().equals(passwordHash)) {
             String token = this.generateLoginToken();
             account.setToken(token);
-            this.tokenMap.put(token, account.getId());
+            accountVerification.put(token, account.getId());
             accountRepository.save(account);
             logger.info("Account with ID " + account.getId() + " and token " + account.getToken() + " successfully logged in.");
             MessageToken messageToken = new MessageToken();
@@ -144,7 +152,7 @@ public class AccountService {
     public String logout(@RequestBody MessageToken requestBody) {
 
         // Logout user if token is valid
-        if(this.tokenMap.containsKey(requestBody.getToken())) {
+        if(accountVerification.containsKey(requestBody.getToken())) {
             Optional<Account> accountOptional = accountRepository.findAccountByToken(requestBody.getToken());
             if(accountOptional.isEmpty()) {
                 logger.error("Invalid token for logout: " + requestBody.getToken());
@@ -153,7 +161,7 @@ public class AccountService {
             Account account = accountOptional.get();
             account.setToken("");
             accountRepository.save(account);
-            this.tokenMap.remove(requestBody.getToken());
+            accountVerification.remove(requestBody.getToken());
             logger.info("Logged out account with token: " + requestBody.getToken());
             return "true";
         }
@@ -167,7 +175,6 @@ public class AccountService {
     // @DeleteMapping   <- I'm sure we don't want front-end users to randomly delete accounts...
 
     // ------------------------------------------------------------------------------------------------- Helper methods
-    // TODO: Put method generateLoginToken in a new class (e.g., AccountVerification) in Business folder
     public String generateLoginToken() {
 
         // Generate new random string based on random ints & make sure it's not used yet
@@ -181,9 +188,20 @@ public class AccountService {
                     .limit(targetStringLength)
                     .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
                     .toString(), StandardCharsets.UTF_8).toString();
-        } while (this.tokenMap.containsKey(token));
+        } while (accountVerification.containsKey(token));
 
         return token;
+    }
+
+    @PreDestroy
+    public void preDestroy() {
+        // Delete all current tokens so every user gets logged out
+        List<Account> accountList = accountRepository.findAll();
+        for(Account account : accountList) {
+            account.setToken(null);
+            accountRepository.save(account);
+        }
+        logger.info("Deleted all tokens from each account.");
     }
 
 }
