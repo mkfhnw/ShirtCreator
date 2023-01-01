@@ -530,6 +530,7 @@ function handleLogin(response) {
         toast.classList.remove('text-bg-danger');
         toast.classList.add('text-bg-success');
         document.getElementById('okLogout').classList.remove('d-none');
+        document.getElementById('okOrders').classList.remove('d-none');
         document.getElementById('okLogin').classList.add('d-none');
         document.getElementById('password-login').value = '';
     }
@@ -551,6 +552,7 @@ function handleLogout(response){
         toast.classList.remove('text-bg-danger');
         toast.classList.add('text-bg-success');
         document.getElementById('okLogout').classList.add('d-none');
+        document.getElementById('okOrders').classList.add('d-none');
         document.getElementById('okLogin').classList.remove('d-none');
 
     } else {

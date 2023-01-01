@@ -30,11 +30,11 @@
         </ul>
         <!--Login-->
         <div style="padding-left: 75vw">
-        <form class="form-inline my-2 my-lg-0">
-            <button type="button" class="btn btn-primary" id="login_button" data-modal-target="#modal"
-                    style="float: right; background-color: #03857E">
-                <b>Login</b></button>
-        </form>
+            <form class="form-inline my-2 my-lg-0">
+                <button type="button" class="btn btn-primary" id="login_button" data-modal-target="#loginModal"
+                        style="float: right; background-color: #03857E">
+                    <b>Login</b></button>
+            </form>
         </div>
     </div>
 </nav>
@@ -73,20 +73,21 @@
                 <!-- Thumbnails -->
                 <div class="carousel-indicators" style="position: static;">
                     <!-- front -->
-                        <img data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0"
-                             class="active thumbnail" aria-current="true" aria-label="Slide 1" style="height: 15vh; width: auto;"
-                             src="/T-Shirts/plain/round/Tshirt_round_white_front_basic.PNG" class="d-block w-100"
-                             alt="..."  id="front-view-thumb">
+                    <img data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0"
+                         class="active thumbnail" aria-current="true" aria-label="Slide 1"
+                         style="height: 15vh; width: auto;"
+                         src="/T-Shirts/plain/round/Tshirt_round_white_front_basic.PNG" class="d-block w-100"
+                         alt="..." id="front-view-thumb">
                     <!--back-->
-                        <img data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
-                             class="thumbnail" aria-label="Slide 2" style="height: 15vh; width: auto;"
-                             src="/T-Shirts/plain/round/Tshirt_round_white_back_basic.PNG" class="d-block w-100"
-                             alt="..."  id="back-view-thumb">
-                        <!--sider-->
-                        <img data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
-                             class="thumbnail" aria-label="Slide 2" style="height: 15vh; width: auto;"
-                             src="/T-Shirts/plain/round/Tshirt_round_white_side_basic.PNG" class="d-block w-100"
-                             alt="..."  id="side-view-thumb">
+                    <img data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
+                         class="thumbnail" aria-label="Slide 2" style="height: 15vh; width: auto;"
+                         src="/T-Shirts/plain/round/Tshirt_round_white_back_basic.PNG" class="d-block w-100"
+                         alt="..." id="back-view-thumb">
+                    <!--sider-->
+                    <img data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
+                         class="thumbnail" aria-label="Slide 2" style="height: 15vh; width: auto;"
+                         src="/T-Shirts/plain/round/Tshirt_round_white_side_basic.PNG" class="d-block w-100"
+                         alt="..." id="side-view-thumb">
                 </div>
             </div>
         </div>
@@ -160,17 +161,24 @@
                         <hr>
                         <div class="shopping-basket" id="shopping-basket">
                             <h6 class="emptyCart" id="emptyCart">Shopping cart is still empty.</h6>
-                            <table class="table table-hover table-sm d-none" id="tblShoppingBasket" style="font-size: 70%">
+                            <table class="table table-hover table-sm d-none" id="tblShoppingBasket"
+                                   style="font-size: 70%">
                                 <thead class="thead-light">
                                 <tr>
                                     <th scope="col">#</th>
                                     <th scope="col">Cut</th>
-                                    <th scope="col">Color</td>
-                                    <th scope="col">Pattern</td>
-                                    <th scope="col">Size</td>
-                                    <th scope="col">Q</td>
-                                    <th scope="col">U/P</td>
-                                    <th scope="col">Total</td>
+                                    <th scope="col">Color
+                                    </td>
+                                    <th scope="col">Pattern
+                                    </td>
+                                    <th scope="col">Size
+                                    </td>
+                                    <th scope="col">Q
+                                    </td>
+                                    <th scope="col">U/P
+                                    </td>
+                                    <th scope="col">Total
+                                    </td>
                                     <th scope="col"></th>
                                 </tr>
                                 </thead>
@@ -274,63 +282,69 @@
             </div>
         </div>
 
-    <!-- Login popup -->
-    <div id="modal" style="margin: auto; top: 50%; transform: translateY(-50%); width: 100%; height: 100%;">
-        <div id="modal-content">
-            <div id="modal-left">
-                <img src="/png/Login-picture.PNG" alt="Logo">
-            </div>
-            <div id="modal-right">
-                <div id="modal-tabs">
-                    <button class="modal-tab active" data-tab="login">Login</button>
-                    <button class="modal-tab" data-tab="registration">Registration</button>
+        <!-- Login popup -->
+        <div id="loginModal" style="margin: auto; top: 50%; transform: translateY(-50%); width: 100%; height: 100%;">
+            <div id="modal-content">
+                <div id="modal-left">
+                    <img src="/png/Login-picture.PNG" alt="Logo">
                 </div>
-                <!--Login-->
-                <div class="d-flex justify-content-between">
-                    <div id="login" class="modal-tab-content active">
-                        <div class="d-flex mb-4">
-                            <h1 class="display-6">Log in to your account</h1>
-                        </div>
-                        <div class="mb-1 d-flex">
-                            <div class="input-group input-group-sm mb-1">
-                            <!--EMail-->
-                                <img src="/png/email-icon.png" for="Email-login" class="input-group-text" width="48vw" height="40vh">
-                                <input type="email" class="form-control" id="Email-login" placeholder="email@gmail.com">
+                <div id="modal-right">
+                    <div id="modal-tabs">
+                        <button class="modal-tab active" data-tab="login">Login</button>
+                        <button class="modal-tab" data-tab="registration">Registration</button>
+                    </div>
+                    <!--Login-->
+                    <div class="d-flex justify-content-between">
+                        <div id="login" class="modal-tab-content active">
+                            <div class="d-flex mb-4">
+                                <h1 class="display-6">Log in to your account</h1>
                             </div>
-                        </div>
-                        <div class="input-group input-group-sm mb-3">
-                            <!--Password-->
-                             <img src="png/password-icon.png" for="password-login" alt="Label Image" class="input-group-text" width="48vw" height="40vh">
-                            <input class="form-control" type="password" id="password-login" name="password" placeholder="password">
-                        </div>
-                        <br>
-                        <div>
-                            <!--Button OK-->
-                            <button type="submit" id="okLogin" class="btn btn-primary"
-                                    style="background-color: #03857E;">
-                                <b>Login</b></button>
-                            <button type="submit" id="okLogout" class="btn btn-primary d-none"
-                                    style="background-color: #03857E;">
-                                <b>Logout</b></button>
-                        </div>
-                        <br>
-                        <!-- Toast -->
-                        <div class="d-flex justify-content-center">
-                            <div class="toast align-items-center ms-3 text-bg-primary border-0" role="alert" aria-live="assertive" aria-atomic="true" id="toast-login">
-                                <div class="d-flex">
-                                    <div class="toast-body" id="toast-login-text">
-                                        Hello world!
+                            <div class="mb-1 d-flex">
+                                <div class="input-group input-group-sm mb-1">
+                                    <!--EMail-->
+                                    <img src="/png/email-icon.png" for="Email-login" class="input-group-text"
+                                         width="48vw" height="40vh">
+                                    <input type="email" class="form-control" id="Email-login"
+                                           placeholder="email@gmail.com">
+                                </div>
+                            </div>
+                            <div class="input-group input-group-sm mb-3">
+                                <!--Password-->
+                                <img src="png/password-icon.png" for="password-login" alt="Label Image"
+                                     class="input-group-text" width="48vw" height="40vh">
+                                <input class="form-control" type="password" id="password-login" name="password"
+                                       placeholder="password">
+                            </div>
+                            <br>
+                            <div>
+                                <!--Button OK-->
+                                <button type="submit" id="okLogin" class="btn btn-primary"
+                                        style="background-color: #03857E;"><b>Login</b></button>
+                                <button type="submit" id="okLogout" class="btn btn-primary d-none"
+                                        style="background-color: #03857E;"><b>Logout</b></button>
+                                <button type="submit" id="okOrders" class="btn btn-primary d-none"
+                                        style="background-color: #03857E;"><b>Logout</b></button>
+                            </div>
+                            <br>
+                            <!-- Toast -->
+                            <div class="d-flex justify-content-center">
+                                <div class="toast align-items-center ms-3 text-bg-primary border-0" role="alert"
+                                     aria-live="assertive" aria-atomic="true" id="toast-login">
+                                    <div class="d-flex">
+                                        <div class="toast-body" id="toast-login-text">
+                                            Hello world!
+                                        </div>
+                                        <button type="button" class="btn-close btn-close-white me-2 m-auto"
+                                                data-bs-dismiss="toast" aria-label="Close"></button>
                                     </div>
-                                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <!--Registration-->
-                <div id="registration" class="modal-tab-content">
-                    <div class="d-flex justify-content-between">
-                        <!--firstName and lastName-->
+                    <!--Registration-->
+                    <div id="registration" class="modal-tab-content">
+                        <div class="d-flex justify-content-between">
+                            <!--firstName and lastName-->
 
                             <div class="input-group input-group-sm mt-1 mb-1">
                                 <label class="input-group-text" for="FirstName-registration">First name</label>
@@ -342,69 +356,78 @@
                                 <input type="text" class="form-control" id="LastName-registration" placeholder="Doe">
                             </div>
 
-                    </div>
+                        </div>
 
-                    <div class="d-flex justify-content-between"></div>
-                    <!--street-->
-                    <div class="input-group input-group-sm mb-1">
-                        <label for="Street-registration" class="input-group-text">Street</label>
-                        <input type="text" class="form-control" id="Street-registration"
-                               placeholder="Baker Street 221B">
-                    </div>
-                    <div class="d-flex justify-content-between">
-                        <!--plz-->
-                        <div class="input-group input-group-sm mb-1 w-25">
-                            <label for="Plz-registration" class="input-group-text">PLZ</label>
-                            <input type="text" class="form-control" id="Plz-registration" placeholder="4600">
+                        <div class="d-flex justify-content-between"></div>
+                        <!--street-->
+                        <div class="input-group input-group-sm mb-1">
+                            <label for="Street-registration" class="input-group-text">Street</label>
+                            <input type="text" class="form-control" id="Street-registration"
+                                   placeholder="Baker Street 221B">
                         </div>
-                        <!--location-->
-                        <div class="input-group input-group-sm ms-2 mb-1 w-75">
-                            <label for="Location-registration" class="input-group-text">Location</label>
-                            <input type="text" class="form-control" id="Location-registration" placeholder="New York">
+                        <div class="d-flex justify-content-between">
+                            <!--plz-->
+                            <div class="input-group input-group-sm mb-1 w-25">
+                                <label for="Plz-registration" class="input-group-text">PLZ</label>
+                                <input type="text" class="form-control" id="Plz-registration" placeholder="4600">
+                            </div>
+                            <!--location-->
+                            <div class="input-group input-group-sm ms-2 mb-1 w-75">
+                                <label for="Location-registration" class="input-group-text">Location</label>
+                                <input type="text" class="form-control" id="Location-registration"
+                                       placeholder="New York">
+                            </div>
                         </div>
-                    </div>
-                    <hr>
-                    <!--email-->
-                    <div class="input-group input-group-sm mb-3">
-                        <img src="/png/email-icon.png" for="Email-registration" id="email-icon-registration" class="input-group-text" width="38vw" height="30vh">
-                        <input type="email" class="form-control" id="Email-registration" placeholder="email@gmail.com">
-                    </div>
-                    <!--password-->
-                    <div class="input-group input-group-sm mb-3">
-                        <img src="/png/password-icon.png" for="Email-registration" id="password-icon-registration" class="input-group-text" width="38vw" height="30vh">
-                        <input type="password" class="form-control" id="Password-registration" placeholder="password">
-                    </div>
+                        <hr>
+                        <!--email-->
+                        <div class="input-group input-group-sm mb-3">
+                            <img src="/png/email-icon.png" for="Email-registration" id="email-icon-registration"
+                                 class="input-group-text" width="38vw" height="30vh">
+                            <input type="email" class="form-control" id="Email-registration"
+                                   placeholder="email@gmail.com">
+                        </div>
+                        <!--password-->
+                        <div class="input-group input-group-sm mb-3">
+                            <img src="/png/password-icon.png" for="Email-registration" id="password-icon-registration"
+                                 class="input-group-text" width="38vw" height="30vh">
+                            <input type="password" class="form-control" id="Password-registration"
+                                   placeholder="password">
+                        </div>
                         <!--newsletter-->
-                    <div class="form-group">
-                        <div class="form-check form-switch" style="display: flex;">
-                            <input class="form-check-input" type="checkbox" id="checkNewsletter-registration">
-                            <label class="form-check-label" style="margin-left: 10px;"
-                                   for="checkNewsletter-registration">Sign me up for the newsletter!</label>
-                        </div>
+                        <div class="form-group">
+                            <div class="form-check form-switch" style="display: flex;">
+                                <input class="form-check-input" type="checkbox" id="checkNewsletter-registration">
+                                <label class="form-check-label" style="margin-left: 10px;"
+                                       for="checkNewsletter-registration">Sign me up for the newsletter!</label>
+                            </div>
 
-                    </div>
-                    <br>
+                        </div>
+                        <br>
                         <div>
                             <button id="create-account-button" class="btn-sm">Create Account</button>
                         </div>
-                    <br>
-                    <div class="d-flex justify-content-center">
-                        <!-- Toast -->
-                        <div class="toast align-items-center border-0" role="alert" aria-live="assertive" aria-atomic="true" id="toast-registration">
-                            <div class="d-flex">
-                                <div class="toast-body" id="toast-registration-text">
-                                    Hello world!
+                        <br>
+                        <div class="d-flex justify-content-center">
+                            <!-- Toast -->
+                            <div class="toast align-items-center border-0" role="alert" aria-live="assertive"
+                                 aria-atomic="true" id="toast-registration">
+                                <div class="d-flex">
+                                    <div class="toast-body" id="toast-registration-text">
+                                        Hello world!
+                                    </div>
+                                    <button type="button" class="btn-close btn-close-white me-2 m-auto"
+                                            data-bs-dismiss="toast" aria-label="Close"></button>
                                 </div>
-                                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
                             </div>
                         </div>
                     </div>
-                </div>
-                <button id="close-modal-button">X</button>
+                    <button id="close-modal-button">X</button>
                 </div>
             </div>
         </div>
-        </div>
+    </div>
+
+    <!-- Footer -->
     <div id="WhyShortCreator" style="margin-top: 100px">
         <h1>Why choose ShirtCreator?</h1>
         <div style="display: flex; justify-content: center; margin-top: 50px;">
@@ -442,7 +465,8 @@
                 </div>
                 <!-- Copyright -->
                 <div class="text-center text-dark p-3" style="background-color: rgba(0, 0, 0, 0.2);">
-                    <p>© 2022 Copyright: ShirtCreator<p>
+                    <p>© 2023 Copyright: ShirtCreator
+                    <p>
                 </div>
             </footer>
         </div>
