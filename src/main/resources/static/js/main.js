@@ -133,6 +133,12 @@ $(document).ready(function () {
         logoutAccount();
     })
 
+    // ------------------------------------- Order History
+    document.getElementById("okOrders").addEventListener("click", (e) => {
+        e.preventDefault();
+        showOrderHistory();
+    })
+
     /******************
      Handle landingpages
      ******************/
@@ -205,6 +211,10 @@ $(document).ready(function () {
         document.getElementById('email').value = '';
         document.getElementById('message').value = '';
     });
+
+    // Hide orders-modal
+    let ordersModal = new bootstrap.Modal('#modal-orders');
+    ordersModal.hide();
 
 });
 
@@ -619,7 +629,78 @@ function updateOrderPrice(price) {
     document.getElementById("order_price").innerText = "CHF " + orderPrice.toString();
 }
 
+function showOrderHistory() {
 
+    // Close login modal since only 1 modal can be opened at once
+    document.getElementById('close-modal-button').click();
+    document.getElementById("modal").style.display = "none";
+
+    // Populate order history modal
+    // Note: The call to /api/orders is somewhat risky since front-end users could theoretically obtain every order history for an arbitrary user
+    let tableBody = document.getElementById('orders-table').getElementsByTagName('tbody')[0]
+    let tableFooter = document.getElementById('orders-table').getElementsByTagName('tfoot')[0]
+
+    // Get customer ID via API
+    $.ajax({
+        type: "GET",
+        url: `/api/account/${currentAccount}`,
+        dataType: 'json',
+        contentType: 'application/json',
+        success: function(accountResponse) {
+
+            // Get orders for customer ID via API
+            $.ajax({
+                type: 'GET',
+                url: '/api/orders',
+                data: {'customerId': accountResponse['customer']['id']},
+                success: function(ordersResponse) {
+
+                    // Clear table first
+                    $('#orders-table tbody tr').remove();
+                    $('#orders-table tfoot tr').remove();
+
+                    // Fill table if there are orders at all
+                    if(ordersResponse.length > 0) {
+                        let total = 0;
+                        for(const order of ordersResponse) {
+                            let newRow = tableBody.insertRow(-1);
+                            newRow.insertCell(0).appendChild(document.createTextNode(order['orderId']));
+                            newRow.insertCell(1).appendChild(document.createTextNode(order['totalQuantity']));
+                            newRow.insertCell(2).appendChild(document.createTextNode(new Date(order['orderDate']).toUTCString()));
+                            newRow.insertCell(3).appendChild(document.createTextNode(order['shippingMethod']));
+                            newRow.insertCell(4).appendChild(document.createTextNode(order['price']));
+                            total += order['price'];
+                        }
+                        let newFooter = tableFooter.insertRow(-1);
+                        newFooter.insertCell(0).appendChild(document.createTextNode('Total'));
+                        newFooter.insertCell(1).appendChild(document.createTextNode(''));
+                        newFooter.insertCell(2).appendChild(document.createTextNode(''));
+                        newFooter.insertCell(3).appendChild(document.createTextNode(''));
+                        newFooter.insertCell(4).appendChild(document.createTextNode(total.toFixed(2)));
+                    } else {
+                        document.getElementById('orders-table').classList.add('d-none');
+                        let node = document.createElement('h5');
+                        node.innerText = 'You did not order anything yet. Go ahead and try out our configurator!';
+                        node.classList.add('text-center');
+                        document.getElementById('orders-modal-content').appendChild(node);
+
+                    }
+
+
+                },
+                error: function(ordersResponse) {
+
+                }
+            });
+        }
+    });
+
+
+    // Show order history modal
+    let ordersModal = new bootstrap.Modal(document.getElementById('modal-orders'));
+    ordersModal.show();
+
+}
 
 /******************
  Set all to initial

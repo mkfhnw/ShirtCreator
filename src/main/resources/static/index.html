@@ -6,7 +6,7 @@
     <link rel="icon" href="/png/icon_tshirt.PNG">
     <title>ShirtCreator</title>
     <link href="/css/custom.css" rel="stylesheet">
-    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/bootstrap.css" rel="stylesheet">
 </head>
 <body>
 <!-- Top navigation bar -->
@@ -39,14 +39,7 @@
     </div>
 </nav>
 <!--Configurator-->
-<script src="https://code.jquery.com/jquery-3.5.1.js"
-        integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
-        crossorigin="anonymous"></script>
-<script src="/js/jquery.min.js"></script>
 
-<script src="/js/popper.min.js"></script>
-<script src="/js/bootstrap.bundle.min.js"></script>
-<script src="/js/main.js"></script>
 <div class="container-fluid text-center">
     <div class="row">
         <!--Shirt Preview Column-->
@@ -283,7 +276,7 @@
         </div>
 
         <!-- Login popup -->
-        <div id="loginModal" style="margin: auto; top: 50%; transform: translateY(-50%); width: 100%; height: 100%;">
+        <div id="modal" style="margin: auto; top: 50%; transform: translateY(-50%); width: 100%; height: 100%;">
             <div id="modal-content">
                 <div id="modal-left">
                     <img src="/png/Login-picture.PNG" alt="Logo">
@@ -323,7 +316,10 @@
                                 <button type="submit" id="okLogout" class="btn btn-primary d-none"
                                         style="background-color: #03857E;"><b>Logout</b></button>
                                 <button type="submit" id="okOrders" class="btn btn-primary d-none"
-                                        style="background-color: #03857E;"><b>Logout</b></button>
+                                        style="background-color: #03857E;"><b>Order History</b></button>
+                                <!--                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">-->
+                                <!--                                    Launch demo modal-->
+                                <!--                                </button>-->
                             </div>
                             <br>
                             <!-- Toast -->
@@ -427,6 +423,7 @@
         </div>
     </div>
 
+
     <!-- Footer -->
     <div id="WhyShortCreator" style="margin-top: 100px">
         <h1>Why choose ShirtCreator?</h1>
@@ -472,5 +469,48 @@
         </div>
     </div>
 </div>
+
+<!-- Orders Modal -->
+<div class="modal" tabindex="-1" id="modal-orders">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <div class="row">
+                        <h1 class="display-6 text-center">Your order history</h1>
+                    </div>
+                    <hr>
+                    <div class="row" id="orders-modal-content">
+                        <table class="table table-sm table-striped table-hover" id="orders-table">
+                            <thead>
+                            <tr>
+                                <th scope="col" class="text-center">Order ID</th>
+                                <th scope="col" class="text-center">Quantity</th>
+                                <th scope="col" class="text-center">Date</th>
+                                <th scope="col" class="text-center">Shipping Method</th>
+                                <th scope="col" class="text-center">Price</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            </tbody>
+                            <tfoot>
+
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 </body>
+
+<!--<script src="https://code.jquery.com/jquery-3.5.1.js"-->
+<!--        integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="-->
+<!--        crossorigin="anonymous"></script>-->
+<script src="/js/jquery.min.js"></script>
+<script src="/js/bootstrap.bundle.js"></script>
+<script src="/js/main.js"></script>
 </html>
