@@ -34,6 +34,14 @@ public class AccountVerification {
         return token;
     }
 
+    public boolean validatePassword (String password){
+        boolean valid = false;
+        if (password.length() >= 8){
+            valid = true;
+        }
+        return valid;
+    }
+
     // Wrapper methods
     public void put(String token, Integer id) {
         this.tokenMap.put(token, id);

@@ -10,7 +10,7 @@
 </head>
 <body>
 <!-- Top navigation bar -->
-<nav class="navbar navbar-expand-lg navbar-light custom-nav" style="background-color: white" ;>
+<nav class="navbar navbar-expand-lg navbar-light custom-nav" style="background-color: white" >
     <a class="navbar-brand" href="">
         <img src="/png/Logo.PNG" class="d-block logo" alt="Website logo"></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
@@ -139,7 +139,7 @@
                                     <label class="input-group-text" for="inputQuantity">Quantity</label>
                                     <input type="number" step="1" min="1" max="80" class="form-control"
                                            id="inputQuantity"
-                                           value="1">
+                                           value="1" required>
                                 </div>
                             </div>
                         </div>
@@ -208,13 +208,13 @@
                                     <label class="input-group-text" for="inputFirstName-registration1">First
                                         name</label>
                                     <input type="text" class="form-control" id="inputFirstName-registration1"
-                                           placeholder="Jane">
+                                           placeholder="Jane" minlength="2" maxlength="50" required>
                                 </div>
                                 <div class="input-group mb-1 ms-2">
                                     <label class="input-group-text" for="inputLastName-registration2">Last
                                         name</label>
                                     <input type="text" class="form-control" id="inputLastName-registration2"
-                                           placeholder="Doe">
+                                           placeholder="Doe" minlength="2" maxlength="50" required>
                                 </div>
                             </div>
                         </div>
@@ -223,26 +223,26 @@
                         <div class="input-group mb-1">
                             <label for="inputStreet" class="input-group-text">Street</label>
                             <input type="text" class="form-control" id="inputStreet"
-                                   placeholder="Baker Street 221B">
+                                   placeholder="Baker Street 221B" minlength="2" maxlength="70" required>
                         </div>
                         <br>
                         <div class="d-flex justify-content-between">
                             <!--plz-->
                             <div class="input-group mb-1 w-25">
                                 <label for="inputPlz" class="input-group-text">PLZ</label>
-                                <input type="text" class="form-control" id="inputPlz" placeholder="4600">
+                                <input type="number" class="form-control" id="inputPlz" placeholder="4600" step="1" min="1000" max="9999" minlength="4" maxlength="4" required>
                             </div>
                             <!--location-->
                             <div class="input-group mb-1 ms-2 w-75">
                                 <label for="inputLocation" class="input-group-text">Location</label>
-                                <input type="text" class="form-control" id="inputLocation" placeholder="Olten">
+                                <input type="text" class="form-control" id="inputLocation" placeholder="Olten" minlength="2" maxlength="50" required>
                             </div>
                         </div>
                         <hr>
                         <!--email-->
                         <div class="input-group mb-1">
                             <label for="inputEmail" class="input-group-text">Email</label>
-                            <input type="email" class="form-control" id="inputEmail">
+                            <input type="email" class="form-control" id="inputEmail" required>
                         </div>
                         <br>
                         <!--newsletter-->
@@ -298,7 +298,7 @@
                                     <img src="/png/email-icon.png" for="Email-login" class="input-group-text"
                                          width="48vw" height="40vh">
                                     <input type="email" class="form-control" id="Email-login"
-                                           placeholder="email@gmail.com">
+                                           placeholder="email@gmail.com" required>
                                 </div>
                             </div>
                             <div class="input-group input-group-sm mb-3">
@@ -306,7 +306,7 @@
                                 <img src="png/password-icon.png" for="password-login" alt="Label Image"
                                      class="input-group-text" width="48vw" height="40vh">
                                 <input class="form-control" type="password" id="password-login" name="password"
-                                       placeholder="password">
+                                       placeholder="password" minlength="8" required>
                             </div>
                             <br>
                             <div>
@@ -344,12 +344,12 @@
 
                             <div class="input-group input-group-sm mt-1 mb-1">
                                 <label class="input-group-text" for="FirstName-registration">First name</label>
-                                <input type="text" class="form-control" id="FirstName-registration" placeholder="Jane">
+                                <input type="text" class="form-control" id="FirstName-registration" placeholder="Jane" minlength="2" maxlength="50" required>
                             </div>
                             <!--lastName-->
                             <div class="input-group input-group-sm mt-1 mb-1 ms-1">
                                 <label class="input-group-text" for="LastName-registration">Last name</label>
-                                <input type="text" class="form-control" id="LastName-registration" placeholder="Doe">
+                                <input type="text" class="form-control" id="LastName-registration" placeholder="Doe" minlength="2" maxlength="50" required>
                             </div>
 
                         </div>
@@ -359,19 +359,19 @@
                         <div class="input-group input-group-sm mb-1">
                             <label for="Street-registration" class="input-group-text">Street</label>
                             <input type="text" class="form-control" id="Street-registration"
-                                   placeholder="Baker Street 221B">
+                                   placeholder="Baker Street 221B" minlength="2" maxlength="70" required>
                         </div>
                         <div class="d-flex justify-content-between">
                             <!--plz-->
                             <div class="input-group input-group-sm mb-1 w-25">
                                 <label for="Plz-registration" class="input-group-text">PLZ</label>
-                                <input type="text" class="form-control" id="Plz-registration" placeholder="4600">
+                                <input type="number" class="form-control" id="Plz-registration" placeholder="4600" step="1" min="1000" max="9999" minlength="4" maxlength="4" required>
                             </div>
                             <!--location-->
                             <div class="input-group input-group-sm ms-2 mb-1 w-75">
                                 <label for="Location-registration" class="input-group-text">Location</label>
                                 <input type="text" class="form-control" id="Location-registration"
-                                       placeholder="New York">
+                                       placeholder="Olten" minlength="2" maxlength="50" required>
                             </div>
                         </div>
                         <hr>
@@ -380,14 +380,14 @@
                             <img src="/png/email-icon.png" for="Email-registration" id="email-icon-registration"
                                  class="input-group-text" width="38vw" height="30vh">
                             <input type="email" class="form-control" id="Email-registration"
-                                   placeholder="email@gmail.com">
+                                   placeholder="email@gmail.com" required>
                         </div>
                         <!--password-->
                         <div class="input-group input-group-sm mb-3">
                             <img src="/png/password-icon.png" for="Email-registration" id="password-icon-registration"
                                  class="input-group-text" width="38vw" height="30vh">
                             <input type="password" class="form-control" id="Password-registration"
-                                   placeholder="password">
+                                   placeholder="password" minlength="8" required>
                         </div>
                         <!--newsletter-->
                         <div class="form-group">

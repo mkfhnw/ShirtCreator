@@ -108,8 +108,11 @@ public class OrderService {
             order.setOrderDate(requestBody.getOrderDate());
 
             // Save & return
-            orderRepository.save(order);
-            return true;
+            if (orderVerification.validateOrder(order.getTotalQuantity())) {
+                orderRepository.save(order);
+                return true;
+            } else
+                return false;
         } else {
             return false;
         }
@@ -167,7 +170,11 @@ public class OrderService {
             for (OrderItem ordIt : o.getItems()) {
                 quantity += ordIt.getQuantity();
             }
-            o.setTotalQuantity(quantity);
+            if (orderVerification.validateOrder(quantity)){
+                o.setTotalQuantity(quantity);
+            } else {
+                return null;
+            }
 
             o.setPrice(orderVerification.calculateOrderPrice(o));
             orderRepository.save(o);
@@ -191,12 +198,16 @@ public class OrderService {
             for (OrderItem ordIt : o.getItems()) {
                 quantity += ordIt.getQuantity();
             }
-            o.setTotalQuantity(quantity);
-
+            if (orderVerification.validateOrder(quantity)){
+                o.setTotalQuantity(quantity);
+            } else {
+                return null;
+            }
             o.setPrice(orderVerification.calculateOrderPrice(o));
             orderItemRepository.delete(ori);
             orderRepository.save(o);
             return itemId;
+
         } else {
             return null;
         }

@@ -1,6 +1,7 @@
 package com.example.shirtcreator.ShirtCreator.Services.Account;
 
 import com.example.shirtcreator.ShirtCreator.Business.AccountVerification;
+import com.example.shirtcreator.ShirtCreator.Business.CustomerVerification;
 import com.example.shirtcreator.ShirtCreator.Persistence.*;
 import com.google.common.hash.Hashing;
 import jakarta.annotation.PreDestroy;
@@ -30,7 +31,9 @@ public class AccountService {
     AccountVerification accountVerification;
 
     Logger logger = LoggerFactory.getLogger(AccountService.class);
-    
+    @Autowired
+    private CustomerVerification customerVerification;
+
 
     // ------------------------------------------------------------------------------------------------- Mappings
     @GetMapping(path = "/api/account/{token}", produces = "application/json")
@@ -68,15 +71,27 @@ public class AccountService {
             Address newAddress = new Address(requestBody.getStreet(), requestBody.getPlz(), requestBody.getLocation());
             Customer newCustomer = new Customer(requestBody.getFirstName(), requestBody.getLastName(), requestBody.geteMail(), newAddress);
             addressRepository.save(newAddress); // Important: Save to db, otherwise we'll throw an error
-            customerRepository.save(newCustomer); // Important: Save to db, otherwise we'll throw an error
+            if (customerVerification.validateEmailAddress(requestBody.geteMail())) {
+                customerRepository.save(newCustomer); // Important: Save to db, otherwise we'll throw an error
+                logger.info("E-Mail validation successful");
+            } else {
+                logger.info("E-Mail validation failed");
+                return null;
+            }
+
             account.setCustomer(newCustomer);
             logger.info("New Customer created");
+
         }
-
-
-        // Only store hashed password. l33t s3cUritY.
-        String passwordHash = Hashing.sha256().hashString(requestBody.getPassword(), StandardCharsets.UTF_8).toString();
-        account.setPassword(passwordHash);
+        if (accountVerification.validatePassword(requestBody.getPassword())) {
+            // Only store hashed password. l33t s3cUritY.
+            String passwordHash = Hashing.sha256().hashString(requestBody.getPassword(), StandardCharsets.UTF_8).toString();
+            account.setPassword(passwordHash);
+            logger.info("Password validation successful");
+        } else {
+            logger.info("Password validation failed");
+            return null;
+        }
 
         // Generate random token so user is directly logged in
         String token = accountVerification.generateLoginToken();

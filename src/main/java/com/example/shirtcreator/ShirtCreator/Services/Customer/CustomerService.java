@@ -71,8 +71,10 @@ public class CustomerService {
 
         if (customerVerification.validateEmailAddress(c.getEmail())) {
             customerRepository.save(c);
+            logger.info("E-Mail validation successful for customer_id: " + c.getid());
             return true;
         } else {
+            logger.info("E-Mail validation failed for customer_id: " + c.getid());
             return false;
         }
     }
