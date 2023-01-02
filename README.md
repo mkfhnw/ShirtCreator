@@ -57,6 +57,7 @@ Grundsätzlicher Aufbau:
         - *order-panel*: Panel für Kundendaten
         - *aftersales-panel*: Panel für Bestellbestätigung
 - **Footer** mit "Why choose ShirtCreator?", Social Media Icons und Copyright
+- Das Sign-Up für den *Newsletter* sowie das *Kontaktformular* haben aus Scope-Gründen noch keine Funktionalität.
 
 ### Service Layer
 
@@ -198,6 +199,7 @@ Grundsätzlicher Aufbau:
     - *calculateShippingCosts*:
         - nimmt eine Bestellung entgegen und berechnet ihre Versandkosten
         - gibt die Kosten als Double zurück
+    - auf Validierung PLZ wurde aus Scope-Gründen verzichtet aus
 - **CustomerVerification:**
     - *validateEmailAddress*:
         - nimmt eine E-Mail-Adresse als String entgegen und prüft, ob diese valide ist
