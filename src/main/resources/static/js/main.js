@@ -48,16 +48,41 @@ $(document).ready(function () {
     });
 
     document.getElementById("btnSubmit").addEventListener("click", (e) => {
-        document.getElementById("order-panel").classList.add("d-none");
-        document.getElementById("aftersales-panel").classList.remove("d-none");
 
-        // Only create new customer if user is not logged in
-        if(currentAccount == null) {
-            createCustomer();
+        // Validate user input
+        let inputs = [
+            document.getElementById('inputFirstName-registration1'),
+            document.getElementById('inputLastName-registration2'),
+            document.getElementById('inputStreet'),
+            document.getElementById('inputPlz'),
+            document.getElementById('inputLocation'),
+            document.getElementById('inputEmail'),
+        ];
+
+        let no_errors = true;
+        for(let input of inputs) {
+            if(!input.checkValidity()) {
+                input.setAttribute('aria-invalid', input.checkValidity);
+                input.classList.add('is-invalid');
+                console.log(input.value)
+                no_errors = false;
+            } else {
+                input.classList.remove('is-invalid');
+            }
         }
 
-        // Set definitive state on order
-        updateOrder(true);
+        if(no_errors) {
+            document.getElementById("order-panel").classList.add("d-none");
+            document.getElementById("aftersales-panel").classList.remove("d-none");
+            // Only create new customer if user is not logged in
+            if(currentAccount == null) {
+                createCustomer();
+            }
+
+            // Set definitive state on order
+            updateOrder(true);
+        }
+
     });
 
     document.getElementById("btnNewOrder").addEventListener("click", (e) => {

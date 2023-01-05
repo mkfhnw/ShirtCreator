@@ -209,12 +209,14 @@
                                         name</label>
                                     <input type="text" class="form-control" id="inputFirstName-registration1"
                                            placeholder="Jane" minlength="2" maxlength="50" required>
+                                    <div class="invalid-feedback"> Please enter a valid name.</div>
                                 </div>
                                 <div class="input-group mb-1 ms-2">
                                     <label class="input-group-text" for="inputLastName-registration2">Last
                                         name</label>
                                     <input type="text" class="form-control" id="inputLastName-registration2"
                                            placeholder="Doe" minlength="2" maxlength="50" required>
+                                    <div class="invalid-feedback"> Please enter a valid last name.</div>
                                 </div>
                             </div>
                         </div>
@@ -224,18 +226,21 @@
                             <label for="inputStreet" class="input-group-text">Street</label>
                             <input type="text" class="form-control" id="inputStreet"
                                    placeholder="Baker Street 221B" minlength="2" maxlength="70" required>
+                            <div class="invalid-feedback"> Please enter a valid street.</div>
                         </div>
                         <br>
                         <div class="d-flex justify-content-between">
                             <!--plz-->
-                            <div class="input-group mb-1 w-25">
+                            <div class="input-group mb-1 w-50">
                                 <label for="inputPlz" class="input-group-text">PLZ</label>
                                 <input type="number" class="form-control" id="inputPlz" placeholder="4600" step="1" min="1000" max="9999" minlength="4" maxlength="4" required>
+                                <div class="invalid-feedback"> Please enter a valid zip code.</div>
                             </div>
                             <!--location-->
-                            <div class="input-group mb-1 ms-2 w-75">
+                            <div class="input-group mb-1 ms-2 w-50">
                                 <label for="inputLocation" class="input-group-text">Location</label>
                                 <input type="text" class="form-control" id="inputLocation" placeholder="Olten" minlength="2" maxlength="50" required>
+                                <div class="invalid-feedback"> Please enter a valid location.</div>
                             </div>
                         </div>
                         <hr>
@@ -243,6 +248,7 @@
                         <div class="input-group mb-1">
                             <label for="inputEmail" class="input-group-text">Email</label>
                             <input type="email" class="form-control" id="inputEmail" required>
+                            <div class="invalid-feedback"> Please enter a valid email.</div>
                         </div>
                         <br>
                         <!--newsletter-->
