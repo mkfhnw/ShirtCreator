@@ -35,13 +35,16 @@ $(document).ready(function () {
         //Check input shopping cart is not empty
 
         if (document.getElementById('tblShoppingBasket').rows.length < 2) {
-            defaultColor = document.getElementById('emptyCart').style.color;
-            document.getElementById('emptyCart').style.color = '#E97777';
-            // alert("Shopping Cart is empty")
+
+            // Blend in feedback
+            let toast = document.getElementById('toast-basket');
+            let toastText = document.getElementById('toast-basket-text');
+            toast.classList.add('text-bg-danger');
+            toastText.innerText = 'Your shopping cart is still empty!'
+            let bootstrapToast = new bootstrap.Toast(toast);
+            bootstrapToast.show();
 
         } else {
-
-            document.getElementById('emptyCart').style.color = defaultColor;
 
             // If no user is logged in, take shipping details
             if (currentAccount == null) {
@@ -78,7 +81,7 @@ $(document).ready(function () {
             if(!input.checkValidity()) {
                 input.setAttribute('aria-invalid', input.checkValidity);
                 input.classList.add('is-invalid');
-                console.log(input.value)
+
                 no_errors = false;
             } else {
                 input.classList.remove('is-invalid');
@@ -108,18 +111,16 @@ $(document).ready(function () {
     document.getElementById("btnAddToCart").addEventListener("click", (e) => {
 
         //Validate user Input
-        let inputs = [
-            document.getElementById('inputQuantity'),
-        ];
+        let inputs = [document.getElementById('inputQuantity')];
 
         let no_errors = true;
         for(let input of inputs) {
             if(!input.checkValidity()) {
                 input.setAttribute('aria-invalid', input.checkValidity);
                 input.classList.add('is-invalid');
-                console.log(input.value)
                 no_errors = false;
             } else {
+                input.setAttribute('aria-invalid', input.checkValidity);
                 input.classList.remove('is-invalid');
             }
         }
@@ -194,7 +195,7 @@ $(document).ready(function () {
             if(!input.checkValidity()) {
                 input.setAttribute('aria-invalid', input.checkValidity);
                 input.classList.add('is-invalid');
-                console.log(input.value)
+
                 no_errors = false;
             } else {
                 input.classList.remove('is-invalid');
@@ -219,7 +220,7 @@ $(document).ready(function () {
             if(!input.checkValidity()) {
                 input.setAttribute('aria-invalid', input.checkValidity);
                 input.classList.add('is-invalid');
-                console.log(input.value)
+
                 no_errors = false;
             } else {
                 input.classList.remove('is-invalid');

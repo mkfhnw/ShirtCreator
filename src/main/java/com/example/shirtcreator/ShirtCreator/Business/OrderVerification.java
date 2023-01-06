@@ -1,6 +1,9 @@
 package com.example.shirtcreator.ShirtCreator.Business;
 
 import com.example.shirtcreator.ShirtCreator.Persistence.Order;
+import com.example.shirtcreator.ShirtCreator.Services.Order.OrderService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -10,6 +13,7 @@ public class OrderVerification {
     public static final int MIN_QUANTITY = 1;
     public static final int WEIGHT_TSHIRT = 350; // Gewicht eines durchschnittlichen T-Shirts in g
     public static final double MWST_RATE = 0.081;
+
 
     public boolean validateOrder(Integer totalQuantity) {
         boolean valid = false;

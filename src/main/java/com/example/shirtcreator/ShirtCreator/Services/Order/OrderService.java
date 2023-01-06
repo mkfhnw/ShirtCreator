@@ -97,6 +97,8 @@ public class OrderService {
         if (orderOptional.isPresent()) {
             Order order = orderOptional.get();
 
+            logger.info("Order present with ID: " + order.getId());
+
             // Update customer
             if (order.getCustomer() != null && requestBody.getCustomerId() != null) {
                 Optional<Customer> customer = customerRepository.findById(requestBody.getCustomerId());
@@ -186,26 +188,31 @@ public class OrderService {
 
     @PutMapping(path = "/api/order/{orderId}/deleteItem/{itemId}", produces = "application/json")
     public Integer deleteItemFromOrder(@PathVariable int orderId, @PathVariable int itemId) {
-        Optional<Order> or = orderRepository.findById(orderId);
-        Optional<OrderItem> oi = orderItemRepository.findById(itemId);
-        if (or.isPresent() && oi.isPresent()) {
-            Order o = or.get();
-            OrderItem ori = oi.get();
-            o.getItems().remove(ori);
+        Optional<Order> orderOptional = orderRepository.findById(orderId);
+        Optional<OrderItem> orderItemOptional = orderItemRepository.findById(itemId);
+        if (orderOptional.isPresent() && orderItemOptional.isPresent()) {
+
+            Order order = orderOptional.get();
+            OrderItem orderItem = orderItemOptional.get();
+            order.getItems().remove(orderItem);
 
             // Gesamtmenge Bestellung neu berechnen und setzen
             int quantity = 0;
-            for (OrderItem ordIt : o.getItems()) {
+            for (OrderItem ordIt : order.getItems()) {
                 quantity += ordIt.getQuantity();
             }
-            if (orderVerification.validateOrder(quantity)){
-                o.setTotalQuantity(quantity);
+
+            // We need at least quantity 1 to pass the verification -  a little trick is required here in case the customer just removed his last item
+            boolean letPass = quantity == 0;
+
+            if (orderVerification.validateOrder(quantity) || letPass){
+                order.setTotalQuantity(quantity);
             } else {
                 return null;
             }
-            o.setPrice(orderVerification.calculateOrderPrice(o));
-            orderItemRepository.delete(ori);
-            orderRepository.save(o);
+            order.setPrice(orderVerification.calculateOrderPrice(order));
+            orderItemRepository.delete(orderItem);
+            orderRepository.save(order);
             return itemId;
 
         } else {
