@@ -31,17 +31,6 @@ public class CustomerService {
         return c.orElse(null);
     }
 
-    @DeleteMapping(path = "/api/customer/{id}", produces = "application/json")
-    public boolean deleteCustomer(@PathVariable Integer id) {
-        Optional<Customer> co = customerRepository.findById(id);
-        if (co.isEmpty())
-            return false;
-        Customer c = co.get();
-        c.setDeleted(true);
-        customerRepository.save(c);
-        return true;
-    }
-
     @PutMapping(path = "/api/customer/{id}", produces = "application/json")
     public boolean updateCustomer(@PathVariable Integer id, @RequestBody MessageNewCustomer m) {
         Optional<Customer> co = customerRepository.findById(id);
@@ -108,19 +97,31 @@ public class CustomerService {
         }
     }
 
-    @GetMapping(path = "/api/customers", produces = "application/json")
-    public List<Customer> getCustomers(@RequestParam(required = false) String email,
-                                       @RequestParam(required = false) String firstName,
-                                       @RequestParam(required = false) String lastName,
-                                       @RequestParam(required = false) String street,
-                                       @RequestParam(required = false) Integer plz,
-                                       @RequestParam(required = false) String location) {
-        return customerRepository.findAll();
-    }
+    // ----------------------------------------------------------------------------------------------- NOT YET IN USE
+//    @DeleteMapping(path = "/api/customer/{id}", produces = "application/json")
+//    public boolean deleteCustomer(@PathVariable Integer id) {
+//        Optional<Customer> co = customerRepository.findById(id);
+//        if (co.isEmpty())
+//            return false;
+//        Customer c = co.get();
+//        c.setDeleted(true);
+//        customerRepository.save(c);
+//        return true;
+//    }
 
-    @GetMapping(path = "/api/customer/validateEmail", produces = "application/json")
-    public boolean validateEmail(@RequestBody String email) {
-        return customerVerification.validateEmailAddress(email);
-    }
+//    @GetMapping(path = "/api/customers", produces = "application/json")
+//    public List<Customer> getCustomers(@RequestParam(required = false) String email,
+//                                       @RequestParam(required = false) String firstName,
+//                                       @RequestParam(required = false) String lastName,
+//                                       @RequestParam(required = false) String street,
+//                                       @RequestParam(required = false) Integer plz,
+//                                       @RequestParam(required = false) String location) {
+//        return customerRepository.findAll();
+//    }
+//
+//    @GetMapping(path = "/api/customer/validateEmail", produces = "application/json")
+//    public boolean validateEmail(@RequestBody String email) {
+//        return customerVerification.validateEmailAddress(email);
+//    }
 
 }
