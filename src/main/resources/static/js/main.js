@@ -760,12 +760,21 @@ function showOrderHistory() {
                 data: {'customerId': accountResponse['customer']['id']},
                 success: function(ordersResponse) {
 
+                    console.log(ordersResponse)
+
                     // Clear table first
                     $('#orders-table tbody tr').remove();
                     $('#orders-table tfoot tr').remove();
 
                     // Fill table if there are orders at all
                     if(ordersResponse.length > 0) {
+
+                        // Fix last feedback
+                        document.getElementById('orders-table').classList.remove('d-none');
+                        document.getElementById('orders-modal-content').removeChild(
+                            document.getElementById('noOrderNode')
+                        );
+
                         let total = 0;
                         for(const order of ordersResponse) {
                             let newRow = tableBody.insertRow(-1);
@@ -787,6 +796,7 @@ function showOrderHistory() {
                         let node = document.createElement('h5');
                         node.innerText = 'You did not order anything yet. Go ahead and try out our configurator!';
                         node.classList.add('text-center');
+                        node.id = 'noOrderNode'
                         document.getElementById('orders-modal-content').appendChild(node);
 
                     }
