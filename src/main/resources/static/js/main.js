@@ -30,16 +30,17 @@ $(document).ready(function () {
     // ------------------------------------- Control panel
     document.getElementById("btnOrder").addEventListener("click", (e) => {
 
-        // If no user is logged in, take shipping details
-        if(currentAccount == null) {
-            document.getElementById("configuration-panel").classList.add("d-none");
-            document.getElementById("order-panel").classList.remove("d-none");
-        } else {
-            // User is logged in -> Shipping address already available. Skip order-panel, and set order to definitive.
-            updateOrder(true);
-            document.getElementById("configuration-panel").classList.add("d-none");
-            document.getElementById("aftersales-panel").classList.remove("d-none");
-        }
+
+            // If no user is logged in, take shipping details
+            if (currentAccount == null) {
+                document.getElementById("configuration-panel").classList.add("d-none");
+                document.getElementById("order-panel").classList.remove("d-none");
+            } else {
+                // User is logged in -> Shipping address already available. Skip order-panel, and set order to definitive.
+                updateOrder(true);
+                document.getElementById("configuration-panel").classList.add("d-none");
+                document.getElementById("aftersales-panel").classList.remove("d-none");
+            }
     });
 
     document.getElementById("btnBack").addEventListener("click", (e) => {
@@ -56,8 +57,8 @@ $(document).ready(function () {
             document.getElementById('inputStreet'),
             document.getElementById('inputPlz'),
             document.getElementById('inputLocation'),
-            document.getElementById('inputEmail'),
-        ];
+            document.getElementById('inputEmail')
+            ];
 
         let no_errors = true;
         for(let input of inputs) {
@@ -92,12 +93,33 @@ $(document).ready(function () {
     });
 
     document.getElementById("btnAddToCart").addEventListener("click", (e) => {
-        if (orderId === -1) {
-            createOrder();
-        } else {
-            addItemToOrder(configQuantity, configId);
+
+        //Validate user Input
+        let inputs = [
+            document.getElementById('inputQuantity'),
+        ];
+
+        let no_errors = true;
+        for(let input of inputs) {
+            if(!input.checkValidity()) {
+                input.setAttribute('aria-invalid', input.checkValidity);
+                input.classList.add('is-invalid');
+                console.log(input.value)
+                no_errors = false;
+            } else {
+                input.classList.remove('is-invalid');
+            }
+        }
+
+        if(no_errors) {
+            if (orderId === -1) {
+                createOrder();
+            } else {
+                addItemToOrder(configQuantity, configId);
+            }
         }
     });
+
 
     // ------------------------------------- Color buttons
     const btns_color = document.getElementsByClassName("btn-color");
@@ -143,13 +165,57 @@ $(document).ready(function () {
 
     // ------------------------------------- Registration
     document.getElementById("create-account-button").addEventListener("click", (e) => {
-        createAccount();
+        // Validate user input
+        let inputs = [
+            document.getElementById('FirstName-registration'),
+            document.getElementById('LastName-registration'),
+            document.getElementById('Street-registration'),
+            document.getElementById('Plz-registration'),
+            document.getElementById('Location-registration'),
+            document.getElementById('Email-registration'),
+            document.getElementById('Password-registration')
+        ];
+
+        let no_errors = true;
+        for(let input of inputs) {
+            if(!input.checkValidity()) {
+                input.setAttribute('aria-invalid', input.checkValidity);
+                input.classList.add('is-invalid');
+                console.log(input.value)
+                no_errors = false;
+            } else {
+                input.classList.remove('is-invalid');
+            }
+        }
+
+        if(no_errors) {
+            createAccount();
+        }
     });
 
     // ------------------------------------- Login
     document.getElementById("okLogin").addEventListener("click", (e) => {
-        e.preventDefault();
-        loginAccount();
+        // Validate user input
+        let inputs = [
+            document.getElementById('Email-login'),
+            document.getElementById('password-login'),
+        ];
+
+        let no_errors = true;
+        for(let input of inputs) {
+            if(!input.checkValidity()) {
+                input.setAttribute('aria-invalid', input.checkValidity);
+                input.classList.add('is-invalid');
+                console.log(input.value)
+                no_errors = false;
+            } else {
+                input.classList.remove('is-invalid');
+            }
+        }
+
+        if(no_errors) {
+            e.preventDefault();
+            loginAccount();}
     })
 
     // ------------------------------------- Logout

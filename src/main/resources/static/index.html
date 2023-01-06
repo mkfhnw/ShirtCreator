@@ -140,6 +140,7 @@
                                     <input type="number" step="1" min="1" max="80" class="form-control"
                                            id="inputQuantity"
                                            value="1" required>
+                                    <div class="invalid-feedback"> Please enter a valid quantity.</div>
                                 </div>
                             </div>
                         </div>
@@ -155,7 +156,7 @@
                         <div class="shopping-basket" id="shopping-basket">
                             <h6 class="emptyCart" id="emptyCart">Shopping cart is still empty.</h6>
                             <table class="table table-hover table-sm d-none" id="tblShoppingBasket"
-                                   style="font-size: 70%">
+                                   style="font-size: 70%" re>
                                 <thead class="thead-light">
                                 <tr>
                                     <th scope="col">#</th>
@@ -305,6 +306,7 @@
                                          width="48vw" height="40vh">
                                     <input type="email" class="form-control" id="Email-login"
                                            placeholder="email@gmail.com" required>
+                                    <div class="invalid-feedback"> Please enter a valid email.</div>
                                 </div>
                             </div>
                             <div class="input-group input-group-sm mb-3">
@@ -313,6 +315,7 @@
                                      class="input-group-text" width="48vw" height="40vh">
                                 <input class="form-control" type="password" id="password-login" name="password"
                                        placeholder="password" minlength="8" required>
+                                <div class="invalid-feedback"> Please enter a valid password.</div>
                             </div>
                             <br>
                             <div>
@@ -351,11 +354,13 @@
                             <div class="input-group input-group-sm mt-1 mb-1">
                                 <label class="input-group-text" for="FirstName-registration">First name</label>
                                 <input type="text" class="form-control" id="FirstName-registration" placeholder="Jane" minlength="2" maxlength="50" required>
+                                <div class="invalid-feedback"> Please enter a valid firstname.</div>
                             </div>
                             <!--lastName-->
                             <div class="input-group input-group-sm mt-1 mb-1 ms-1">
                                 <label class="input-group-text" for="LastName-registration">Last name</label>
                                 <input type="text" class="form-control" id="LastName-registration" placeholder="Doe" minlength="2" maxlength="50" required>
+                                <div class="invalid-feedback"> Please enter a valid lastname.</div>
                             </div>
 
                         </div>
@@ -366,18 +371,21 @@
                             <label for="Street-registration" class="input-group-text">Street</label>
                             <input type="text" class="form-control" id="Street-registration"
                                    placeholder="Baker Street 221B" minlength="2" maxlength="70" required>
+                            <div class="invalid-feedback"> Please enter a valid street.</div>
                         </div>
                         <div class="d-flex justify-content-between">
                             <!--plz-->
                             <div class="input-group input-group-sm mb-1 w-25">
                                 <label for="Plz-registration" class="input-group-text">PLZ</label>
                                 <input type="number" class="form-control" id="Plz-registration" placeholder="4600" step="1" min="1000" max="9999" minlength="4" maxlength="4" required>
+                                <div class="invalid-feedback"> Please enter a valid plz.</div>
                             </div>
                             <!--location-->
                             <div class="input-group input-group-sm ms-2 mb-1 w-75">
                                 <label for="Location-registration" class="input-group-text">Location</label>
                                 <input type="text" class="form-control" id="Location-registration"
                                        placeholder="Olten" minlength="2" maxlength="50" required>
+                                <div class="invalid-feedback"> Please enter a valid location.</div>
                             </div>
                         </div>
                         <hr>
@@ -387,6 +395,7 @@
                                  class="input-group-text" width="38vw" height="30vh">
                             <input type="email" class="form-control" id="Email-registration"
                                    placeholder="email@gmail.com" required>
+                            <div class="invalid-feedback"> Please enter a valid email.</div>
                         </div>
                         <!--password-->
                         <div class="input-group input-group-sm mb-3">
@@ -394,6 +403,7 @@
                                  class="input-group-text" width="38vw" height="30vh">
                             <input type="password" class="form-control" id="Password-registration"
                                    placeholder="password" minlength="8" required>
+                            <div class="invalid-feedback"> Please enter a valid password.</div>
                         </div>
                         <!--newsletter-->
                         <div class="form-group">
