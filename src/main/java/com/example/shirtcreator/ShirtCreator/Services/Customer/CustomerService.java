@@ -97,31 +97,4 @@ public class CustomerService {
         }
     }
 
-    // ----------------------------------------------------------------------------------------------- NOT YET IN USE
-//    @DeleteMapping(path = "/api/customer/{id}", produces = "application/json")
-//    public boolean deleteCustomer(@PathVariable Integer id) {
-//        Optional<Customer> co = customerRepository.findById(id);
-//        if (co.isEmpty())
-//            return false;
-//        Customer c = co.get();
-//        c.setDeleted(true);
-//        customerRepository.save(c);
-//        return true;
-//    }
-
-//    @GetMapping(path = "/api/customers", produces = "application/json")
-//    public List<Customer> getCustomers(@RequestParam(required = false) String email,
-//                                       @RequestParam(required = false) String firstName,
-//                                       @RequestParam(required = false) String lastName,
-//                                       @RequestParam(required = false) String street,
-//                                       @RequestParam(required = false) Integer plz,
-//                                       @RequestParam(required = false) String location) {
-//        return customerRepository.findAll();
-//    }
-//
-//    @GetMapping(path = "/api/customer/validateEmail", produces = "application/json")
-//    public boolean validateEmail(@RequestBody String email) {
-//        return customerVerification.validateEmailAddress(email);
-//    }
-
 }
