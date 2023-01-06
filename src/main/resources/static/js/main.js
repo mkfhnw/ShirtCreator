@@ -783,8 +783,6 @@ function showOrderHistory() {
                 data: {'customerId': accountResponse['customer']['id']},
                 success: function(ordersResponse) {
 
-                    console.log(ordersResponse)
-
                     // Clear table first
                     $('#orders-table tbody tr').remove();
                     $('#orders-table tfoot tr').remove();
@@ -793,10 +791,15 @@ function showOrderHistory() {
                     if(ordersResponse.length > 0) {
 
                         // Fix last feedback
-                        document.getElementById('orders-table').classList.remove('d-none');
-                        document.getElementById('orders-modal-content').removeChild(
-                            document.getElementById('noOrderNode')
-                        );
+                        try {
+                            document.getElementById('orders-table').classList.remove('d-none');
+                            document.getElementById('orders-modal-content').removeChild(
+                                document.getElementById('noOrderNode')
+                            );
+                        } catch (ignore) {
+                            // Element noOrderNode was already removed / is non-existent -> throws error we can ignore
+                        }
+
 
                         let total = 0;
                         for(const order of ordersResponse) {
