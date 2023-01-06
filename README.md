@@ -49,6 +49,8 @@ Grundsätzlicher Aufbau:
     - *Home*: zeigt wieder die Homepage an
     - *Login*: öffnet ein Popup für Login und Registrierung
         - Login: um sich mit einem bestehenden Kundenkonto anzumelden
+            - nach einem erfolgreichen Login erscheinen die beiden Buttons *Logout* (um auszuloggen) und *Order
+              History* (um Bestellhistorie anzuzeigen)
         - Registrierung: um ein neues Kundenkonto zu erstellen
 - **Hauptframe** (*container*) mit zwei Spalten: T-Shirt-Anzeige (*preview-column*) und Bedienfeld (*control-column*)
     - **T-Shirt-Anzeige**: enthält ein Karussell (*carousel slide*) mit den verschiedenen T-Shirt-Ansichten
@@ -126,12 +128,6 @@ Grundsätzlicher Aufbau:
         - Parameters: None
         - Request Body: None
         - Response: Customer - JSON
-    - Kunde löschen (*deleteCustomer*):
-        - HTTP-Method: DELETE
-        - Path: http://localhost:8080/api/customer/{id}
-        - Parameters: None
-        - Request Body: None
-        - Response: boolean - JSON
     - Kunde aktualisieren (*updateCustomer*):
         - HTTP-Method: PUT
         - Path: http://localhost:8080/api/customer/{id}
@@ -144,22 +140,10 @@ Grundsätzlicher Aufbau:
         - Parameters: None
         - Request Body: MessageNewCustomer (firstName, lastName, email, address) - JSON
         - Response: Customer - JSON
-    - Alle Kunden abfragen (*getCustomers*):
-        - HTTP-Method: GET
-        - Path: http://localhost:8080/api/customers
-        - Parameters: filter (optional) - String
-        - Request Body: None
-        - Response: List<Customer> - JSON
-    - E-Mail eines Kunden validieren (*validateEmail*):
-        - HTTP-Method: GET
-        - Path: http://localhost:8080/api/customer/validateEmail
-        - Parameters: None
-        - Request Body: email - String
-        - Response: boolean - JSON
 - **AccountService:**
     - Konto abfragen (*getAccount*):
         - HTTP-Method: GET
-        - Path: http://localhost:8080/api/account/{id}
+        - Path: http://localhost:8080/api/account/{token}
         - Parameters: None
         - Request Body: None
         - Response: Account - JSON
@@ -199,7 +183,7 @@ Grundsätzlicher Aufbau:
     - *calculateShippingCosts*:
         - nimmt eine Bestellung entgegen und berechnet ihre Versandkosten
         - gibt die Kosten als Double zurück
-    - auf Validierung PLZ wurde aus Scope-Gründen verzichtet aus
+    - auf Validierung PLZ wurde aus Scope-Gründen verzichtet
 - **CustomerVerification:**
     - *validateEmailAddress*:
         - nimmt eine E-Mail-Adresse als String entgegen und prüft, ob diese valide ist
@@ -208,13 +192,16 @@ Grundsätzlicher Aufbau:
     - *generateLoginToken*:
         - generiert bei einem Login einen neuen Token
         - gibt Token als String zurück
+    - *validatePassword*:
+        - nimmt ein Passwort als String entgegen und prüft, ob dieses mindestens 8 Zeichen lang ist
+        - gibt entsprechend true oder false zurück
 
 ### Persistence Layer
 
 - Für jede Entität wurde ein entsprechendes Repository erstellt.
 - Die Entitäten wurden mit den nötigen Annotationen versehen.
 - Das Datenmodell wurde gemäss Abschnitt "Datenmodell" umgesetzt.
-- Für die Datenhaltung haben wir uns für die eingebettete DB **H2** entschieden.
+- Bezüglich Datenhaltung haben wir uns für die eingebettete DB **H2** entschieden.
 
 ***
 
@@ -223,8 +210,8 @@ Grundsätzlicher Aufbau:
 Ziel der Projektarbeit war es, die im Unterricht behandelten Konzepte (HTML, CSS, JavaScript, Layer-Architektur,
 REST-Services) zu vertiefen und praktisch umzusetzen. Da Server-seitig eine Java App mit DB-Zugriff implementiert werden
 sollte, kamen neben den Inhalten des Moduls "Internettechnologien" auch noch Aspekte aus "Programmierung", "Software
-Engineering" und "Datenbanken" zum Tragen. Dieses Projekt diente also auch gleichzeitig dem Aufarbeiten von früherem
-Unterrichtsstoff.
+Engineering" und "Datenbanken" zum Tragen. Dieses Projekt diente also auch gleichzeitig dem Aufarbeiten und Repetieren
+von Unterrichtsstoff aus früheren Modulen.
 
 Wir konnten uns bereits im ersten Team-Meeting auf den **T-Shirt-Konfigurator** und die grundlegende Konzeption einigen.
 Von Vornherein war klar, dass wir die Entitäten *Order*, *Customer* und *Configuration* benötigen, wobei eine
@@ -238,10 +225,10 @@ Der Bestellvorgang sollte in einem ersten Wurf relativ einfach gehalten werden:
 5. Information "Vielen Dank für die Bestellung" anzeigen
 
 Noch im gleichen Meeting wurden die benötigten Entitätsattribute und REST-Services definiert. Nach und nach kamen
-dann weitere Ideen und somit auch zusätzliche Entitäten (bspw. Address) und Services (bspw. getPrice) dazu. Wir
-trafen uns einmal wöchentlich, um das weitere Vorgehen zu besprechen, neue Tasks zu definieren, bestehende Probleme
-anzusprechen sowie bisher Gemachtes zu präsentieren. Nach den Meetings gaben wir uns jeweils eine Woche Zeit, um die
-neuen Tasks abzuarbeiten.
+dann weitere Ideen und somit auch zusätzliche Entitäten (bspw. Address, OrderItem, Account) und Services (bspw.
+getPrice, createAccount, login, etc.) dazu. Wir trafen uns einmal wöchentlich, um das weitere Vorgehen zu besprechen,
+neue Tasks zu definieren, bestehende Probleme anzusprechen sowie bisher Gemachtes zu präsentieren. Nach den Meetings
+gaben wir uns jeweils eine Woche Zeit, um die neuen Tasks abzuarbeiten.
 
 Für die Arbeit haben wir folgende Applikationen/Frameworks eingesetzt:
 
@@ -257,9 +244,9 @@ durchaus seine Tücken haben kann. Es gab keinen "Product Owner", welcher den Ge
 inhaltlich laufend verifiziert hat. Somit mussten beispielsweise bestehende Services überarbeitet oder wieder gelöscht
 werden, die Entitäten um weitere, fehlende Attribute ergänzt werden und die Projektstruktur angepasst werden. Des
 Weiteren war für uns anfangs nicht klar, was alles in die Businesslogik gehört und wie wir diese konkret umsetzen
-möchten. Schlussendlich haben wir nun alle Preis-spezifischen Dinge sowie E-Mail-Validierung und Maximal-Bestellung in
-der Businesslogik realisiert. Auch die Arbeit mit Bootstrap stellte uns vor Herausforderungen, da dieses Rahmenwerk
-nicht den gleichen Ansatz verfolgt wie die Grundanforderungen aus den Vorlesungen.
+möchten. Schlussendlich haben wir nicht nur Evaluations-, sondern auch Preis-spezifische Dinge in der Businesslogik
+realisiert. Auch die Arbeit mit Bootstrap stellte uns vor Herausforderungen, da dieses Rahmenwerk nicht den gleichen
+Ansatz verfolgt wie die Grundanforderungen aus den Vorlesungen.
 
 Alles in allem war dies ein sehr aufschlussreiches Projekt, in welchem viele im Unterricht behandelten Aspekte
 zusammenkamen. Es war spannend zu sehen, wie diese Aspekte zusammenwirken und was es alles braucht, um eine
