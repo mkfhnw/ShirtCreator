@@ -20,6 +20,7 @@
     background-color: #03857E;
     outline: none;
     font-weight: normal;
+    border: 0;
 }
 .btn btn-primary:hover{
     background-color: #02534f;
@@ -99,6 +100,10 @@ button.btn_green:hover {
 
 .button.btn btn-primary {
     background-color: #03857E;
+    border: 0;
+}
+.button.btn btn-primary:hover{
+    background-color: #02534f;
 }
 
 .carousel-indicators {
@@ -274,6 +279,12 @@ button.btn_green:hover {
     height: 3vw;
 }
 
+#create-account-button{
+    background-color: #03857E;
+    font-weight: bold;
+}
+
+
 .contact-icons {
     height: 35px;
     width: 35px;
@@ -298,8 +309,9 @@ button.btn_green:hover {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    background-color: #EEEEEE;
+    background-color: white;
     background-size: cover;
+    box-shadow: 0px 0px 10px 5px rgba(0, 0, 0, 0.1);
 }
 
 .Contact .Contactus {
@@ -365,11 +377,10 @@ button.btn_green:hover {
 
 .Form {
     position: absolute;
-    top: 550px;
-    left: 900px;
+    top: -100px;  /* move up by 100px */
+    left: 50%;
     transform: translate(-50%, -50%);
-    max-width: 550px;
-    width: 100%;
+    width: 600px;  /* fixed width of 600px */
     background: #fff;
     padding: 25px;
     border-radius: 5px;
@@ -409,7 +420,7 @@ button.btn_green:hover {
 }
 
 .Form .btn input[type="submit"] {
-    border: 0px;
+    border: 0;
     margin-top: 15px;
     padding: 10px;
     text-align: center;
@@ -422,12 +433,20 @@ button.btn_green:hover {
     border-radius: 10px;
     cursor: pointer;
 }
+.Form .btn input[type="submit"]:hover{
+    background-color: #02534f;
+}
 
 .btn {
     color: white;
     background-color: #03857E;
     border-radius: 2px;
-    border: 0;
+    border: 0px;
+    border-color: #03857E;
+}
+
+.btn:hover{
+    background-color: #02534f;
 }
 
 .move-up {
