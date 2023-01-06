@@ -30,6 +30,9 @@ $(document).ready(function () {
     // ------------------------------------- Control panel
     document.getElementById("btnOrder").addEventListener("click", (e) => {
 
+        if (document.getElementById('tblShoppingBasket').length < 1) {
+            alert("Shopping Cart is empty")
+        } else {
 
             // If no user is logged in, take shipping details
             if (currentAccount == null) {
@@ -41,6 +44,7 @@ $(document).ready(function () {
                 document.getElementById("configuration-panel").classList.add("d-none");
                 document.getElementById("aftersales-panel").classList.remove("d-none");
             }
+        }
     });
 
     document.getElementById("btnBack").addEventListener("click", (e) => {

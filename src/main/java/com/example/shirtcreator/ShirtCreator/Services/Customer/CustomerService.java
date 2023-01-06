@@ -56,6 +56,7 @@ public class CustomerService {
         c.setLastName(m.getLastName());
         c.setEmail(m.getEmail());
 
+        //Check if Address already exits in DB, if not save new Address
         Optional<Address> addressOptional = addressRepository.findByStreetAndPlzAndLocation(m.getAddress().getStreet(), m.getAddress().getPlz(), m.getAddress().getLocation());
         if (addressOptional.isEmpty()) {
             Address address = new Address();
@@ -69,6 +70,7 @@ public class CustomerService {
             c.setAddress(addressOptional.get());
         }
 
+        // Validate Emailaddress and save customer
         if (customerVerification.validateEmailAddress(c.getEmail())) {
             customerRepository.save(c);
             logger.info("E-Mail validation successful for customer_id: " + c.getid());
@@ -85,6 +87,7 @@ public class CustomerService {
         String lastName = m.getLastName();
         String email = m.getEmail();
 
+        //Check if Address already exits in DB, if not save new Address
         Address address = m.getAddress();
         Optional<Address> addressOptional = addressRepository.findByStreetAndPlzAndLocation(address.getStreet(), address.getPlz(), address.getLocation());
         if (addressOptional.isEmpty()) {
@@ -94,9 +97,11 @@ public class CustomerService {
         }
         m.setAddress(address);
 
+        //create new Customer
         Customer c = new Customer(firstName, lastName, email, address);
         c.setDeleted(false);
 
+        // Validate Emailaddress and save customer
         if (customerVerification.validateEmailAddress(c.getEmail())) {
             customerRepository.save(c);
             logger.info("E-Mail validation successful for customer_id: " + c.getid());
