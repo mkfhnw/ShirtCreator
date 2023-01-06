@@ -30,8 +30,11 @@ $(document).ready(function () {
     // ------------------------------------- Control panel
     document.getElementById("btnOrder").addEventListener("click", (e) => {
 
+        //Check input shopping cart is not empty
+
         if (document.getElementById('tblShoppingBasket').rows.length < 2) {
             alert("Shopping Cart is empty")
+
         } else {
 
             // If no user is logged in, take shipping details
