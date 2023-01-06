@@ -21,6 +21,8 @@ let shoppingCart = [];
 
 let currentAccount = null;
 
+let defaultColor = null;
+
 
 $(document).ready(function () {
 
@@ -33,9 +35,13 @@ $(document).ready(function () {
         //Check input shopping cart is not empty
 
         if (document.getElementById('tblShoppingBasket').rows.length < 2) {
-            alert("Shopping Cart is empty")
+            defaultColor = document.getElementById('emptyCart').style.color;
+            document.getElementById('emptyCart').style.color = '#E97777';
+            // alert("Shopping Cart is empty")
 
         } else {
+
+            document.getElementById('emptyCart').style.color = defaultColor;
 
             // If no user is logged in, take shipping details
             if (currentAccount == null) {
