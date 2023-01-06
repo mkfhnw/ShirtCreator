@@ -11,7 +11,7 @@ import java.util.Random;
 public class AccountVerification {
 
     // Fields
-    private HashMap<String, Integer> tokenMap = new HashMap<>();
+    private final HashMap<String, Integer> tokenMap = new HashMap<>();
 
     // Default constructor
 
@@ -19,7 +19,7 @@ public class AccountVerification {
     public String generateLoginToken() {
 
         // Generate new random string based on random ints & make sure it's not used yet
-        String token = "";
+        String token;
         Random random = new Random();
         int leftLimit = 97; // letter 'a'
         int rightLimit = 122; // letter 'z'
@@ -35,11 +35,7 @@ public class AccountVerification {
     }
 
     public boolean validatePassword (String password){
-        boolean valid = false;
-        if (password.length() >= 8){
-            valid = true;
-        }
-        return valid;
+        return password.length() >= 8;
     }
 
     // Wrapper methods

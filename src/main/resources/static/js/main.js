@@ -10,18 +10,16 @@ let current_price = 15;
 let current_item_id = -1;
 
 let orderId = -1;
-const orderQuantity = 0;
+let customerId = -1;
+
 let orderShippingMethod = "Economy";
 let orderPrice = 0;
 
-let customerId = -1;
-
 const shirt_template = "/T-Shirts/{pattern}/{cut}/Tshirt_{cut}_{color}_{side}_basic.PNG"
-let shoppingCart = [];
 
 let currentAccount = null;
 
-let defaultColor = null;
+
 
 
 $(document).ready(function () {
@@ -30,7 +28,7 @@ $(document).ready(function () {
      EVENT LISTENERS
      ******************/
     // ------------------------------------- Control panel
-    document.getElementById("btnOrder").addEventListener("click", (e) => {
+    document.getElementById("btnOrder").addEventListener("click", () => {
 
         //Check input shopping cart is not empty
         if (document.getElementById('tblShoppingBasket').rows.length < 2) {
@@ -316,7 +314,6 @@ $(document).ready(function () {
     } catch (ignore) {
 
     }
-
 
     // Hide orders-modal
     let ordersModal = new bootstrap.Modal('#modal-orders');

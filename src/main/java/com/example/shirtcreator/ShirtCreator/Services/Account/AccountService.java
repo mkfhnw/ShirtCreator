@@ -11,10 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.nio.charset.StandardCharsets;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
-import java.util.Random;
 
 @RestController
 public class AccountService {
@@ -30,7 +28,7 @@ public class AccountService {
     @Autowired
     AccountVerification accountVerification;
 
-    Logger logger = LoggerFactory.getLogger(AccountService.class);
+    final Logger logger = LoggerFactory.getLogger(AccountService.class);
     @Autowired
     private CustomerVerification customerVerification;
 
@@ -102,7 +100,6 @@ public class AccountService {
         logger.info("New account created.");
 
         // Make entry in loginMap
-        // TODO: Make the accountVerification.generateLoginToken() take in the account ID as argument, so it can manage the hashmap (put) itself
         accountVerification.put(savedAccount.getToken(), savedAccount.getId());
 
         return account;

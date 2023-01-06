@@ -19,9 +19,7 @@ public class ConfigurationService {
         Configuration.Size size_e = Configuration.Size.valueOf(size);
         Configuration.Color color_e = Configuration.Color.valueOf(color);
 
-        Configuration c = configurationRepository.findConfigurationByCutAndColorAndSizeAndPattern(cut_e, color_e, size_e, pattern_e);
-
-        return c;
+        return configurationRepository.findConfigurationByCutAndColorAndSizeAndPattern(cut_e, color_e, size_e, pattern_e);
     }
 
 }

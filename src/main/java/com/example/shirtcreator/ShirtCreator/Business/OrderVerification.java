@@ -1,9 +1,6 @@
 package com.example.shirtcreator.ShirtCreator.Business;
 
 import com.example.shirtcreator.ShirtCreator.Persistence.Order;
-import com.example.shirtcreator.ShirtCreator.Services.Order.OrderService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 @Service

@@ -2,7 +2,6 @@ package com.example.shirtcreator.ShirtCreator.Services.Order;
 
 import com.example.shirtcreator.ShirtCreator.Business.OrderVerification;
 import com.example.shirtcreator.ShirtCreator.Persistence.*;
-import com.example.shirtcreator.ShirtCreator.Services.Account.AccountService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +25,7 @@ public class OrderService {
     @Autowired
     private OrderVerification orderVerification;
 
-    Logger logger = LoggerFactory.getLogger(OrderService.class);
+    final Logger logger = LoggerFactory.getLogger(OrderService.class);
 
     @PostMapping(path = "/api/order/", produces = "application/json")
     public Integer createOrder(@RequestBody MessageNewOrder m) {
@@ -158,7 +157,8 @@ public class OrderService {
                 i.setQuantity(i.getQuantity() + m.getQuantity());
                 orderItemRepository.save(i);
                 id = i.getId();
-            } else { // Configuration noch nicht vorhanden -> neues OrderItem erstellen
+            } else {
+                // Configuration noch nicht vorhanden -> neues OrderItem erstellen
                 OrderItem oi = new OrderItem();
                 oi.setQuantity(m.getQuantity());
                 oi.setConfiguration(c);

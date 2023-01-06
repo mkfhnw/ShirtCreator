@@ -22,17 +22,13 @@ public class CustomerService {
     private AddressRepository addressRepository;
     @Autowired
     private CustomerVerification customerVerification;
-    Logger logger = LoggerFactory.getLogger(CustomerService.class);
+    final Logger logger = LoggerFactory.getLogger(CustomerService.class);
 
 
     @GetMapping(path = "/api/customer/{id}", produces = "application/json")
     public Customer getCustomer(@PathVariable Integer id) {
         Optional<Customer> c = customerRepository.findById(id);
-        if (c.isPresent()) {
-            return c.get();
-        } else {
-            return null;
-        }
+        return c.orElse(null);
     }
 
     @DeleteMapping(path = "/api/customer/{id}", produces = "application/json")

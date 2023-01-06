@@ -15,7 +15,10 @@ public class CustomerVerification {
                 if (domainParts.length >= 2) {
                     valid = true;
                     for (String s : domainParts) {
-                        if (s.length() < 2) valid = false;
+                        if (s.length() < 2) {
+                            valid = false;
+                            break;
+                        }
                     }
                 }
             }

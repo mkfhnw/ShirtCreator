@@ -441,8 +441,7 @@ button.btn_green:hover {
     color: white;
     background-color: #03857E;
     border-radius: 2px;
-    border: 0px;
-    border-color: #03857E;
+    border: 0px #03857E;
 }
 
 .btn:hover{

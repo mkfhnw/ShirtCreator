@@ -1,4 +1,0 @@
-2023-01-02 10:18:00 jdbc[3]: exception
-org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabelle "TBL_ACCOUNT" nicht gefunden (diese Datenbank ist leer)
-Table "TBL_ACCOUNT" not found (this database is empty); SQL statement:
-select a1_0.id,a1_0.password,a1_0.token from tbl_account a1_0 [42104-214]
