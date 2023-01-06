@@ -30,7 +30,7 @@ $(document).ready(function () {
     // ------------------------------------- Control panel
     document.getElementById("btnOrder").addEventListener("click", (e) => {
 
-        if (document.getElementById('tblShoppingBasket').length < 1) {
+        if (document.getElementById('tblShoppingBasket').rows.length < 2) {
             alert("Shopping Cart is empty")
         } else {
 
