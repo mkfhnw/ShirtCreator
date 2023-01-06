@@ -19,6 +19,8 @@ const shirt_template = "/T-Shirts/{pattern}/{cut}/Tshirt_{cut}_{color}_{side}_ba
 
 let currentAccount = null;
 
+const MAX_ORDER_QUANTITY = 80;
+
 
 
 
@@ -107,9 +109,12 @@ $(document).ready(function () {
 
     document.getElementById("btnAddToCart").addEventListener("click", (e) => {
 
-        //Validate user Input
+        e.preventDefault();
+
+        // Grab input reference
         let inputs = [document.getElementById('inputQuantity')];
 
+        // Check that no more than 80 shirts get added
         let no_errors = true;
         for(let input of inputs) {
             if(!input.checkValidity()) {
@@ -126,7 +131,27 @@ $(document).ready(function () {
             if (orderId === -1) {
                 createOrder();
             } else {
-                addItemToOrder(configQuantity, configId);
+
+                // Check that the order would not contain more than 80 shirts
+                $.ajax({
+                    type: 'GET',
+                    url: `/api/order/${orderId}`,
+                    success: function(response) {
+                        if((parseInt(response['totalQuantity']) + parseInt(configQuantity)) <= MAX_ORDER_QUANTITY) {
+                            addItemToOrder(configQuantity, configId);
+                        } else {
+
+                            // Blend in feedback
+                            let toast = document.getElementById('toast-basket');
+                            let toastText = document.getElementById('toast-basket-text');
+                            toast.classList.add('text-bg-danger');
+                            toastText.innerText = 'Total order quantity must not exceed 80!'
+                            let bootstrapToast = new bootstrap.Toast(toast);
+                            bootstrapToast.show();
+
+                        }
+                    }
+                });
             }
         }
     });
