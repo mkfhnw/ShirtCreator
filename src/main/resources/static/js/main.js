@@ -33,7 +33,6 @@ $(document).ready(function () {
     document.getElementById("btnOrder").addEventListener("click", (e) => {
 
         //Check input shopping cart is not empty
-
         if (document.getElementById('tblShoppingBasket').rows.length < 2) {
 
             // Blend in feedback
@@ -284,7 +283,6 @@ $(document).ready(function () {
     // Content handling
     const loginTab = document.querySelector('[data-tab="login"]');
     const registrationTab = document.querySelector('[data-tab="registration"]');
-    const registrationDetails = document.querySelector('#registrationDetails');
     const registrationDetails2 = document.querySelector('#email-password-registration');
     const loginTabContent = document.querySelector('#login');
     const registrationTabContent = document.querySelector('#registration');
@@ -292,7 +290,6 @@ $(document).ready(function () {
     // Add click event listeners to the tab login (none = hidden / block = shown)
     loginTab.addEventListener('click', (e) => {
         registrationTabContent.style.display = 'none';
-        registrationDetails.style.display = 'none';
         registrationDetails2.style.display = 'none';
         loginTabContent.style.display = 'block';
     });
@@ -300,22 +297,26 @@ $(document).ready(function () {
     registrationTab.addEventListener('click', (e) => {
         loginTabContent.style.display = 'none';
         registrationTabContent.style.display = 'block';
-        registrationDetails.style.display = 'block';
         registrationDetails2.style.display = 'block';
     });
 
-    // TODO: This throws errors, check the JS console in the browser
     // CONTACT: Deletes all inputs as soon as the send button is clicked
-    document.getElementById('myform').addEventListener('submit', function (event) {
-        event.preventDefault(); // prevent the form from being submitted
+    // This is in try/catch as the myform element is not present in the index.html
+    try {
+        document.getElementById('myform').addEventListener('submit', function (event) {
+            event.preventDefault(); // prevent the form from being submitted
 
-        // clear the input fields
-        document.getElementById('name').value = '';
-        document.getElementById('subject').value = '';
-        document.getElementById('phone').value = '';
-        document.getElementById('email').value = '';
-        document.getElementById('message').value = '';
-    });
+            // clear the input fields
+            document.getElementById('name').value = '';
+            document.getElementById('subject').value = '';
+            document.getElementById('phone').value = '';
+            document.getElementById('email').value = '';
+            document.getElementById('message').value = '';
+        });
+    } catch (ignore) {
+
+    }
+
 
     // Hide orders-modal
     let ordersModal = new bootstrap.Modal('#modal-orders');
