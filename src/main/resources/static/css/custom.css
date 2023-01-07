@@ -376,11 +376,10 @@ button.btn_green:hover {
 }
 
 .Form {
-    position: absolute;
-    top: -100px;  /* move up by 100px */
+    top: -100px;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 600px;  /* fixed width of 600px */
+    width: 600px;
     background: #fff;
     padding: 25px;
     border-radius: 5px;
@@ -451,3 +450,10 @@ button.btn_green:hover {
 .move-up {
     margin-top: -50px;
 }
+@media (max-width: 600px) {
+    .form-move-up {
+        left: 5px; /* or any other value suitable for your design */
+    }
+}
+}
+
