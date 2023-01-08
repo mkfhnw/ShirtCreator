@@ -45,7 +45,7 @@ $(document).ready(function () {
 
         } else {
 
-            // If no user is logged in, take shipping details
+            // If no user is logged in, take order details
             if (currentAccount == null) {
                 document.getElementById("configuration-panel").classList.add("d-none");
                 document.getElementById("order-panel").classList.remove("d-none");
@@ -94,9 +94,10 @@ $(document).ready(function () {
             if(currentAccount == null) {
                 createCustomer();
             }
-
-            // Set definitive state on order
-            updateOrder(true);
+            //
+            // // Set definitive state on order
+            // updateOrder(true);
+            // console.log("EventHandler BtnSubmit fertig")
         }
 
     });
@@ -306,21 +307,18 @@ $(document).ready(function () {
     // Content handling
     const loginTab = document.querySelector('[data-tab="login"]');
     const registrationTab = document.querySelector('[data-tab="registration"]');
-    const registrationDetails2 = document.querySelector('#email-password-registration');
     const loginTabContent = document.querySelector('#login');
     const registrationTabContent = document.querySelector('#registration');
 
     // Add click event listeners to the tab login (none = hidden / block = shown)
     loginTab.addEventListener('click', (e) => {
         registrationTabContent.style.display = 'none';
-        registrationDetails2.style.display = 'none';
         loginTabContent.style.display = 'block';
     });
     // Add click event listeners to the tab registration (none = hidden / block = shown)
     registrationTab.addEventListener('click', (e) => {
         loginTabContent.style.display = 'none';
         registrationTabContent.style.display = 'block';
-        registrationDetails2.style.display = 'block';
     });
 
     // CONTACT: Deletes all inputs as soon as the send button is clicked
@@ -635,7 +633,7 @@ function handleUpdateShippingMethod(response) {
 
 function handleCreateCustomer(customer) {
     customerId = customer["id"];
-    updateOrder(false);
+    updateOrder(true);
 }
 
 function handleGetOrderPrice(price) {
