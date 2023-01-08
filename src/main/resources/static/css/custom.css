@@ -304,23 +304,14 @@ button.btn_green:hover {
 
 .Contact {
     position: relative;
-    min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
     background-color: white;
-    background-size: cover;
-    box-shadow: 0px 0px 10px 5px rgba(0, 0, 0, 0.1);
 }
 
 .Contact .Contactus {
     text-align: center;
-}
-
-.Contact .Contactus h2 {
-    font-size: 36vw;
-    font-weight: 500;
 }
 
 .Icon img {
@@ -333,10 +324,10 @@ button.btn_green:hover {
     color: black;
 }
 
-/* Everything around box */
 .Container {
-    width: 100%;
     align-items: center;
+    display: flex;
+    justify-content: center;
 }
 
 .Container .ContactInfo {
@@ -432,8 +423,13 @@ button.btn_green:hover {
     border-radius: 10px;
     cursor: pointer;
 }
+
 .Form .btn input[type="submit"]:hover{
     background-color: #02534f;
+}
+
+.Box{
+    margin: 10px;
 }
 
 .btn {
@@ -447,13 +443,6 @@ button.btn_green:hover {
     background-color: #02534f;
 }
 
-.move-up {
-    margin-top: -50px;
-}
-@media (max-width: 600px) {
-    .form-move-up {
-        left: 5px; /* or any other value suitable for your design */
-    }
-}
-}
+
+
 
