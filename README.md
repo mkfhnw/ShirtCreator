@@ -58,7 +58,7 @@ Grundsätzlicher Aufbau:
         - *configuration-panel*: Panel für T-Shirt-Konfiguration, Warenkorb und Checkout
         - *order-panel*: Panel für Kundendaten
         - *aftersales-panel*: Panel für Bestellbestätigung
-- **Footer** mit "Why choose ShirtCreator?", Social Media Icons und Copyright
+- **Footer** mit "Why choose ShirtCreator?", Social Media Icons (noch ohne Funktionalität) und Copyright
 - Das Sign-Up für den *Newsletter* sowie das *Kontaktformular* haben aus Scope-Gründen noch keine Funktionalität.
 
 ### Service Layer
@@ -247,6 +247,10 @@ Weiteren war für uns anfangs nicht klar, was alles in die Businesslogik gehört
 möchten. Schlussendlich haben wir nicht nur Evaluations-, sondern auch Preis-spezifische Dinge in der Businesslogik
 realisiert. Auch die Arbeit mit Bootstrap stellte uns vor Herausforderungen, da dieses Rahmenwerk nicht den gleichen
 Ansatz verfolgt wie die Grundanforderungen aus den Vorlesungen.
+
+Wir sind uns durchaus bewusst, dass wir einige Dinge (noch) nicht abfangen (bspw. Veränderung der Userdaten eines
+bestehenden Accounts; Kontaktformular, Newsletter und Social-Media-Buttons ohne Funktionalität; etc.). Dies hätte
+den Scope des Projekts überschritten.
 
 Alles in allem war dies ein sehr aufschlussreiches Projekt, in welchem viele im Unterricht behandelten Aspekte
 zusammenkamen. Es war spannend zu sehen, wie diese Aspekte zusammenwirken und was es alles braucht, um eine

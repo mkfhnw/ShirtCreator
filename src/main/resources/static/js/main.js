@@ -10,7 +10,7 @@ let current_price = 15;
 let current_item_id = -1;
 
 let orderId = -1;
-let customerId = -1;
+let customerId = null;
 
 let orderShippingMethod = "Economy";
 let orderPrice = 0;
@@ -431,11 +431,10 @@ function getOrder() {
 // update existing order - when present with customerId
 function updateOrder(definitiveState) {
     let order_date = new Date(new Date().toString().split('GMT')[0] + ' UTC').toISOString()
-    let customer_id = customerId !== -1 ? customerId : null;
     $.ajax({
         type: "PUT",
         url: "/api/order/" + orderId,
-        data: JSON.stringify({customerId: customer_id, orderDate: order_date, definitive: definitiveState}),
+        data: JSON.stringify({customerId: customerId, orderDate: order_date, definitive: definitiveState}),
         success: null,
         dataType: 'json',
         contentType: 'application/json'
@@ -861,7 +860,7 @@ function setVariablesToInitial() {
     orderShippingMethod = "Economy";
     orderPrice = 0;
 
-    customerId = -1;
+    customerId = null;
 
     document.getElementById("emptyCart").classList.remove("d-none");
     document.getElementById("tblShoppingBasket").classList.add("d-none");

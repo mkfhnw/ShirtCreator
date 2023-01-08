@@ -37,7 +37,7 @@ public class AccountService {
     @GetMapping(path = "/api/account/{token}", produces = "application/json")
     public Account getAccount(@PathVariable String token) {
         Optional<Account> accountOptional = accountRepository.findAccountByToken(token);
-        if(accountOptional.isPresent()) {
+        if (accountOptional.isPresent()) {
             logger.info("Retrieved account with token: " + token);
             return accountOptional.get();
         } else {
@@ -55,11 +55,11 @@ public class AccountService {
 
         // Check whether costumer already exists - create new one if not existent yet
         Optional<Customer> customer = customerRepository.findCustomerByEmail(requestBody.geteMail());
-        if(customer.isPresent()) {
+        if (customer.isPresent()) {
             logger.info("Customer already existing with email " + requestBody.geteMail());
 
             // Abort if customer already has account
-            if(accountRepository.existsById(customer.get().getid())) {
+            if (accountRepository.existsById(customer.get().getid())) {
                 logger.info("Customer already has account - abort account creation.");
                 return null;
             }
@@ -67,8 +67,14 @@ public class AccountService {
             account.setCustomer(customer.get());
         } else {
             Address newAddress = new Address(requestBody.getStreet(), requestBody.getPlz(), requestBody.getLocation());
+            // Check whether address already exists - create new one if not
+            Optional<Address> addressOptional = addressRepository.findByStreetAndPlzAndLocation(requestBody.getStreet(), requestBody.getPlz(), requestBody.getLocation());
+            if (addressOptional.isEmpty()) {
+                newAddress = addressRepository.save(newAddress);
+            } else {
+                newAddress = addressOptional.get();
+            }
             Customer newCustomer = new Customer(requestBody.getFirstName(), requestBody.getLastName(), requestBody.geteMail(), newAddress);
-            addressRepository.save(newAddress); // Important: Save to db, otherwise we'll throw an error
             if (customerVerification.validateEmailAddress(requestBody.geteMail())) {
                 customerRepository.save(newCustomer); // Important: Save to db, otherwise we'll throw an error
                 logger.info("E-Mail validation successful");
@@ -112,7 +118,7 @@ public class AccountService {
         Optional<Customer> customerOptional = customerRepository.findCustomerByEmail(requestBody.geteMail());
 
         // If customer doesn't exist, abort login
-        if(customerOptional.isEmpty()) {
+        if (customerOptional.isEmpty()) {
             logger.error("Could not find customer with e-mail: " + requestBody.geteMail());
             MessageToken messageToken = new MessageToken();
             messageToken.setToken("");
@@ -122,7 +128,7 @@ public class AccountService {
         // Otherwise, get account based on customerID (as it is the foreign key in tbl_Account)
         Customer customer = customerOptional.get();
         Optional<Account> accountOptional = accountRepository.findAccountByCustomer(customer);
-        if(accountOptional.isEmpty()) {
+        if (accountOptional.isEmpty()) {
             logger.error("Could not find account with ID: " + customer.getid());
             MessageToken messageToken = new MessageToken();
             messageToken.setToken("");
@@ -131,7 +137,7 @@ public class AccountService {
 
         // Check whether account is already logged in
         Account account = accountOptional.get();
-        if(account.getToken() != null && accountVerification.containsKey(account.getToken())) {
+        if (account.getToken() != null && accountVerification.containsKey(account.getToken())) {
             logger.info("Account with ID " + account.getId() + " already logged in.");
             MessageToken response = new MessageToken();
             response.setToken(account.getToken());
@@ -140,7 +146,7 @@ public class AccountService {
 
         // Otherwise "log in" account (if password hashes match)
         String passwordHash = Hashing.sha256().hashString(requestBody.getPassword(), StandardCharsets.UTF_8).toString();
-        if(account.getPassword().equals(passwordHash)) {
+        if (account.getPassword().equals(passwordHash)) {
             String token = accountVerification.generateLoginToken();
             account.setToken(token);
             accountVerification.put(token, account.getId());
@@ -163,9 +169,9 @@ public class AccountService {
     public String logout(@RequestBody MessageToken requestBody) {
 
         // Logout user if token is valid
-        if(accountVerification.containsKey(requestBody.getToken())) {
+        if (accountVerification.containsKey(requestBody.getToken())) {
             Optional<Account> accountOptional = accountRepository.findAccountByToken(requestBody.getToken());
-            if(accountOptional.isEmpty()) {
+            if (accountOptional.isEmpty()) {
                 logger.error("Invalid token for logout: " + requestBody.getToken());
                 return "false";
             }
@@ -190,7 +196,7 @@ public class AccountService {
     @PreDestroy
     public void preDestroy() {
         List<Account> accountList = accountRepository.findAll();
-        for(Account account : accountList) {
+        for (Account account : accountList) {
             account.setToken(null);
             accountRepository.save(account);
         }

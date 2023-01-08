@@ -99,7 +99,7 @@ public class OrderService {
             logger.info("Order present with ID: " + order.getId());
 
             // Update customer
-            if (order.getCustomer() != null && requestBody.getCustomerId() != null) {
+            if (requestBody.getCustomerId() != null) {
                 Optional<Customer> customer = customerRepository.findById(requestBody.getCustomerId());
                 customer.ifPresent(order::setCustomer);
             }
@@ -172,7 +172,7 @@ public class OrderService {
             for (OrderItem ordIt : o.getItems()) {
                 quantity += ordIt.getQuantity();
             }
-            if (orderVerification.validateOrder(quantity)){
+            if (orderVerification.validateOrder(quantity)) {
                 o.setTotalQuantity(quantity);
             } else {
                 return null;
@@ -205,7 +205,7 @@ public class OrderService {
             // We need at least quantity 1 to pass the verification -  a little trick is required here in case the customer just removed his last item
             boolean letPass = quantity == 0;
 
-            if (orderVerification.validateOrder(quantity) || letPass){
+            if (orderVerification.validateOrder(quantity) || letPass) {
                 order.setTotalQuantity(quantity);
             } else {
                 return null;

@@ -71,16 +71,22 @@ public class CustomerService {
         String firstName = m.getFirstName();
         String lastName = m.getLastName();
         String email = m.getEmail();
+        Address address = m.getAddress();
+
+        // Check whether costumer already exists - create new one if not existent yet
+        Optional<Customer> customer = customerRepository.findCustomerByEmail(email);
+        if (customer.isPresent()) {
+            logger.info("Customer already existing with email " + email);
+            return customer.get();
+        }
 
         //Check if Address already exits in DB, if not save new Address
-        Address address = m.getAddress();
         Optional<Address> addressOptional = addressRepository.findByStreetAndPlzAndLocation(address.getStreet(), address.getPlz(), address.getLocation());
         if (addressOptional.isEmpty()) {
             address = addressRepository.save(address);
         } else {
             address = addressOptional.get();
         }
-        m.setAddress(address);
 
         //create new Customer
         Customer c = new Customer(firstName, lastName, email, address);
