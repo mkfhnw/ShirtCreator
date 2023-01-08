@@ -9,5 +9,6 @@ import java.util.Optional;
 public interface AccountRepository extends JpaRepository<Account, Integer> {
 
     Optional<Account> findAccountByToken(String token);
+    Optional<Account> findAccountByCustomer(Customer customer);
 
 }

@@ -121,7 +121,7 @@ public class AccountService {
 
         // Otherwise, get account based on customerID (as it is the foreign key in tbl_Account)
         Customer customer = customerOptional.get();
-        Optional<Account> accountOptional = accountRepository.findById(customer.getid());
+        Optional<Account> accountOptional = accountRepository.findAccountByCustomer(customer);
         if(accountOptional.isEmpty()) {
             logger.error("Could not find account with ID: " + customer.getid());
             MessageToken messageToken = new MessageToken();
