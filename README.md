@@ -29,8 +29,13 @@
 - **Customer** (<u>id</u>, firstName, lastName, email,
   deleted, <u style="border-bottom: 1px dotted; text-decoration: none;">fk_address</u>)
 - **Configuration** (<u>id</u>, cut, color, size, pattern, price)
+    - cut (enum): Round, VNeck, Polo
+    - color (enum): White, Black, Red, Blue, Green
+    - size (enum): Small, Medium, Large
+    - pattern (enum): Plain, Striped
 - **Order** (<u>id</u>, <u style="border-bottom: 1px dotted; text-decoration: none;">fk_customer</u>, totalQuantity,
   shippingMethod, price, orderDate, definitive)
+    - shippingMethod (enum): Economy, Priority, Express
 - **OrderItem** (<u>id</u>, <u style="border-bottom: 1px dotted; text-decoration: none;">fk_configuration</u>, quantity)
 - **OrderItems** (<u><u style="border-bottom: 1px dotted; text-decoration: none;">
   fk_order</u>, <u style="border-bottom: 1px dotted; text-decoration: none;">fk_orderItem</u></u>)
@@ -197,11 +202,11 @@ Grundsätzlicher Aufbau:
     - *calculateShippingCosts*:
         - nimmt eine Bestellung entgegen und berechnet ihre Versandkosten
         - gibt die Kosten als Double zurück
-    - auf Validierung PLZ wurde aus Scope-Gründen verzichtet
 - **CustomerVerification:**
     - *validateEmailAddress*:
         - nimmt eine E-Mail-Adresse als String entgegen und prüft, ob diese valide ist
         - gibt entsprechend true oder false zurück
+    - auf Validierung PLZ wurde aus Scope-Gründen verzichtet
 - **AccountVerification**:
     - *generateLoginToken*:
         - generiert bei einem Login einen neuen Token
@@ -263,8 +268,8 @@ realisiert. Auch die Arbeit mit Bootstrap stellte uns vor Herausforderungen, da 
 Ansatz verfolgt wie die Grundanforderungen aus den Vorlesungen.
 
 Wir sind uns durchaus bewusst, dass wir einige Dinge (noch) nicht abfangen (bspw. Veränderung der Userdaten eines
-bestehenden Accounts; Kontaktformular, Newsletter und Social-Media-Buttons ohne Funktionalität; etc.). Dies hätte
-den Scope des Projekts überschritten.
+bestehenden Accounts; Kontaktformular, Newsletter und Social-Media-Buttons ohne Funktionalität; Löschen eines
+Accounts/Customers, etc.). Dies hätte den Scope des Projekts überschritten.
 
 Alles in allem war dies ein sehr aufschlussreiches Projekt, in welchem viele im Unterricht behandelten Aspekte
 zusammenkamen. Es war spannend zu sehen, wie diese Aspekte zusammenwirken und was es alles braucht, um eine
