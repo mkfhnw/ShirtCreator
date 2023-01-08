@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 public class OrderVerification {
 
     public static final int MAX_QUANTITY = 80; // Maximale Anzahl bestellbarer T-Shirts
-    public static final int MIN_QUANTITY = 1;
+    public static final int MIN_QUANTITY = 0;
     public static final int WEIGHT_TSHIRT = 350; // Gewicht eines durchschnittlichen T-Shirts in g
     public static final double MWST_RATE = 0.081;
 

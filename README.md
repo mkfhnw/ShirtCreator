@@ -69,6 +69,7 @@ Grundsätzlicher Aufbau:
         - Path: http://localhost:8080/api/order/
         - Parameters: None
         - Request Body: MessageNewOrder (customerId, orderDate) - JSON
+            - Example: {"customerId": 1, "orderDate": "2023-01-08"}
         - Response: orderId - JSON
     - Bestellung abfragen (*getOrder*):
         - HTTP-Method: GET
@@ -76,11 +77,13 @@ Grundsätzlicher Aufbau:
         - Parameters: None
         - Request Body: None
         - Response: MessageOrderDetails - JSON
-            - MessageOrderDetails (orderId, customerId, totalQuantity, orderDate, shippingMethod, price, items)
+            - MessageOrderDetails (orderId, customerId, totalQuantity, orderDate, shippingMethod, price, items (
+              configuration (id, cut, color, size, pattern, price), orderItemId, quantity))
     - Bestellungen von Kunden abfragen (*getOrdersForCustomer*):
         - HTTP-Method: GET
         - Path: http://localhost:8080/api/orders
         - Parameters: customerId - Integer
+            - Example: http://localhost:8080/api/orders?customerId=1
         - Request Body: None
         - Response: List<MessageOrderShort> - JSON
             - MessageOrderShort (orderId, customerId, totalQuantity, orderDate, shippingMethod, price)
@@ -89,10 +92,12 @@ Grundsätzlicher Aufbau:
         - Path: http://localhost:8080/api/order/{orderId}
         - Parameters: None
         - Request Body: MessageUpdateOrder (customerId, orderDate, definitive) - JSON
+            - Example: {"customerId": 1, "orderDate": "2023-01-07", "definitive": "false"}
         - Response: boolean - JSON
     - Versandbedingung aktualisieren (*updateShippingMethod*):
         - HTTP-Method: PUT
         - Path: http://localhost:8080/api/order/{orderId}/updateShippingMethod/{shippingMethod}
+            - Example: http://localhost:8080/api/order/1/updateShippingMethod/Express
         - Parameters: None
         - Request Body: None
         - Response: boolean - JSON
@@ -101,6 +106,7 @@ Grundsätzlicher Aufbau:
         - Path: http://localhost:8080/api/order/{orderId}/addItem
         - Parameters: None
         - Request Body: MessageAddItemToOrder (quantity, configurationId) - JSON
+            - Example: {"quantity": 15, "configurationId": 25}
         - Response: orderItemId - JSON
     - Artikel von einer Bestellung löschen (*deleteItemFromOrder*):
         - HTTP-Method: PUT
@@ -117,47 +123,55 @@ Grundsätzlicher Aufbau:
 - **ConfigurationService:**
     - Konfiguration abfragen (*getConfiguration*):
         - HTTP-Method: GET
-        - Path: http://localhost:8080/api/configuration/
+        - Path: http://localhost:8080/api/configuration
         - Parameters: cut, pattern, size, color - String
+            - Example: http://localhost:8080/api/configuration?cut=Polo&pattern=Striped&size=Large&color=Green
         - Request Body: None
-        - Response: Configuration - JSON
+        - Response: Configuration (id, cut, color, size, pattern, price) - JSON
 - **CustomerService:**
+    - Kunde erstellen (*createCustomer*):
+        - HTTP-Method: POST
+        - Path: http://localhost:8080/api/customer/
+        - Parameters: None
+        - Request Body: MessageNewCustomer (firstName, lastName, email, address (street, plz, location)) - JSON
+            - Example: {"firstName": "Stefan", "lastName": "Fankhauser", "email": "stefan.fankhauser@students.fhnw.ch",
+              "address": {"street": "Rütistrasse 1", "plz": 5400, "location": "Baden"}}
+        - Response: Customer (id, firstName, lastName, email, deleted, address (street, plz, location)) - JSON
     - Kunde abfragen (*getCustomer*):
         - HTTP-Method: GET
         - Path: http://localhost:8080/api/customer/{id}
         - Parameters: None
         - Request Body: None
-        - Response: Customer - JSON
+        - Response: Customer (id, firstName, lastName, email, deleted, address (street, plz, location))- JSON
     - Kunde aktualisieren (*updateCustomer*):
         - HTTP-Method: PUT
         - Path: http://localhost:8080/api/customer/{id}
         - Parameters: None
-        - Request Body: MessageNewCustomer (firstName, lastName, email, address) - JSON
+        - Request Body: MessageNewCustomer (firstName, lastName, email, address (street, plz, location)) - JSON
+            - Example: siehe *Kunde erstellen*
         - Response: boolean - JSON
-    - Kunde erstellen (*createCustomer*):
-        - HTTP-Method: POST
-        - Path: http://localhost:8080/api/customer/
-        - Parameters: None
-        - Request Body: MessageNewCustomer (firstName, lastName, email, address) - JSON
-        - Response: Customer - JSON
 - **AccountService:**
-    - Konto abfragen (*getAccount*):
-        - HTTP-Method: GET
-        - Path: http://localhost:8080/api/account/{token}
-        - Parameters: None
-        - Request Body: None
-        - Response: Account - JSON
     - Konto erstellen (*createAccount*):
         - HTTP-Methode: POST
         - Path: http://localhost:8080/api/account/
         - Parameters: None
         - Request Body: MessageNewAccount (firstName, lastName, street, plz, location, eMail, password) - JSON
-        - Response: Account - JSON
+            - Example: {"firstName": "Stefan", "lastName": "Fankhauser", "street": "Rütistrasse 1", "plz": 5400, "
+              location": "Baden", "eMail": "stefan.fankhauser@students.fhnw.ch", "password": "password"}
+        - Response: Account (customer (id, firstName, lastName, email, deleted, address (street, plz, location)),
+          password, token, id) - JSON
+    - Konto abfragen (*getAccount*):
+        - HTTP-Method: GET
+        - Path: http://localhost:8080/api/account/{token}
+        - Parameters: None
+        - Request Body: None
+        - Response: Account (siehe *Konto erstellen*) - JSON
     - Konto anmelden (*login*):
         - HTTP-Methode: PUT
         - Path: http://localhost:8080/api/account/login
         - Parameters: None
         - Request Body: MessageLogin (eMail, password) - JSON
+            - Example: {"eMail": "stefan.fankhauser@students.fhnw.ch", "password": "password"}
         - Response: MessageToken (token) - JSON
     - Konto abmelden (*logout*):
         - HTTP-Method: PUT
