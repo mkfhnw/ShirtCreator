@@ -657,6 +657,7 @@ function handleLogin(response) {
     let toastText = document.getElementById('toast-login-text');
 
     if(response['token'] === "") {
+        currentAccount = null;
         toastText.innerText = 'Could not log in. Check your credentials!';
         toast.classList.remove('text-bg-success');
         toast.classList.add('text-bg-danger');
