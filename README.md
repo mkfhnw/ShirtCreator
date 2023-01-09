@@ -3,6 +3,7 @@
 **Aufgabe:** Entwicklung einer rudimentären Web-Applikation  
 **Ziel:** Die im Unterricht behandelten Konzepte praktisch einsetzen  
 **Gruppe:** Amsler Marco, Fankhauser Stefan, Frey Fabio, Karaqi Margareta, Läubin Joel, Wadhawan Elia
+**Repository:** https://github.com/mkfhnw/ShirtCreator
 
 ***
 
