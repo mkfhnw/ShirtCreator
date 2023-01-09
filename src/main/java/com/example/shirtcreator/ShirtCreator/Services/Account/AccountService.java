@@ -119,7 +119,7 @@ public class AccountService {
 
         // If customer doesn't exist, abort login
         if (customerOptional.isEmpty()) {
-            logger.error("Could not find customer with e-mail: " + requestBody.geteMail());
+            logger.warn("Could not find customer with e-mail: " + requestBody.geteMail());
             MessageToken messageToken = new MessageToken();
             messageToken.setToken("");
             return messageToken;
